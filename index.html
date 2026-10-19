@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitLoom — Plataforma Web de Educação Fitness Gamificada com a Lumi 3D</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Canvas Global de Partículas (Confetes, Chamas 🔥 e Corações 💖) -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- Notificação Push Flutuante com a Voz da Lumi -->
+  <div class="lumi-push-banner" id="lumi-push-banner" onclick="handlePushBannerClick()">
+    <div class="push-avatar-wrap">
+      <img src="assets/lumi-hero.jpg" alt="Lumi 3D" />
+    </div>
+    <div class="push-content">
+      <div class="push-meta">
+        <span>🦊 LUMI • FITLOOM AGORA</span>
+        <span id="push-streak-tag">🔥 14 DIAS</span>
+      </div>
+      <p class="push-text" id="lumi-push-text">
+        "Ei! Sua chama está brilhando! 90 segundos de Supino Reto &amp; Cutting garantem sua meta diária!"
+      </p>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       3. FLUXO DE ONBOARDING PARA NOVOS USUÁRIOS (VISITANTES SEM CONTA)
+       - Splash Laranja (Olhinhos + Boca Lumi + FitLoom)
+       - Passo 0: Lumi 3D fazendo joinha (sinal de positivo) + "Vamos Iniciar"
+       - Passos 1, 2 e 3: Quiz Interativo de 3 Etapas (Objetivo, Nível, Rotina)
+       - Passo 4: Tela Final de Conversão Gamificada (Criar Conta & Acender 1º Streak)
+       ======================================================================== -->
+  <div class="intro-overlay" id="intro-overlay" aria-label="Onboarding de Novos Usuários FitLoom">
+
+    <!-- SPLASH INICIAL LARANJA (Olhinhos e Boca da Lumi + FitLoom embaixo) -->
+    <div class="splash-orange-stage" id="splash-orange-stage" onclick="transitionSplashToWelcome()">
+      <div style="height: 24px;"></div>
+
+      <div class="lumi-face-minimal">
+        <svg class="lumi-face-svg" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M46 36 C 62 24, 84 26, 94 34" stroke="#7A2900" stroke-width="7" stroke-linecap="round" />
+          <path d="M194 36 C 178 24, 156 26, 146 34" stroke="#7A2900" stroke-width="7" stroke-linecap="round" />
+          <g class="lumi-eye-group">
+            <ellipse cx="72" cy="78" rx="28" ry="31" fill="#FFFFFF" />
+            <ellipse cx="75" cy="80" rx="20" ry="23" fill="#8B3A0E" />
+            <ellipse cx="76" cy="81" rx="13" ry="15" fill="#1E1410" />
+            <circle cx="67" cy="69" r="7" fill="#FFFFFF" />
+            <circle cx="83" cy="88" r="3.5" fill="#FFFFFF" opacity="0.85" />
+
+            <ellipse cx="168" cy="78" rx="28" ry="31" fill="#FFFFFF" />
+            <ellipse cx="165" cy="80" rx="20" ry="23" fill="#8B3A0E" />
+            <ellipse cx="164" cy="81" rx="13" ry="15" fill="#1E1410" />
+            <circle cx="157" cy="69" r="7" fill="#FFFFFF" />
+            <circle cx="173" cy="88" r="3.5" fill="#FFFFFF" opacity="0.85" />
+          </g>
+          <ellipse cx="42" cy="116" rx="14" ry="8" fill="#FF4B4B" opacity="0.35" />
+          <ellipse cx="198" cy="116" rx="14" ry="8" fill="#FF4B4B" opacity="0.35" />
+          <g class="lumi-mouth-group">
+            <path d="M106 112 C 106 105, 134 105, 134 112 C 134 121, 125 127, 120 127 C 115 127, 106 121, 106 112 Z" fill="#231815" />
+            <ellipse cx="116" cy="110" rx="5" ry="2.5" fill="#FFFFFF" opacity="0.55" />
+            <path d="M90 134 Q 120 150 150 134 C 147 162, 134 172, 120 172 C 106 172, 93 162, 90 134 Z" fill="#681818" />
+            <path d="M103 153 C 108 144, 132 144, 137 153 C 133 165, 127 170, 120 170 C 113 170, 107 165, 103 153 Z" fill="#FF758F" />
+            <path d="M84 132 Q 102 146 120 133 Q 138 146 156 132" stroke="#FFF8F0" stroke-width="6" stroke-linecap="round" fill="none" />
+            <path d="M98 138 L 102 145 L 106 139 Z" fill="#FFFFFF" />
+            <path d="M134 139 L 138 145 L 142 138 Z" fill="#FFFFFF" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="splash-bottom-brand">
+        <div class="splash-app-name">FitLoom</div>
+        <div class="splash-app-tagline">Educação Fitness Gamificada</div>
+      </div>
+    </div>
+
+    <!-- WIZARD DE ONBOARDING PARA VISITANTES SEM CONTA -->
+    <div class="onboarding-wizard-shell">
+      <header class="onb-top-bar">
+        <div class="sidebar-brand" style="padding: 0;" onclick="skipOnboardingToApp()">
+          <div class="brand-icon-3d">F</div>
+          <div class="brand-wordmark">Fit<span>Loom</span></div>
+        </div>
+
+        <div class="onb-progress-wrap">
+          <div class="onb-progress-track">
+            <div class="onb-progress-fill" id="onb-progress-fill"></div>
+          </div>
+          <span style="font-size: 0.78rem; font-weight: 900; color: var(--orange-400);" id="onb-step-indicator">
+            Boas-vindas
+          </span>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="sidebar-util-btn" style="width: auto;" onclick="toggleTheme()" id="onb-theme-btn">
+            ☀️ Tema
+          </button>
+          <button type="button" class="sidebar-util-btn" style="width: auto;" onclick="skipOnboardingToApp()">
+            Já tenho conta ➔
+          </button>
+        </div>
+      </header>
+
+      <!-- ETAPA 0: Lumi 3D fazendo joinha (sinal de positivo) + Botão Verde "Vamos Iniciar" -->
+      <section class="onb-step-stage active" id="onb-step-0">
+        <div class="kiss-camera-viewport" id="welcome-lumi-viewport">
+          <img src="assets/lumi-hero.jpg" alt="Lumi 3D sorrindo e fazendo um joinha" class="lumi-thumbsup-img" />
+        </div>
+
+        <div class="onb-copy-col">
+          <div class="onb-speech-bubble">
+            🦊 <strong>Lumi:</strong> "Tudo pronto! 👍 Eu sou a Lumi e vou transformar seu treino e nutrição em micro-lições práticas de 3 minutos por dia!"
+          </div>
+          <h1 class="onb-title">
+            O jeito divertido, científico e zero-fricção de evoluir seu corpo.
+          </h1>
+          <p class="onb-subtitle">
+            Sem pesar cada grama de arroz e sem planilhas complexas. Responda 3 perguntas rápidas para a Lumi montar sua trilha personalizada gratuitamente!
+          </p>
+          <button type="button" class="btn-vamos-iniciar" onclick="goToOnboardingStep(1)">
+            <span>Vamos Iniciar</span>
+            <span>➔</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ETAPA 1 DO QUIZ DE ONBOARDING: OBJETIVO FITNESS -->
+      <section class="onb-step-stage" id="onb-step-1">
+        <div class="kiss-camera-viewport">
+          <img src="assets/lumi-hero.jpg" alt="Lumi 3D perguntando seu objetivo" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+
+        <div class="onb-copy-col">
+          <div class="onb-speech-bubble" id="onb-lumi-msg-1">
+            🦊 <strong>Pergunta 1 de 3:</strong> "Me conta! Qual é o seu principal objetivo fitness hoje?"
+          </div>
+          <h2 class="onb-title">Escolha seu foco principal</h2>
+
+          <div class="onb-options-grid">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Cutting & Definição', 'Fundamentos do Cutting & Supino Reto', this)">
+              <span class="onb-choice-icon">🔥</span>
+              <div>
+                <div class="onb-choice-title">Secar &amp; Definir (Cutting)</div>
+                <div class="onb-choice-desc">Queimar gordura preservando 100% da massa magra.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Hipertrofia & Força', 'Hipertrofia Limpa & Biomecânica do Agachamento', this)">
+              <span class="onb-choice-icon">💪</span>
+              <div>
+                <div class="onb-choice-title">Ganhar Massa Muscular</div>
+                <div class="onb-choice-desc">Maximizar síntese proteica e tensão mecânica.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Postura & Energia', 'Blindagem Articular & Energia Diária', this)">
+              <span class="onb-choice-icon">⚡</span>
+              <div>
+                <div class="onb-choice-title">Energia, Saúde &amp; Postura</div>
+                <div class="onb-choice-desc">Execução perfeita sem dores nas costas ou ombros.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Nutrição Sem Balança', 'Proteína Inteligente & Saciedade Natural', this)">
+              <span class="onb-choice-icon">🥗</span>
+              <div>
+                <div class="onb-choice-title">Dominar a Nutrição</div>
+                <div class="onb-choice-desc">Aprender porções visuais sem contar calorias.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ETAPA 2 DO QUIZ DE ONBOARDING: NÍVEL DE EXPERIÊNCIA -->
+      <section class="onb-step-stage" id="onb-step-2">
+        <div class="kiss-camera-viewport">
+          <img src="assets/lumi-coach.jpg" alt="Lumi Coach avaliando experiência" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+
+        <div class="onb-copy-col">
+          <div class="onb-speech-bubble">
+            🦊 <strong>Pergunta 2 de 3:</strong> "Boa escolha! E qual é o seu nível atual com treino e alimentação?"
+          </div>
+          <h2 class="onb-title">Seu nível de experiência</h2>
+
+          <div class="onb-options-grid">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Iniciante', null, this)">
+              <span class="onb-choice-icon">🌱</span>
+              <div>
+                <div class="onb-choice-title">Iniciante Total</div>
+                <div class="onb-choice-desc">Quero aprender os fundamentos do zero sem termos difíceis.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Intermediário', null, this)">
+              <span class="onb-choice-icon">🏋️</span>
+              <div>
+                <div class="onb-choice-title">Intermediário</div>
+                <div class="onb-choice-desc">Já treino, mas quero corrigir erros de postura e macros.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Avançado', null, this)">
+              <span class="onb-choice-icon">🏆</span>
+              <div>
+                <div class="onb-choice-title">Avançado / Atleta</div>
+                <div class="onb-choice-desc">Busco biomecânica fina, periodização e alta performance.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Retornando Agora', null, this)">
+              <span class="onb-choice-icon">🔄</span>
+              <div>
+                <div class="onb-choice-title">Voltando a Treinar</div>
+                <div class="onb-choice-desc">Preciso recuperar o hábito com metas leves e consistentes.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ETAPA 3 DO QUIZ DE ONBOARDING: ROTINA DIÁRIA -->
+      <section class="onb-step-stage" id="onb-step-3">
+        <div class="kiss-camera-viewport">
+          <img src="assets/lumi-celebrate.jpg" alt="Lumi 3D celebrando sua rotina" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+
+        <div class="onb-copy-col">
+          <div class="onb-speech-bubble">
+            🦊 <strong>Pergunta 3 de 3:</strong> "Último passo! Qual meta diária cabe na sua rotina sem gerar estresse?"
+          </div>
+          <h2 class="onb-title">Defina sua meta de Ofensiva (Streak)</h2>
+
+          <div class="onb-options-grid">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '3 min/dia • Casual (30 XP)', null, this)">
+              <span class="onb-choice-icon">⏱️</span>
+              <div>
+                <div class="onb-choice-title">3 min/dia • Casual</div>
+                <div class="onb-choice-desc">1 micro-lição rápida por dia para nunca perder o foco.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '5 min/dia • Consistente (50 XP)', null, this)">
+              <span class="onb-choice-icon">🔥</span>
+              <div>
+                <div class="onb-choice-title">5 min/dia • Recomendado</div>
+                <div class="onb-choice-desc">Equilíbrio ideal entre Nutrição e Execução de Treino.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '10 min/dia • Intenso (100 XP)', null, this)">
+              <span class="onb-choice-icon">🚀</span>
+              <div>
+                <div class="onb-choice-title">10 min/dia • Modo Insano</div>
+                <div class="onb-choice-desc">Evolução acelerada para dominar a Liga Esmeralda.</div>
+              </div>
+            </button>
+
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, 'Fim de Semana Blindado (50 XP)', null, this)">
+              <span class="onb-choice-icon">🛡️</span>
+              <div>
+                <div class="onb-choice-title">Foco Total + Escudo</div>
+                <div class="onb-choice-desc">Treino mental diário com proteção extra de ofensiva.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ETAPA 4: TELA FINAL DE CONVERSÃO GAMIFICADA (CRIAR CONTA + 1º STREAK) -->
+      <section class="onb-step-stage" id="onb-step-4">
+        <div class="kiss-camera-viewport">
+          <img src="assets/lumi-celebrate.jpg" alt="Lumi 3D entregando sua trilha personalizada" style="width: 100%; height: 100%; object-fit: cover;" />
+        </div>
+
+        <div class="onb-copy-col">
+          <div class="onb-speech-bubble">
+            🎉 <strong>Sua Trilha FitLoom está pronta!</strong> Crie seu perfil gratuito abaixo para salvar sua personalização e acender seu <strong>1º Streak de Ofensiva 🔥</strong>!
+          </div>
+
+          <h2 class="onb-title">Salve sua Trilha &amp; Acenda sua Chama</h2>
+
+          <div class="conversion-summary-badges">
+            <span class="conv-pill" id="summary-goal-pill">🔥 Foco: Cutting &amp; Definição</span>
+            <span class="conv-pill" id="summary-level-pill">🏋️ Nível: Intermediário</span>
+            <span class="conv-pill" id="summary-routine-pill">⚡ Meta: 5 min/dia (50 XP)</span>
+          </div>
+
+          <div class="signup-form-grid">
+            <input type="text" id="signup-name-input" class="fit-input" placeholder="Seu Nome ou Apelido (ex: Samir)" value="Samir" />
+            <input type="email" id="signup-email-input" class="fit-input" placeholder="Seu melhor e-mail" value="samir@fitloom.app" />
+          </div>
+
+          <button type="button" class="btn-vamos-iniciar" onclick="completeOnboardingConversion()">
+            <span>🔥 Criar Conta Grátis &amp; Acender 1º Streak</span>
+          </button>
+        </div>
+      </section>
+
+      <footer style="text-align: center; font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">
+        FitLoom Web • Design Responsivo Desktop &amp; Mobile • Guiado pela Lumi 3D
+      </footer>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       1. APLICAÇÃO WEB RESPONSIVA DE LARGURA TOTAL (100% VIEWPORT)
+       - Sidebar Esquerda (Desktop) / Bottom Bar (Mobile)
+       - Área Central Expandida (Trilha, Prática, Ligas, Social, Loja, Perfil)
+       - Painel Lateral Direito de Estatísticas e Ligas da Lumi
+       ======================================================================== -->
+
+  <!-- Header Compacto Exclusivo para Mobile -->
+  <header class="mobile-top-header" aria-label="Cabeçalho Mobile">
+    <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;" onclick="switchScreen('trail')">
+      <div class="brand-icon-3d" style="width: 32px; height: 32px; font-size: 1rem;">F</div>
+      <div class="brand-wordmark" style="font-size: 1.25rem;">Fit<span>Loom</span></div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 6px;">
+      <div class="stat-chip streak" onclick="pulseStreakEffect()">
+        <span class="flame-animated">🔥</span>
+        <span id="mob-streak-count">14</span>
+      </div>
+      <div class="stat-chip xp" onclick="switchScreen('leagues')">
+        <span>⚡</span>
+        <span id="mob-xp-count">1.420</span>
+      </div>
+      <div class="stat-chip hearts" onclick="refillHeartsToast()">
+        <span class="heart-pulse">❤️</span>
+        <span id="mob-hearts-count">5</span>
+      </div>
+      <button type="button" class="stat-chip" onclick="toggleTheme()" title="Alternar Dark/Light Mode">
+        🌓
+      </button>
+    </div>
+  </header>
+
+  <div class="web-app-shell">
+
+    <!-- COLUNA 1: SIDEBAR DE NAVEGAÇÃO À ESQUERDA (DESKTOP) -->
+    <aside class="left-sidebar" aria-label="Menu Principal FitLoom">
+      <div>
+        <div class="sidebar-brand" onclick="switchScreen('trail')">
+          <div class="brand-icon-3d">F</div>
+          <div class="brand-wordmark">Fit<span>Loom</span></div>
+        </div>
+
+        <nav class="sidebar-nav-list">
+          <button type="button" class="sidebar-nav-btn active" id="side-trail" onclick="switchScreen('trail')">
+            <span class="nav-icon">🏠</span>
+            <span>Trilha de Hábitos</span>
+          </button>
+
+          <button type="button" class="sidebar-nav-btn" id="side-practice" onclick="switchScreen('practice')">
+            <span class="nav-icon">🎯</span>
+            <span>Prática Focada</span>
+          </button>
+
+          <button type="button" class="sidebar-nav-btn" id="side-leagues" onclick="switchScreen('leagues')">
+            <span class="nav-icon">🏆</span>
+            <span>Ligas &amp; Ranking</span>
+          </button>
+
+          <button type="button" class="sidebar-nav-btn" id="side-social" onclick="switchScreen('social')">
+            <span class="nav-icon">❤️</span>
+            <span>Comunidade</span>
+          </button>
+
+          <button type="button" class="sidebar-nav-btn" id="side-shop" onclick="switchScreen('shop')">
+            <span class="nav-icon">🦊</span>
+            <span>Loja da Lumi</span>
+          </button>
+
+          <button type="button" class="sidebar-nav-btn" id="side-profile" onclick="switchScreen('profile')">
+            <span class="nav-icon">👤</span>
+            <span>Perfil &amp; Avatar</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer-actions">
+        <button type="button" class="sidebar-util-btn" id="btn-theme-toggle" onclick="toggleTheme()">
+          ☀️ Alternar para Light Mode
+        </button>
+        <button type="button" class="sidebar-util-btn" onclick="replayOpeningSequence()">
+          🎬 Onboarding (Visitante)
+        </button>
+      </div>
+    </aside>
+
+    <!-- COLUNA 2: ÁREA CENTRAL EXPANDIDA -->
+    <main class="main-content-area">
+      <div class="content-column-inner">
+
+        <!-- =====================================================
+             ABA 1 (🏠): A TRILHA DE HÁBITOS EM ZIGUE-ZAGUE
+             ===================================================== -->
+        <section class="app-screen active" id="screen-trail" aria-label="A Trilha de Hábitos">
+
+          <div class="section-header-banner">
+            <div>
+              <div class="section-phase-tag" id="banner-phase-tag">FASE 1 • MÓDULO 2 • PLANO PERSONALIZADO</div>
+              <div class="section-module-title" id="banner-module-title">Fundamentos do Cutting &amp; Supino Reto</div>
+            </div>
+            <button type="button" class="section-practice-btn" onclick="switchScreen('practice')">
+              <span>🎯</span>
+              <span>Prática Focada</span>
+            </button>
+          </div>
+
+          <div class="focused-practice-strip" onclick="switchScreen('practice')">
+            <div class="fp-strip-left">
+              <div class="fp-strip-icon">🧠</div>
+              <div>
+                <div class="fp-strip-title">Revisão Inteligente de Pontos Fracos &amp; Macros</div>
+                <div class="fp-strip-sub" id="user-plan-subtitle">
+                  Meta: 5 min/dia • Corrija erros de postura no Supino e Agachamento
+                </div>
+              </div>
+            </div>
+            <span class="fp-strip-cta">Praticar ➔</span>
+          </div>
+
+          <!-- Trilha em Zigue-Zague com Ícones Temáticos e Lumi 3D -->
+          <div class="zigzag-trail">
+            <svg class="zigzag-svg-bg" viewBox="0 0 320 640" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M160 30 L 82 140 L 160 255 L 238 370 L 104 485 L 160 595"
+                    stroke="var(--border-subtle)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="16 14" />
+              <path d="M160 30 L 82 140 L 160 255"
+                    stroke="var(--orange-500)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <!-- Mascote 3D Lumi ao lado do nó ativo guiando o usuário -->
+            <div class="trail-lumi-companion" onclick="lumiTrailInteract()" title="Clique na Lumi 3D!">
+              <div class="trail-lumi-3d-frame">
+                <img src="assets/lumi-hero.jpg" alt="Mascote 3D Lumi guiando a trilha" id="trail-lumi-img" />
+              </div>
+              <div class="trail-lumi-mini-speech" id="trail-lumi-speech">
+                "Bora pro Supino Reto! 🔥 +45 XP"
+              </div>
+            </div>
+
+            <!-- Nó 1: Nutrição -->
+            <div class="trail-step pos-center">
+              <div class="node-bundle" onclick="openModuleQuiz(0)">
+                <button type="button" class="zig-node-btn nutrition" aria-label="Nutrição: Déficit Calórico Inteligente">
+                  🍽️
+                </button>
+                <span class="zig-node-caption">🥗 Déficit sem Fome ⭐⭐⭐</span>
+              </div>
+            </div>
+
+            <!-- Nó 2: Musculação -->
+            <div class="trail-step pos-left">
+              <div class="node-bundle" onclick="openModuleQuiz(1)">
+                <button type="button" class="zig-node-btn workout" aria-label="Musculação: Escápulas no Supino">
+                  🏋️
+                </button>
+                <span class="zig-node-caption">💪 Retração Escapular ⭐⭐⭐</span>
+              </div>
+            </div>
+
+            <!-- Nó 3: Nó Ativo em Destaque -->
+            <div class="trail-step pos-center">
+              <div class="node-bundle" onclick="openModuleQuiz(0)">
+                <div class="node-start-bubble">🔥 COMEÇAR LIÇÃO</div>
+                <button type="button" class="zig-node-btn workout" aria-label="Nó Atual: Biomecânica & Cutting">
+                  <span class="zig-node-ring"></span>
+                  🏋️
+                </button>
+                <span class="zig-node-caption">🔥 Supino Reto &amp; Proteína</span>
+              </div>
+            </div>
+
+            <!-- Nó 4: Baú de Recompensa -->
+            <div class="trail-step pos-right">
+              <div class="node-bundle" onclick="openChestReward()">
+                <button type="button" class="zig-node-btn chest" aria-label="Baú de Recompensa da Fase">
+                  🎁
+                </button>
+                <span class="zig-node-caption">🎁 Baú da Lumi (+50 XP)</span>
+              </div>
+            </div>
+
+            <!-- Nó 5: Nutrição Flashcards -->
+            <div class="trail-step pos-far-left">
+              <div class="node-bundle" onclick="switchScreen('practice')">
+                <button type="button" class="zig-node-btn nutrition" aria-label="Nutrição: Macros do Cutting">
+                  🍽️
+                </button>
+                <span class="zig-node-caption">🍽️ Flashcards de Macros</span>
+              </div>
+            </div>
+
+            <!-- Nó 6: Troféu Boss -->
+            <div class="trail-step pos-center">
+              <div class="node-bundle" onclick="openModuleQuiz(2)">
+                <button type="button" class="zig-node-btn locked" aria-label="Troféu da Fase 1">
+                  🏆
+                </button>
+                <span class="zig-node-caption">🔒 Desafio Boss • Módulo 2</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             TELA DE PRÁTICA FOCADA (PONTOS FRACOS, POSTURA & FLASHCARDS)
+             ===================================================== -->
+        <section class="app-screen" id="screen-practice" aria-label="Tela de Prática Focada">
+          <div class="screen-title-row">
+            <div>
+              <h1 class="screen-heading">🎯 Prática Focada</h1>
+              <p class="screen-sub">Corrija pontos fracos de execução de exercícios e domine os flashcards de macros</p>
+            </div>
+          </div>
+
+          <div class="practice-hero-banner">
+            <div class="practice-hero-lumi">
+              <img src="assets/lumi-coach.jpg" alt="Lumi Coach 3D" />
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 0.74rem; font-weight: 900; color: var(--orange-400); text-transform: uppercase;">
+                🦊 Diagnóstico Biomecânico da Lumi
+              </div>
+              <div style="font-size: 0.96rem; font-weight: 800; margin-top: 4px;">
+                "Separei os 2 erros mais comuns de execução e 3 flashcards interativos para você revisar agora!"
+              </div>
+              <button type="button" class="primary-3d-btn" style="margin-top: 12px; width: auto;" onclick="openModuleQuiz(1)">
+                ⚡ Iniciar Quiz de Correção (+30 XP)
+              </button>
+            </div>
+          </div>
+
+          <div class="section-block-title">
+            <span>🏋️ Correção de Execução (Pontos Fracos)</span>
+            <span style="color: var(--orange-400);">2 pontos de atenção</span>
+          </div>
+
+          <div class="weak-point-card">
+            <div class="wp-top">
+              <span style="font-weight: 900; font-size: 0.95rem;">1. Supino Reto com Barra — Ângulo dos Cotovelos</span>
+              <span class="wp-badge-err">⚠️ Proteção de Ombro</span>
+            </div>
+            <div class="wp-compare-grid">
+              <div class="wp-box-wrong">
+                ❌ <strong>Erro Comum:</strong> Descer a barra com cotovelos abertos a 90° e ombros projetados à frente.
+              </div>
+              <div class="wp-box-right">
+                ✅ <strong>Ajuste Lumi:</strong> Feche os cotovelos a ~45°–60° e mantenha as escápulas retraídas no banco.
+              </div>
+            </div>
+          </div>
+
+          <div class="weak-point-card">
+            <div class="wp-top">
+              <span style="font-weight: 900; font-size: 0.95rem;">2. Agachamento Livre — Tripé do Pé &amp; Joelhos</span>
+              <span class="wp-badge-err">⚠️ Estabilidade Lombar</span>
+            </div>
+            <div class="wp-compare-grid">
+              <div class="wp-box-wrong">
+                ❌ <strong>Erro Comum:</strong> Calcanhar descolando do chão e joelhos colapsando para dentro (valgo).
+              </div>
+              <div class="wp-box-right">
+                ✅ <strong>Ajuste Lumi:</strong> Pressione o chão com o pé inteiro e aponte os joelhos na direção dos pés.
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block-title">
+            <span>🍽️ Flashcards de Macros Nutricionais (Clique para Virar)</span>
+            <span style="color: var(--emerald-400);">Interativo 3D</span>
+          </div>
+
+          <div class="flashcards-carousel">
+            <div class="macro-flashcard" onclick="flipMacroCard(this, '🥩 Proteína', '1 Palma da mão = ~28g de proteína pura. Ideal: 3 a 4 porções ao dia.')">
+              <div style="font-size: 2rem;">🥩</div>
+              <div style="font-size: 0.88rem; font-weight: 900;">Proteína</div>
+              <div style="font-size: 0.72rem; color: var(--text-secondary);">Clique p/ virar</div>
+            </div>
+
+            <div class="macro-flashcard" onclick="flipMacroCard(this, '🍚 Carboidrato', '1 Punho fechado = ~35g de carboidrato para explosão muscular no treino.')">
+              <div style="font-size: 2rem;">🍚</div>
+              <div style="font-size: 0.88rem; font-weight: 900;">Carboidrato</div>
+              <div style="font-size: 0.72rem; color: var(--text-secondary);">Clique p/ virar</div>
+            </div>
+
+            <div class="macro-flashcard" onclick="flipMacroCard(this, '🥑 Gordura Boa', '1 Polegar = ~10g de lipídios essenciais para produção hormonal.')">
+              <div style="font-size: 2rem;">🥑</div>
+              <div style="font-size: 0.88rem; font-weight: 900;">Gorduras</div>
+              <div style="font-size: 0.72rem; color: var(--text-secondary);">Clique p/ virar</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             ABA 2 (🏆): LIGAS SEMANAIS E RANKING DE XP
+             ===================================================== -->
+        <section class="app-screen" id="screen-leagues" aria-label="Ligas Semanais e Ranking de XP">
+          <div class="screen-title-row">
+            <div>
+              <h1 class="screen-heading">🏆 Liga Esmeralda</h1>
+              <p class="screen-sub">Os Top 3 avançam para a Liga Titânio ao final da semana!</p>
+            </div>
+            <span class="story-xp-pill">Semana #14</span>
+          </div>
+
+          <div class="league-banner-card">
+            <div class="league-trophy-icon">🏆</div>
+            <div style="flex: 1;">
+              <div style="font-size: 0.74rem; font-weight: 900; color: #FBBF24; text-transform: uppercase;">
+                🎁 Recompensa da Liga Semanal
+              </div>
+              <div style="font-size: 1.05rem; font-weight: 900; color: #fff; margin-top: 3px;">
+                Você está em #2 na Zona de Promoção!
+              </div>
+              <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 4px;">
+                Apenas 160 XP separam você da liderança da Liga Esmeralda.
+              </div>
+            </div>
+          </div>
+
+          <div class="leaderboard-list">
+            <div class="leader-row">
+              <div class="leader-rank">🥇</div>
+              <div class="leader-avatar">🦊</div>
+              <div class="leader-info">
+                <div class="leader-name">Marina Fit • Coach</div>
+                <div class="leader-streak">🔥 32 dias de ofensiva</div>
+              </div>
+              <div class="leader-xp">1.580 XP</div>
+            </div>
+
+            <div class="leader-row is-me">
+              <div class="leader-rank">🥈</div>
+              <div class="leader-avatar">⚡</div>
+              <div class="leader-info">
+                <div class="leader-name"><span id="league-user-name">Samir</span> (Você)</div>
+                <div class="leader-streak">🔥 <span id="league-my-streak">14</span> dias de ofensiva</div>
+              </div>
+              <div class="leader-xp"><span id="league-my-xp">1.420</span> XP</div>
+            </div>
+
+            <div class="leader-row">
+              <div class="leader-rank">🥉</div>
+              <div class="leader-avatar">🏋️</div>
+              <div class="leader-info">
+                <div class="leader-name">Lucas Hypertrophy</div>
+                <div class="leader-streak">🔥 19 dias de ofensiva</div>
+              </div>
+              <div class="leader-xp">1.310 XP</div>
+            </div>
+
+            <div class="promo-zone-divider">▲ ZONA DE PROMOÇÃO PARA LIGA TITÂNIO ▲</div>
+
+            <div class="leader-row">
+              <div class="leader-rank">4</div>
+              <div class="leader-avatar">🥗</div>
+              <div class="leader-info">
+                <div class="leader-name">Camila Nutri</div>
+                <div class="leader-streak">🔥 11 dias de ofensiva</div>
+              </div>
+              <div class="leader-xp">1.190 XP</div>
+            </div>
+
+            <div class="leader-row">
+              <div class="leader-rank">5</div>
+              <div class="leader-avatar">🏃</div>
+              <div class="leader-info">
+                <div class="leader-name">Rafael Cardio</div>
+                <div class="leader-streak">🔥 8 dias de ofensiva</div>
+              </div>
+              <div class="leader-xp">980 XP</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             ABA 3 (❤️): FEED DA COMUNIDADE, AMIGOS E STREAKS
+             ===================================================== -->
+        <section class="app-screen" id="screen-social" aria-label="Comunidade e Comparação de Streaks">
+          <div class="screen-title-row">
+            <div>
+              <h1 class="screen-heading">❤️ Comunidade &amp; Duplas de Streak</h1>
+              <p class="screen-sub">Celebre conquistas dos seus parceiros de treino e mantenha a chama acesa em dupla</p>
+            </div>
+          </div>
+
+          <div class="friend-streak-card">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div class="leader-avatar">🦊</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.95rem;">Você &amp; Marina Fit</div>
+                <div style="font-size: 0.78rem; color: var(--orange-400); font-weight: 800; margin-top: 2px;">
+                  🔥 14 dias de Streak em Dupla! Não deixem a chama apagar hoje!
+                </div>
+              </div>
+            </div>
+            <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Marina Fit')">
+              👋 Mandar Energia
+            </button>
+          </div>
+
+          <div class="friend-streak-card">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div class="leader-avatar">🏋️</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.95rem;">Lucas completou "Biomecânica do Supino"</div>
+                <div style="font-size: 0.78rem; color: var(--emerald-400); font-weight: 700; margin-top: 2px;">
+                  ⚡ 100% de precisão • Há 12 minutos
+                </div>
+              </div>
+            </div>
+            <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Lucas')">
+              🎉 Celebrar
+            </button>
+          </div>
+
+          <div class="friend-streak-card">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div class="leader-avatar">🥗</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.95rem;">Camila desbloqueou a medalha "Mestre da Dieta"</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary); font-weight: 700; margin-top: 2px;">
+                  🏅 25 micro-lições de nutrição concluídas sem erro
+                </div>
+              </div>
+            </div>
+            <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Camila')">
+              👏 Parabenizar
+            </button>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             ABA 4 (🦊): LOJA DE CUSTOMIZAÇÃO DA LUMI & BÔNUS
+             ===================================================== -->
+        <section class="app-screen" id="screen-shop" aria-label="Loja da Lumi">
+          <div class="screen-title-row">
+            <div>
+              <h1 class="screen-heading">🦊 Loja da Lumi</h1>
+              <p class="screen-sub">Customize sua coach 3D Lumi e equipe proteções de ofensiva</p>
+            </div>
+          </div>
+
+          <div class="shop-lumi-showcase">
+            <div class="shop-lumi-preview">
+              <img src="assets/lumi-hero.jpg" alt="Lumi 3D na Loja" id="shop-lumi-img" />
+              <div class="shop-skin-badge" id="shop-skin-label">Regata Teal Oficial</div>
+            </div>
+            <div>
+              <div style="font-size: 0.74rem; font-weight: 900; color: var(--orange-400); text-transform: uppercase;">
+                ✨ Visual Equipado na Lumi 3D
+              </div>
+              <div style="font-size: 1.1rem; font-weight: 900; margin-top: 4px;" id="shop-lumi-title">
+                Lumi Dry-Fit Teal (Padrão)
+              </div>
+              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">
+                Troque o estilo 3D da Lumi abaixo ou use seu XP para proteger seu Streak!
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block-title">
+            <span>🎽 Poses &amp; Estilos 3D da Lumi</span>
+          </div>
+
+          <div class="shop-item-card">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div class="shop-item-icon">🎉</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.92rem;">Lumi Modo Campeã Olímpica</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Comemorando com estrelas 3D e chama máxima</div>
+              </div>
+            </div>
+            <button type="button" class="shop-buy-btn" onclick="equipLumiSkin('assets/lumi-celebrate.jpg', 'Lumi Campeã 3D')">
+              Equipar
+            </button>
+          </div>
+
+          <div class="shop-item-card">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div class="shop-item-icon">🏋️</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.92rem;">Lumi Personal Trainer Pro</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Segurando halteres com piscadinha técnica</div>
+              </div>
+            </div>
+            <button type="button" class="shop-buy-btn" onclick="equipLumiSkin('assets/lumi-coach.jpg', 'Lumi Trainer Pro')">
+              Equipar
+            </button>
+          </div>
+
+          <div class="section-block-title">
+            <span>⚡ Power-Ups &amp; Vidas Extras</span>
+          </div>
+
+          <div class="shop-item-card">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div class="shop-item-icon">❤️</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.92rem;">Recarga Total de Vidas (5/5)</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Restaura imediatamente todas as suas energias</div>
+              </div>
+            </div>
+            <button type="button" class="shop-buy-btn" onclick="buyShopPowerup('hearts')">
+              ⚡ 100 XP
+            </button>
+          </div>
+
+          <div class="shop-item-card">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div class="shop-item-icon">🧊</div>
+              <div>
+                <div style="font-weight: 900; font-size: 0.92rem;">Congelamento de Ofensiva (Streak Freeze)</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Protege seu Streak caso você falte 1 dia</div>
+              </div>
+            </div>
+            <button type="button" class="shop-buy-btn" onclick="buyShopPowerup('freeze')">
+              ⚡ 200 XP
+            </button>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             ABA 5 (👤): PERFIL, CONQUISTAS & CRIADOR DE AVATAR
+             ===================================================== -->
+        <section class="app-screen" id="screen-profile" aria-label="Perfil, Conquistas e Criador de Avatar">
+          <div class="profile-header-card">
+            <div class="avatar-svg-stage" id="profile-avatar-stage">
+              <svg width="84" height="84" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path id="av-shirt" d="M20 96 C20 72, 80 72, 80 96 Z" fill="#0D9488" />
+                <text x="50" y="91" text-anchor="middle" fill="#FF5722" font-size="9" font-weight="900" font-family="Nunito">FITLOOM</text>
+                <rect id="av-neck" x="42" y="58" width="16" height="16" rx="6" fill="#F3C6A5" />
+                <circle id="av-skin" cx="50" cy="44" r="22" fill="#F3C6A5" />
+                <path d="M27 40 C27 20, 73 20, 73 40 C65 28, 35 28, 27 40 Z" fill="#231815" />
+                <rect id="av-headband" x="28" y="30" width="44" height="6" rx="3" fill="#FF5722" />
+                <circle cx="42" cy="44" r="3" fill="#1E293B" />
+                <circle cx="58" cy="44" r="3" fill="#1E293B" />
+                <path d="M43 53 Q50 59 57 53" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
+                <g id="av-glasses" style="display: none;">
+                  <rect x="33" y="39" width="15" height="10" rx="3" fill="#FF5722" fill-opacity="0.75" stroke="#FFFFFF" stroke-width="2" />
+                  <rect x="52" y="39" width="15" height="10" rx="3" fill="#FF5722" fill-opacity="0.75" stroke="#FFFFFF" stroke-width="2" />
+                  <line x1="48" y1="44" x2="52" y2="44" stroke="#FFFFFF" stroke-width="2" />
+                </g>
+              </svg>
+            </div>
+
+            <div style="flex: 1;">
+              <div style="font-size: 1.25rem; font-weight: 900;" id="profile-user-name">Samir • Atleta FitLoom</div>
+              <div style="font-size: 0.82rem; color: var(--emerald-400); font-weight: 800; margin-top: 3px;" id="profile-user-focus">
+                🛡️ Liga Esmeralda • Foco: Cutting &amp; Definição
+              </div>
+              <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">
+                Plano personalizado salvo com a Lumi 3D
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-stats-grid">
+            <div class="p-stat-card">
+              <span style="font-size: 1.6rem;">🔥</span>
+              <div>
+                <div class="p-stat-val" id="prof-streak-val">14 Dias</div>
+                <div class="p-stat-lbl">Ofensiva Atual</div>
+              </div>
+            </div>
+            <div class="p-stat-card">
+              <span style="font-size: 1.6rem;">⚡</span>
+              <div>
+                <div class="p-stat-val" id="prof-xp-val">1.420 XP</div>
+                <div class="p-stat-lbl">Total de XP</div>
+              </div>
+            </div>
+            <div class="p-stat-card">
+              <span style="font-size: 1.6rem;">🏆</span>
+              <div>
+                <div class="p-stat-val">Esmeralda</div>
+                <div class="p-stat-lbl">Liga Atual (#2)</div>
+              </div>
+            </div>
+            <div class="p-stat-card">
+              <span style="font-size: 1.6rem;">🎯</span>
+              <div>
+                <div class="p-stat-val">96%</div>
+                <div class="p-stat-lbl">Precisão Biomecânica</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Criador de Avatar Personalizado -->
+          <div class="avatar-creator-box">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-weight: 900; font-size: 0.96rem;">🎨 Criador de Avatar Personalizado</span>
+              <span style="font-size: 0.74rem; color: var(--orange-400); font-weight: 800;">Preview Instantâneo</span>
+            </div>
+
+            <div class="creator-row">
+              <div class="creator-row-label">Tom de Pele</div>
+              <div class="creator-swatches">
+                <button type="button" class="skin-dot active" style="background: #F3C6A5;" onclick="setAvatarSkin('#F3C6A5', this)" aria-label="Tom 1"></button>
+                <button type="button" class="skin-dot" style="background: #FADCB8;" onclick="setAvatarSkin('#FADCB8', this)" aria-label="Tom 2"></button>
+                <button type="button" class="skin-dot" style="background: #D99B72;" onclick="setAvatarSkin('#D99B72', this)" aria-label="Tom 3"></button>
+                <button type="button" class="skin-dot" style="background: #A86B43;" onclick="setAvatarSkin('#A86B43', this)" aria-label="Tom 4"></button>
+                <button type="button" class="skin-dot" style="background: #6E3F23;" onclick="setAvatarSkin('#6E3F23', this)" aria-label="Tom 5"></button>
+              </div>
+            </div>
+
+            <div class="creator-row">
+              <div class="creator-row-label">Roupas de Treino (Dry-Fit)</div>
+              <div class="creator-swatches">
+                <button type="button" class="swatch-btn active" onclick="setAvatarShirt('#0D9488', this)">Teal FitLoom</button>
+                <button type="button" class="swatch-btn" onclick="setAvatarShirt('#FF5722', this)">Laranja Energético</button>
+                <button type="button" class="swatch-btn" onclick="setAvatarShirt('#10B981', this)">Verde Esmeralda</button>
+                <button type="button" class="swatch-btn" onclick="setAvatarShirt('#1E293B', this)">Black Pro</button>
+              </div>
+            </div>
+
+            <div class="creator-row">
+              <div class="creator-row-label">Óculos &amp; Acessórios</div>
+              <div class="creator-swatches">
+                <button type="button" class="swatch-btn active" onclick="setAvatarGlasses(false, '#FF5722', this)">Faixa Laranja</button>
+                <button type="button" class="swatch-btn" onclick="setAvatarGlasses(true, '#10B981', this)">🕶️ Óculos Sport + Faixa Esmeralda</button>
+                <button type="button" class="swatch-btn" onclick="setAvatarGlasses(true, '#0D9488', this)">🕶️ Viseira Teal</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block-title">
+            <span>🏅 Medalhas e Conquistas Desbloqueáveis</span>
+            <span style="color: var(--emerald-400);">3 / 4 Conquistadas</span>
+          </div>
+
+          <div class="achievement-card">
+            <div class="ach-medal">🥗</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 900;">
+                <span>Mestre da Dieta</span>
+                <span style="color: var(--emerald-400);">Nível MAX</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                Dominou equivalências de proteína e déficit calórico sem balança.
+              </div>
+              <div class="ach-progress-track">
+                <div class="ach-progress-fill" style="width: 100%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="achievement-card">
+            <div class="ach-medal">🔥</div>
+            <div style="flex: 1;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 900;">
+                <span>100 Dias de Treino</span>
+                <span style="color: var(--orange-400);">14 / 100</span>
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary);">
+                Mantenha sua ofensiva diária com a Lumi 3D para desbloquear.
+              </div>
+              <div class="ach-progress-track">
+                <div class="ach-progress-fill" style="width: 28%;"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================================================
+             TELA DE LIÇÃO (QUIZ INTERATIVO EM STORIES)
+             ===================================================== -->
+        <section class="app-screen" id="screen-quiz" aria-label="Quiz Interativo">
+          <div class="quiz-top-bar">
+            <button type="button" class="quiz-close-btn" onclick="switchScreen('trail')" title="Voltar para a Trilha">
+              ✕
+            </button>
+            <div class="stories-segments" id="stories-segments">
+              <div class="story-segment active"><div class="story-segment-fill"></div></div>
+              <div class="story-segment"><div class="story-segment-fill"></div></div>
+              <div class="story-segment"><div class="story-segment-fill"></div></div>
+            </div>
+          </div>
+
+          <article class="story-quiz-card" id="story-quiz-card">
+            <div class="story-header-meta">
+              <span class="story-pillar-badge nutrition" id="quiz-pillar-badge">
+                🥗 Story 1/3 • Nutrição Prática
+              </span>
+              <span class="story-xp-pill" id="quiz-xp-pill">+15 XP 🔥</span>
+            </div>
+
+            <div class="quiz-lumi-presenter">
+              <div class="quiz-lumi-avatar" id="quiz-lumi-avatar-box">
+                <img src="assets/lumi-hero.jpg" alt="Lumi 3D reagindo ao quiz" id="quiz-lumi-img" />
+              </div>
+              <div class="quiz-prompt-bubble">
+                <div class="quiz-micro-lesson" id="quiz-micro-tip">
+                  💡 Micro-lição de 30s • Sem contar calorias
+                </div>
+                <h2 class="quiz-question-title" id="quiz-question-title">
+                  Carregando desafio da Lumi...
+                </h2>
+              </div>
+            </div>
+
+            <div class="quiz-visual-cue" id="quiz-visual-cue">
+              <div class="cue-icon-box" id="quiz-cue-icon">🖐️</div>
+              <div id="quiz-cue-text">
+                Regra visual FitLoom: 1 palma da mão de proteína magra ≈ 25g a 30g de proteína pura.
+              </div>
+            </div>
+
+            <div class="quiz-options-list" id="quiz-options-list"></div>
+
+            <div class="quiz-feedback-panel" id="quiz-feedback-panel">
+              <div class="feedback-header" id="feedback-header">
+                ✨ Mandou muito bem!
+              </div>
+              <p class="feedback-explanation" id="feedback-explanation"></p>
+              <button type="button" class="primary-3d-btn" id="btn-next-story" onclick="nextStoryCard()">
+                Continuar Story ➔
+              </button>
+            </div>
+          </article>
+
+          <div class="lesson-complete-modal" id="lesson-complete-modal">
+            <div class="celebrate-lumi-box">
+              <img src="assets/lumi-celebrate.jpg" alt="Lumi comemorando em 3D" />
+            </div>
+            <span class="story-pillar-badge workout">🔥 OFENSIVA BLINDADA!</span>
+            <h2 style="font-size: 1.5rem; font-weight: 900;">Lição Concluída!</h2>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 360px; font-weight: 600;">
+              A Lumi 3D aumentou sua chama! Você dominou os conceitos práticos de treino e nutrição.
+            </p>
+
+            <div class="reward-stats-grid">
+              <div class="reward-stat-box">
+                <div class="reward-stat-label">XP Ganho</div>
+                <div class="reward-stat-val">+45 XP</div>
+              </div>
+              <div class="reward-stat-box">
+                <div class="reward-stat-label">Ofensiva</div>
+                <div class="reward-stat-val">🔥 15d</div>
+              </div>
+              <div class="reward-stat-box">
+                <div class="reward-stat-label">Precisão</div>
+                <div class="reward-stat-val" id="reward-acc-val">100%</div>
+              </div>
+            </div>
+
+            <button type="button" class="primary-3d-btn emerald" onclick="finishLessonAndReturn()">
+              Continuar na Trilha 🏆
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- COLUNA 3: PAINEL LATERAL DIREITO DE ESTATÍSTICAS E LIGAS DA LUMI (DESKTOP) -->
+    <aside class="right-widgets-panel" aria-label="Estatísticas e Ligas da Lumi">
+
+      <!-- Barra de Status Superior -->
+      <div class="top-stats-bar">
+        <div class="stat-chip streak" onclick="pulseStreakEffect()" title="Dias de Ofensiva em Chamas">
+          <span class="flame-animated">🔥</span>
+          <span id="streak-count">14</span>
+        </div>
+
+        <div class="stat-chip xp" onclick="switchScreen('leagues')" title="Total de XP Acumulado">
+          <span>⚡</span>
+          <span id="total-xp-count">1.420</span>
+        </div>
+
+        <div class="stat-chip hearts" onclick="refillHeartsToast()" title="Vidas Restantes">
+          <span class="heart-pulse">❤️</span>
+          <span id="hearts-count">5</span>
+        </div>
+      </div>
+
+      <!-- Widget 1: Mascote Oficial 3D Lumi Coach & Meta Diária -->
+      <div class="side-widget-card">
+        <div class="widget-header">
+          <span class="widget-title">🦊 Coach Lumi 3D</span>
+          <button type="button" class="widget-link-btn" onclick="triggerLumiPush()">
+            🔔 Ouvir Dica
+          </button>
+        </div>
+
+        <div class="lumi-coach-widget-row">
+          <div class="lumi-widget-avatar" onclick="triggerLumiPush()">
+            <img src="assets/lumi-hero.jpg" alt="Mascote Oficial Lumi 3D" id="widget-lumi-img" />
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.84rem; font-weight: 800; line-height: 1.32;" id="widget-lumi-quote">
+              "Falta só 1 micro-lição para você cravar sua meta diária de 50 XP!"
+            </div>
+            <div style="font-size: 0.72rem; color: var(--emerald-400); font-weight: 800; margin-top: 4px;" id="widget-plan-tag">
+              Foco: Cutting &amp; Supino Reto
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: var(--text-secondary); margin-bottom: 6px;">
+            <span>Meta Diária de XP</span>
+            <span id="daily-xp-label">35 / 50 XP</span>
+          </div>
+          <div class="xp-progress-track">
+            <div class="xp-progress-fill" id="daily-xp-bar" style="width: 70%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget 2: Liga Esmeralda Semanal -->
+      <div class="side-widget-card">
+        <div class="widget-header">
+          <span class="widget-title">🏆 Liga Esmeralda</span>
+          <button type="button" class="widget-link-btn" onclick="switchScreen('leagues')">
+            Ver Ranking
+          </button>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 48px; height: 48px; border-radius: 14px; background: rgba(245, 158, 11, 0.16); border: 2px solid #F59E0B; display: grid; place-items: center; font-size: 1.5rem;">
+            🥈
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 0.88rem; font-weight: 900;">Você está em #2 lugar!</div>
+            <div style="font-size: 0.74rem; color: var(--text-secondary); font-weight: 600;">
+              Zona de Promoção para a Liga Titânio
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widget 3: Missões Diárias Gamificadas -->
+      <div class="side-widget-card">
+        <div class="widget-header">
+          <span class="widget-title">⚡ Missões do Dia</span>
+          <span style="font-size: 0.74rem; font-weight: 800; color: var(--orange-400);">2 / 3</span>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; margin-bottom: 5px;">
+            <span>🔥 Manter a chama acesa</span>
+            <span style="color: var(--emerald-400);">Concluído</span>
+          </div>
+          <div class="xp-progress-track">
+            <div class="xp-progress-fill" style="width: 100%;"></div>
+          </div>
+        </div>
+
+        <div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; margin-bottom: 5px;">
+            <span>🏋️ Acertar 1 quiz de Biomecânica</span>
+            <span style="color: var(--orange-400);">2 / 3</span>
+          </div>
+          <div class="xp-progress-track">
+            <div class="xp-progress-fill" style="width: 66%;"></div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- BARRA DE NAVEGAÇÃO INFERIOR (Exibida automaticamente no Mobile) -->
+  <nav class="bottom-nav" aria-label="Navegação Inferior Mobile">
+    <button type="button" class="nav-tab active" id="nav-trail" onclick="switchScreen('trail')">
+      <span class="nav-icon">🏠</span>
+      <span>Trilha</span>
+    </button>
+
+    <button type="button" class="nav-tab" id="nav-leagues" onclick="switchScreen('leagues')">
+      <span class="nav-icon">🏆</span>
+      <span>Ligas</span>
+    </button>
+
+    <button type="button" class="nav-tab" id="nav-social" onclick="switchScreen('social')">
+      <span class="nav-icon">❤️</span>
+      <span>Social</span>
+    </button>
+
+    <button type="button" class="nav-tab" id="nav-shop" onclick="switchScreen('shop')">
+      <span class="nav-icon">🦊</span>
+      <span>Lumi Shop</span>
+    </button>
+
+    <button type="button" class="nav-tab" id="nav-profile" onclick="switchScreen('profile')">
+      <span class="nav-icon">👤</span>
+      <span>Perfil</span>
+    </button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
