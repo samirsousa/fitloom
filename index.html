@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FitLoom — Plataforma Web de Educação Fitness Gamificada com a Lumi 3D</title>
+  <title>Studyloom — Preparação Gamificada para Concursos Públicos com a Lumi 3D</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-  <!-- Canvas Global de Partículas (Confetes, Chamas 🔥 e Corações 💖) -->
+  <!-- Canvas Global de Partículas (Confetes & Chamas de Ofensiva 🔥) -->
   <canvas id="fx-canvas"></canvas>
 
   <!-- Notificação Push Flutuante com a Voz da Lumi -->
@@ -21,25 +21,25 @@
     </div>
     <div class="push-content">
       <div class="push-meta">
-        <span>🦊 LUMI • FITLOOM AGORA</span>
+        <span>🦊 LUMI • STUDYLOOM CONCURSOS</span>
         <span id="push-streak-tag">🔥 14 DIAS</span>
       </div>
       <p class="push-text" id="lumi-push-text">
-        "Ei! Sua chama está brilhando! 90 segundos de Supino Reto &amp; Cutting garantem sua meta diária!"
+        "Ei, futuro aprovado! Sua chama no Studyloom está acesa! Resolva 3 questões de Direito Constitucional com bônus 2x XP!"
       </p>
     </div>
   </div>
 
   <!-- ========================================================================
-       3. FLUXO DE ONBOARDING PARA NOVOS USUÁRIOS (VISITANTES SEM CONTA)
-       - Splash Laranja (Olhinhos + Boca Lumi + FitLoom)
-       - Passo 0: Lumi 3D fazendo joinha (sinal de positivo) + "Vamos Iniciar"
-       - Passos 1, 2 e 3: Quiz Interativo de 3 Etapas (Objetivo, Nível, Rotina)
-       - Passo 4: Tela Final de Conversão Gamificada (Criar Conta & Acender 1º Streak)
+       4. FLUXO DE ONBOARDING (CAPTURA DE LEADS / NOVOS CONCURSEIROS SEM CONTA)
+       - Splash Laranja (Olhinhos + Boca Lumi + Studyloom)
+       - Passo 0: Lumi 3D fazendo joinha + "Vamos Iniciar"
+       - Passos 1, 2 e 3: Quiz Interativo (Concurso Alvo, Nível Atual e Tempo Diário)
+       - Passo 4: Tela Final de Conversão Gamificada (Criar Conta & 1º Streak)
        ======================================================================== -->
-  <div class="intro-overlay" id="intro-overlay" aria-label="Onboarding de Novos Usuários FitLoom">
+  <div class="intro-overlay" id="intro-overlay" aria-label="Onboarding de Concurseiros Studyloom">
 
-    <!-- SPLASH INICIAL LARANJA (Olhinhos e Boca da Lumi + FitLoom embaixo) -->
+    <!-- SPLASH INICIAL LARANJA (Olhinhos e Boca da Lumi + Studyloom embaixo) -->
     <div class="splash-orange-stage" id="splash-orange-stage" onclick="transitionSplashToWelcome()">
       <div style="height: 24px;"></div>
 
@@ -75,8 +75,8 @@
       </div>
 
       <div class="splash-bottom-brand">
-        <div class="splash-app-name">FitLoom</div>
-        <div class="splash-app-tagline">Educação Fitness Gamificada</div>
+        <div class="splash-app-name">Studyloom</div>
+        <div class="splash-app-tagline">Preparação Gamificada para Concursos</div>
       </div>
     </div>
 
@@ -84,8 +84,8 @@
     <div class="onboarding-wizard-shell">
       <header class="onb-top-bar">
         <div class="sidebar-brand" style="padding: 0;" onclick="skipOnboardingToApp()">
-          <div class="brand-icon-3d">F</div>
-          <div class="brand-wordmark">Fit<span>Loom</span></div>
+          <div class="brand-icon-3d">S</div>
+          <div class="brand-wordmark">Study<span>loom</span></div>
         </div>
 
         <div class="onb-progress-wrap">
@@ -107,7 +107,7 @@
         </div>
       </header>
 
-      <!-- ETAPA 0: Lumi 3D fazendo joinha (sinal de positivo) + Botão Verde "Vamos Iniciar" -->
+      <!-- ETAPA 0: Lumi 3D fazendo joinha + Botão Verde "Vamos Iniciar" -->
       <section class="onb-step-stage active" id="onb-step-0">
         <div class="kiss-camera-viewport" id="welcome-lumi-viewport">
           <img src="assets/lumi-hero.jpg" alt="Lumi 3D sorrindo e fazendo um joinha" class="lumi-thumbsup-img" />
@@ -115,13 +115,13 @@
 
         <div class="onb-copy-col">
           <div class="onb-speech-bubble">
-            🦊 <strong>Lumi:</strong> "Tudo pronto! 👍 Eu sou a Lumi e vou transformar seu treino e nutrição em micro-lições práticas de 3 minutos por dia!"
+            🦊 <strong>Lumi:</strong> "Rumo à aprovação no Studyloom! 👍 Eu sou a Lumi e vou transformar o seu edital em baterias rápidas de questões com cronômetro e gabarito comentado!"
           </div>
           <h1 class="onb-title">
-            O jeito divertido, científico e zero-fricção de evoluir seu corpo.
+            Domine o edital resolvendo questões todos os dias, no estilo Duolingo.
           </h1>
           <p class="onb-subtitle">
-            Sem pesar cada grama de arroz e sem planilhas complexas. Responda 3 perguntas rápidas para a Lumi montar sua trilha personalizada gratuitamente!
+            Treine Português, Direito Constitucional, Raciocínio Lógico e Administrativo com bônus de velocidade. Responda 3 perguntas para a Lumi montar sua Trilha do Edital!
           </p>
           <button type="button" class="btn-vamos-iniciar" onclick="goToOnboardingStep(1)">
             <span>Vamos Iniciar</span>
@@ -130,144 +130,144 @@
         </div>
       </section>
 
-      <!-- ETAPA 1 DO QUIZ DE ONBOARDING: OBJETIVO FITNESS -->
+      <!-- ETAPA 1 DO QUIZ DE ONBOARDING: QUAL CONCURSO ALVO -->
       <section class="onb-step-stage" id="onb-step-1">
         <div class="kiss-camera-viewport">
-          <img src="assets/lumi-hero.jpg" alt="Lumi 3D perguntando seu objetivo" style="width: 100%; height: 100%; object-fit: cover;" />
+          <img src="assets/lumi-hero.jpg" alt="Lumi 3D perguntando seu concurso alvo" class="lumi-thumbsup-img" />
         </div>
 
         <div class="onb-copy-col">
-          <div class="onb-speech-bubble" id="onb-lumi-msg-1">
-            🦊 <strong>Pergunta 1 de 3:</strong> "Me conta! Qual é o seu principal objetivo fitness hoje?"
+          <div class="onb-speech-bubble">
+            🦊 <strong>Pergunta 1 de 3:</strong> "Qual é o seu concurso ou carreira-alvo principal no Studyloom?"
           </div>
-          <h2 class="onb-title">Escolha seu foco principal</h2>
+          <h2 class="onb-title">Escolha sua Carreira-Alvo</h2>
 
           <div class="onb-options-grid">
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Cutting & Definição', 'Fundamentos do Cutting & Supino Reto', this)">
-              <span class="onb-choice-icon">🔥</span>
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Tribunais & MP', 'Português, Constitucional & Raciocínio Lógico (TJ / TRF / MPU)', this)">
+              <span class="onb-choice-icon">⚖️</span>
               <div>
-                <div class="onb-choice-title">Secar &amp; Definir (Cutting)</div>
-                <div class="onb-choice-desc">Queimar gordura preservando 100% da massa magra.</div>
+                <div class="onb-choice-title">Tribunais &amp; MP (TJ, TRF, TRT, MPU)</div>
+                <div class="onb-choice-desc">Foco intenso em Lei Seca, Jurisprudência e Português FGV/FCC.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Hipertrofia & Força', 'Hipertrofia Limpa & Biomecânica do Agachamento', this)">
-              <span class="onb-choice-icon">💪</span>
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Carreiras Policiais', 'Constitucional, Penal, RLM & Português (PF / PRF / PC)', this)">
+              <span class="onb-choice-icon">🚓</span>
               <div>
-                <div class="onb-choice-title">Ganhar Massa Muscular</div>
-                <div class="onb-choice-desc">Maximizar síntese proteica e tensão mecânica.</div>
+                <div class="onb-choice-title">Carreiras Policiais (PF, PRF, PC)</div>
+                <div class="onb-choice-desc">Baterias estilo Cebraspe (Certo/Errado), RLM e Direito Constitucional.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Postura & Energia', 'Blindagem Articular & Energia Diária', this)">
-              <span class="onb-choice-icon">⚡</span>
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Fiscais & Controle', 'Direito Constitucional, Tributário, RLM & Português', this)">
+              <span class="onb-choice-icon">📊</span>
               <div>
-                <div class="onb-choice-title">Energia, Saúde &amp; Postura</div>
-                <div class="onb-choice-desc">Execução perfeita sem dores nas costas ou ombros.</div>
+                <div class="onb-choice-title">Fiscais &amp; Controle (RFB, SEFAZ, TCU)</div>
+                <div class="onb-choice-desc">Questões avançadas com treino de velocidade e precisão.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Nutrição Sem Balança', 'Proteína Inteligente & Saciedade Natural', this)">
-              <span class="onb-choice-icon">🥗</span>
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(1, 'Administrativo & Bancos', 'Português, Raciocínio Lógico & Direito Constitucional (CNU / INSS)', this)">
+              <span class="onb-choice-icon">🏛️</span>
               <div>
-                <div class="onb-choice-title">Dominar a Nutrição</div>
-                <div class="onb-choice-desc">Aprender porções visuais sem contar calorias.</div>
+                <div class="onb-choice-title">CNU, INSS &amp; Bancários</div>
+                <div class="onb-choice-desc">Base sólida nas disciplinas nucleares de todos os editais.</div>
               </div>
             </button>
           </div>
         </div>
       </section>
 
-      <!-- ETAPA 2 DO QUIZ DE ONBOARDING: NÍVEL DE EXPERIÊNCIA -->
+      <!-- ETAPA 2 DO QUIZ DE ONBOARDING: NÍVEL DE ESTUDO ATUAL -->
       <section class="onb-step-stage" id="onb-step-2">
         <div class="kiss-camera-viewport">
-          <img src="assets/lumi-coach.jpg" alt="Lumi Coach avaliando experiência" style="width: 100%; height: 100%; object-fit: cover;" />
+          <img src="assets/lumi-coach.jpg" alt="Lumi Coach avaliando nível de estudo" class="lumi-thumbsup-img" />
         </div>
 
         <div class="onb-copy-col">
           <div class="onb-speech-bubble">
-            🦊 <strong>Pergunta 2 de 3:</strong> "Boa escolha! E qual é o seu nível atual com treino e alimentação?"
+            🦊 <strong>Pergunta 2 de 3:</strong> "Excelente carreira! E qual é o seu nível de preparação atual?"
           </div>
-          <h2 class="onb-title">Seu nível de experiência</h2>
+          <h2 class="onb-title">Seu nível atual de estudo</h2>
 
           <div class="onb-options-grid">
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Iniciante', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Iniciante no Edital', null, this)">
               <span class="onb-choice-icon">🌱</span>
               <div>
-                <div class="onb-choice-title">Iniciante Total</div>
-                <div class="onb-choice-desc">Quero aprender os fundamentos do zero sem termos difíceis.</div>
+                <div class="onb-choice-title">Iniciante (Pré-Edital)</div>
+                <div class="onb-choice-desc">Estou começando agora e quero construir base com questões comentadas.</div>
               </div>
             </button>
 
             <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Intermediário', null, this)">
-              <span class="onb-choice-icon">🏋️</span>
+              <span class="onb-choice-icon">📖</span>
               <div>
                 <div class="onb-choice-title">Intermediário</div>
-                <div class="onb-choice-desc">Já treino, mas quero corrigir erros de postura e macros.</div>
+                <div class="onb-choice-desc">Já estudei a teoria, mas caio nas pegadinhas das bancas.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Avançado', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Avançado / Pós-Edital', null, this)">
               <span class="onb-choice-icon">🏆</span>
               <div>
-                <div class="onb-choice-title">Avançado / Atleta</div>
-                <div class="onb-choice-desc">Busco biomecânica fina, periodização e alta performance.</div>
+                <div class="onb-choice-title">Avançado (Pós-Edital)</div>
+                <div class="onb-choice-desc">Busco baterias cronometradas para ganhar velocidade de prova.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Retornando Agora', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(2, 'Retomando Ritmo', null, this)">
               <span class="onb-choice-icon">🔄</span>
               <div>
-                <div class="onb-choice-title">Voltando a Treinar</div>
-                <div class="onb-choice-desc">Preciso recuperar o hábito com metas leves e consistentes.</div>
+                <div class="onb-choice-title">Retomando os Estudos</div>
+                <div class="onb-choice-desc">Preciso criar o hábito diário sem procrastinar.</div>
               </div>
             </button>
           </div>
         </div>
       </section>
 
-      <!-- ETAPA 3 DO QUIZ DE ONBOARDING: ROTINA DIÁRIA -->
+      <!-- ETAPA 3 DO QUIZ DE ONBOARDING: TEMPO DIÁRIO DISPONÍVEL -->
       <section class="onb-step-stage" id="onb-step-3">
         <div class="kiss-camera-viewport">
-          <img src="assets/lumi-celebrate.jpg" alt="Lumi 3D celebrando sua rotina" style="width: 100%; height: 100%; object-fit: cover;" />
+          <img src="assets/lumi-celebrate.jpg" alt="Lumi 3D celebrando sua meta diária" class="lumi-thumbsup-img" />
         </div>
 
         <div class="onb-copy-col">
           <div class="onb-speech-bubble">
-            🦊 <strong>Pergunta 3 de 3:</strong> "Último passo! Qual meta diária cabe na sua rotina sem gerar estresse?"
+            🦊 <strong>Pergunta 3 de 3:</strong> "Quanto tempo por dia você quer dedicar à resolução de questões no Studyloom?"
           </div>
-          <h2 class="onb-title">Defina sua meta de Ofensiva (Streak)</h2>
+          <h2 class="onb-title">Sua meta diária de aprovação</h2>
 
           <div class="onb-options-grid">
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '3 min/dia • Casual (30 XP)', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '15 min/dia • 10 Questões', null, this)">
               <span class="onb-choice-icon">⏱️</span>
               <div>
-                <div class="onb-choice-title">3 min/dia • Casual</div>
-                <div class="onb-choice-desc">1 micro-lição rápida por dia para nunca perder o foco.</div>
+                <div class="onb-choice-title">15 min/dia • Leve</div>
+                <div class="onb-choice-desc">10 questões comentadas por dia para manter a chama acesa.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '5 min/dia • Consistente (50 XP)', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '30 min/dia • 20 Questões', null, this)">
               <span class="onb-choice-icon">🔥</span>
               <div>
-                <div class="onb-choice-title">5 min/dia • Recomendado</div>
-                <div class="onb-choice-desc">Equilíbrio ideal entre Nutrição e Execução de Treino.</div>
+                <div class="onb-choice-title">30 min/dia • Consistente</div>
+                <div class="onb-choice-desc">20 questões + revisão do Caderno de Erros com a Lumi.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '10 min/dia • Intenso (100 XP)', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '1h+/dia • Modo Nomeação', null, this)">
               <span class="onb-choice-icon">🚀</span>
               <div>
-                <div class="onb-choice-title">10 min/dia • Modo Insano</div>
-                <div class="onb-choice-desc">Evolução acelerada para dominar a Liga Esmeralda.</div>
+                <div class="onb-choice-title">1h+/dia • Modo Nomeação</div>
+                <div class="onb-choice-desc">Ritmo intenso para liderar a Liga dos Concurseiros.</div>
               </div>
             </button>
 
-            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, 'Fim de Semana Blindado (50 XP)', null, this)">
+            <button type="button" class="onb-choice-card" onclick="selectOnboardingOption(3, '20 min/dia + Escudo Semanal', null, this)">
               <span class="onb-choice-icon">🛡️</span>
               <div>
-                <div class="onb-choice-title">Foco Total + Escudo</div>
-                <div class="onb-choice-desc">Treino mental diário com proteção extra de ofensiva.</div>
+                <div class="onb-choice-title">Rotina Blindada</div>
+                <div class="onb-choice-desc">Baterias rápidas na semana + simulado no domingo.</div>
               </div>
             </button>
           </div>
@@ -277,35 +277,35 @@
       <!-- ETAPA 4: TELA FINAL DE CONVERSÃO GAMIFICADA (CRIAR CONTA + 1º STREAK) -->
       <section class="onb-step-stage" id="onb-step-4">
         <div class="kiss-camera-viewport">
-          <img src="assets/lumi-celebrate.jpg" alt="Lumi 3D entregando sua trilha personalizada" style="width: 100%; height: 100%; object-fit: cover;" />
+          <img src="assets/lumi-celebrate.jpg" alt="Lumi 3D entregando sua Trilha do Edital" class="lumi-thumbsup-img" />
         </div>
 
         <div class="onb-copy-col">
           <div class="onb-speech-bubble">
-            🎉 <strong>Sua Trilha FitLoom está pronta!</strong> Crie seu perfil gratuito abaixo para salvar sua personalização e acender seu <strong>1º Streak de Ofensiva 🔥</strong>!
+            🎉 <strong>Sua Trilha no Studyloom está pronta!</strong> Crie sua conta gratuita abaixo para salvar seu caderno de erros, estatísticas de acertos e iniciar sua <strong>1ª Ofensiva (Streak 🔥)</strong>!
           </div>
 
-          <h2 class="onb-title">Salve sua Trilha &amp; Acenda sua Chama</h2>
+          <h2 class="onb-title">Salve seu Progresso &amp; Acenda sua Ofensiva</h2>
 
           <div class="conversion-summary-badges">
-            <span class="conv-pill" id="summary-goal-pill">🔥 Foco: Cutting &amp; Definição</span>
-            <span class="conv-pill" id="summary-level-pill">🏋️ Nível: Intermediário</span>
-            <span class="conv-pill" id="summary-routine-pill">⚡ Meta: 5 min/dia (50 XP)</span>
+            <span class="conv-pill" id="summary-goal-pill">⚖️ Carreira: Tribunais &amp; MP</span>
+            <span class="conv-pill" id="summary-level-pill">📖 Nível: Intermediário</span>
+            <span class="conv-pill" id="summary-routine-pill">🔥 Meta: 30 min/dia • 20 Questões</span>
           </div>
 
           <div class="signup-form-grid">
-            <input type="text" id="signup-name-input" class="fit-input" placeholder="Seu Nome ou Apelido (ex: Samir)" value="Samir" />
-            <input type="email" id="signup-email-input" class="fit-input" placeholder="Seu melhor e-mail" value="samir@fitloom.app" />
+            <input type="text" id="signup-name-input" class="fit-input" placeholder="Seu Nome de Concurseiro(a)" value="Samir" />
+            <input type="email" id="signup-email-input" class="fit-input" placeholder="Seu melhor e-mail" value="samir@studyloom.com.br" />
           </div>
 
           <button type="button" class="btn-vamos-iniciar" onclick="completeOnboardingConversion()">
-            <span>🔥 Criar Conta Grátis &amp; Acender 1º Streak</span>
+            <span>🔥 Criar Conta Grátis &amp; Iniciar 1º Streak no Edital</span>
           </button>
         </div>
       </section>
 
       <footer style="text-align: center; font-size: 0.78rem; color: var(--text-muted); font-weight: 700;">
-        FitLoom Web • Design Responsivo Desktop &amp; Mobile • Guiado pela Lumi 3D
+        Studyloom • Plataforma Web Responsiva para Concursos Públicos • Guiada pela Mentora 3D Lumi
       </footer>
     </div>
   </div>
@@ -313,15 +313,15 @@
   <!-- ========================================================================
        1. APLICAÇÃO WEB RESPONSIVA DE LARGURA TOTAL (100% VIEWPORT)
        - Sidebar Esquerda (Desktop) / Bottom Bar (Mobile)
-       - Área Central Expandida (Trilha, Prática, Ligas, Social, Loja, Perfil)
-       - Painel Lateral Direito de Estatísticas e Ligas da Lumi
+       - Área Central Expandida (Trilha do Edital, Studyloom Pro, Simulador)
+       - Painel Lateral Direito de Estatísticas e Ligas de Concurseiros
        ======================================================================== -->
 
   <!-- Header Compacto Exclusivo para Mobile -->
-  <header class="mobile-top-header" aria-label="Cabeçalho Mobile">
+  <header class="mobile-top-header" aria-label="Cabeçalho Mobile Studyloom">
     <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;" onclick="switchScreen('trail')">
-      <div class="brand-icon-3d" style="width: 32px; height: 32px; font-size: 1rem;">F</div>
-      <div class="brand-wordmark" style="font-size: 1.25rem;">Fit<span>Loom</span></div>
+      <div class="brand-icon-3d" style="width: 32px; height: 32px; font-size: 1rem;">S</div>
+      <div class="brand-wordmark" style="font-size: 1.25rem;">Study<span>loom</span></div>
     </div>
 
     <div style="display: flex; align-items: center; gap: 6px;">
@@ -346,22 +346,22 @@
   <div class="web-app-shell">
 
     <!-- COLUNA 1: SIDEBAR DE NAVEGAÇÃO À ESQUERDA (DESKTOP) -->
-    <aside class="left-sidebar" aria-label="Menu Principal FitLoom">
+    <aside class="left-sidebar" aria-label="Menu Principal Studyloom">
       <div>
         <div class="sidebar-brand" onclick="switchScreen('trail')">
-          <div class="brand-icon-3d">F</div>
-          <div class="brand-wordmark">Fit<span>Loom</span></div>
+          <div class="brand-icon-3d">S</div>
+          <div class="brand-wordmark">Study<span>loom</span></div>
         </div>
 
         <nav class="sidebar-nav-list">
           <button type="button" class="sidebar-nav-btn active" id="side-trail" onclick="switchScreen('trail')">
             <span class="nav-icon">🏠</span>
-            <span>Trilha de Hábitos</span>
+            <span>Trilha do Edital</span>
           </button>
 
           <button type="button" class="sidebar-nav-btn" id="side-practice" onclick="switchScreen('practice')">
             <span class="nav-icon">🎯</span>
-            <span>Prática Focada</span>
+            <span>Caderno de Erros</span>
           </button>
 
           <button type="button" class="sidebar-nav-btn" id="side-leagues" onclick="switchScreen('leagues')">
@@ -379,9 +379,14 @@
             <span>Loja da Lumi</span>
           </button>
 
+          <button type="button" class="sidebar-nav-btn pro-tab" id="side-pro" onclick="switchScreen('pro')">
+            <span class="nav-icon">💎</span>
+            <span>Studyloom Pro</span>
+          </button>
+
           <button type="button" class="sidebar-nav-btn" id="side-profile" onclick="switchScreen('profile')">
             <span class="nav-icon">👤</span>
-            <span>Perfil &amp; Avatar</span>
+            <span>Perfil &amp; Acertos</span>
           </button>
         </nav>
       </div>
@@ -401,35 +406,35 @@
       <div class="content-column-inner">
 
         <!-- =====================================================
-             ABA 1 (🏠): A TRILHA DE HÁBITOS EM ZIGUE-ZAGUE
+             ABA 1 (🏠): A TRILHA DO EDITAL EM ZIGUE-ZAGUE
              ===================================================== -->
-        <section class="app-screen active" id="screen-trail" aria-label="A Trilha de Hábitos">
+        <section class="app-screen active" id="screen-trail" aria-label="A Trilha do Edital">
 
           <div class="section-header-banner">
             <div>
-              <div class="section-phase-tag" id="banner-phase-tag">FASE 1 • MÓDULO 2 • PLANO PERSONALIZADO</div>
-              <div class="section-module-title" id="banner-module-title">Fundamentos do Cutting &amp; Supino Reto</div>
+              <div class="section-phase-tag" id="banner-phase-tag">BLOCO 1 • DISCIPLINAS NUCLEARES DO EDITAL</div>
+              <div class="section-module-title" id="banner-module-title">Português, Direito Constitucional &amp; Raciocínio Lógico</div>
             </div>
-            <button type="button" class="section-practice-btn" onclick="switchScreen('practice')">
-              <span>🎯</span>
-              <span>Prática Focada</span>
+            <button type="button" class="section-practice-btn" onclick="openModuleQuiz(0)">
+              <span>⏱️</span>
+              <span>Resolver Questões</span>
             </button>
           </div>
 
           <div class="focused-practice-strip" onclick="switchScreen('practice')">
             <div class="fp-strip-left">
-              <div class="fp-strip-icon">🧠</div>
+              <div class="fp-strip-icon">📚</div>
               <div>
-                <div class="fp-strip-title">Revisão Inteligente de Pontos Fracos &amp; Macros</div>
+                <div class="fp-strip-title">Caderno de Erros &amp; Flashcards da Lei Seca</div>
                 <div class="fp-strip-sub" id="user-plan-subtitle">
-                  Meta: 5 min/dia • Corrija erros de postura no Supino e Agachamento
+                  Meta: 30 min/dia • Revise 2 pegadinhas de banca (FGV/Cebraspe) e 3 súmulas
                 </div>
               </div>
             </div>
-            <span class="fp-strip-cta">Praticar ➔</span>
+            <span class="fp-strip-cta">Revisar ➔</span>
           </div>
 
-          <!-- Trilha em Zigue-Zague com Ícones Temáticos e Lumi 3D -->
+          <!-- Trilha do Edital em Zigue-Zague com Matérias e a Mentora 3D Lumi -->
           <div class="zigzag-trail">
             <svg class="zigzag-svg-bg" viewBox="0 0 320 640" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M160 30 L 82 140 L 160 255 L 238 370 L 104 485 L 160 595"
@@ -438,177 +443,177 @@
                     stroke="var(--orange-500)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
 
-            <!-- Mascote 3D Lumi ao lado do nó ativo guiando o usuário -->
-            <div class="trail-lumi-companion" onclick="lumiTrailInteract()" title="Clique na Lumi 3D!">
+            <!-- Mascote 3D Lumi ao lado do nó ativo guiando o concurseiro -->
+            <div class="trail-lumi-companion" onclick="lumiTrailInteract()" title="Clique na Mentora Lumi 3D!">
               <div class="trail-lumi-3d-frame">
-                <img src="assets/lumi-hero.jpg" alt="Mascote 3D Lumi guiando a trilha" id="trail-lumi-img" />
+                <img src="assets/lumi-hero.jpg" alt="Mentora 3D Lumi guiando a Trilha do Edital" id="trail-lumi-img" />
               </div>
               <div class="trail-lumi-mini-speech" id="trail-lumi-speech">
-                "Bora pro Supino Reto! 🔥 +45 XP"
+                "Responda rápido p/ ganhar 2x XP! ⚡"
               </div>
             </div>
 
-            <!-- Nó 1: Nutrição -->
+            <!-- Nó 1: Língua Portuguesa -->
             <div class="trail-step pos-center">
               <div class="node-bundle" onclick="openModuleQuiz(0)">
-                <button type="button" class="zig-node-btn nutrition" aria-label="Nutrição: Déficit Calórico Inteligente">
-                  🍽️
+                <button type="button" class="zig-node-btn nutrition" aria-label="Língua Portuguesa: Crase e Regência">
+                  📚
                 </button>
-                <span class="zig-node-caption">🥗 Déficit sem Fome ⭐⭐⭐</span>
+                <span class="zig-node-caption">📚 Português: Crase &amp; Regência ⭐⭐⭐</span>
               </div>
             </div>
 
-            <!-- Nó 2: Musculação -->
+            <!-- Nó 2: Direito Constitucional -->
             <div class="trail-step pos-left">
               <div class="node-bundle" onclick="openModuleQuiz(1)">
-                <button type="button" class="zig-node-btn workout" aria-label="Musculação: Escápulas no Supino">
-                  🏋️
+                <button type="button" class="zig-node-btn workout" aria-label="Direito Constitucional: Art. 5º CF/88">
+                  ⚖️
                 </button>
-                <span class="zig-node-caption">💪 Retração Escapular ⭐⭐⭐</span>
+                <span class="zig-node-caption">⚖️ Dir. Constitucional: Art. 5º ⭐⭐⭐</span>
               </div>
             </div>
 
-            <!-- Nó 3: Nó Ativo em Destaque -->
+            <!-- Nó 3: Raciocínio Lógico (Nó Ativo em Destaque) -->
             <div class="trail-step pos-center">
               <div class="node-bundle" onclick="openModuleQuiz(0)">
-                <div class="node-start-bubble">🔥 COMEÇAR LIÇÃO</div>
-                <button type="button" class="zig-node-btn workout" aria-label="Nó Atual: Biomecânica & Cutting">
+                <div class="node-start-bubble">⏱️ BATERIA 2X XP</div>
+                <button type="button" class="zig-node-btn workout" aria-label="Bateria Atual: Raciocínio Lógico e Constitucional">
                   <span class="zig-node-ring"></span>
-                  🏋️
+                  🧠
                 </button>
-                <span class="zig-node-caption">🔥 Supino Reto &amp; Proteína</span>
+                <span class="zig-node-caption">🔥 Raciocínio Lógico &amp; Bancas</span>
               </div>
             </div>
 
-            <!-- Nó 4: Baú de Recompensa -->
+            <!-- Nó 4: Baú de Súmulas Vinculantes -->
             <div class="trail-step pos-right">
               <div class="node-bundle" onclick="openChestReward()">
-                <button type="button" class="zig-node-btn chest" aria-label="Baú de Recompensa da Fase">
+                <button type="button" class="zig-node-btn chest" aria-label="Baú de Súmulas Vinculantes">
                   🎁
                 </button>
-                <span class="zig-node-caption">🎁 Baú da Lumi (+50 XP)</span>
+                <span class="zig-node-caption">🎁 Baú do Aprovado (+50 XP)</span>
               </div>
             </div>
 
-            <!-- Nó 5: Nutrição Flashcards -->
+            <!-- Nó 5: Direito Administrativo -->
             <div class="trail-step pos-far-left">
               <div class="node-bundle" onclick="switchScreen('practice')">
-                <button type="button" class="zig-node-btn nutrition" aria-label="Nutrição: Macros do Cutting">
-                  🍽️
+                <button type="button" class="zig-node-btn nutrition" aria-label="Direito Administrativo: Atos e Poderes">
+                  🏛️
                 </button>
-                <span class="zig-node-caption">🍽️ Flashcards de Macros</span>
+                <span class="zig-node-caption">🏛️ Dir. Administrativo &amp; Flashcards</span>
               </div>
             </div>
 
-            <!-- Nó 6: Troféu Boss -->
+            <!-- Nó 6: Simulado Geral do Bloco -->
             <div class="trail-step pos-center">
               <div class="node-bundle" onclick="openModuleQuiz(2)">
-                <button type="button" class="zig-node-btn locked" aria-label="Troféu da Fase 1">
+                <button type="button" class="zig-node-btn locked" aria-label="Simulado Boss do Edital">
                   🏆
                 </button>
-                <span class="zig-node-caption">🔒 Desafio Boss • Módulo 2</span>
+                <span class="zig-node-caption">🔒 Simulado FGV / Cebraspe</span>
               </div>
             </div>
           </div>
         </section>
 
         <!-- =====================================================
-             TELA DE PRÁTICA FOCADA (PONTOS FRACOS, POSTURA & FLASHCARDS)
+             TELA DE CADERNO DE ERROS & FLASHCARDS DA LEI SECA
              ===================================================== -->
-        <section class="app-screen" id="screen-practice" aria-label="Tela de Prática Focada">
+        <section class="app-screen" id="screen-practice" aria-label="Caderno de Erros e Flashcards">
           <div class="screen-title-row">
             <div>
-              <h1 class="screen-heading">🎯 Prática Focada</h1>
-              <p class="screen-sub">Corrija pontos fracos de execução de exercícios e domine os flashcards de macros</p>
+              <h1 class="screen-heading">🎯 Caderno de Erros &amp; Lei Seca</h1>
+              <p class="screen-sub">Elimine as pegadinhas mais cobradas pelas bancas e memorize artigos-chave</p>
             </div>
           </div>
 
           <div class="practice-hero-banner">
             <div class="practice-hero-lumi">
-              <img src="assets/lumi-coach.jpg" alt="Lumi Coach 3D" />
+              <img src="assets/lumi-coach.jpg" alt="Lumi Mentora 3D" />
             </div>
             <div style="flex: 1;">
               <div style="font-size: 0.74rem; font-weight: 900; color: var(--orange-400); text-transform: uppercase;">
-                🦊 Diagnóstico Biomecânico da Lumi
+                🦊 Raio-X das Bancas pela Lumi
               </div>
               <div style="font-size: 0.96rem; font-weight: 800; margin-top: 4px;">
-                "Separei os 2 erros mais comuns de execução e 3 flashcards interativos para você revisar agora!"
+                "Separei 2 pegadinhas clássicas de prova e 3 flashcards de memorização rápida para você não cair no dia do concurso!"
               </div>
-              <button type="button" class="primary-3d-btn" style="margin-top: 12px; width: auto;" onclick="openModuleQuiz(1)">
-                ⚡ Iniciar Quiz de Correção (+30 XP)
+              <button type="button" class="primary-3d-btn" style="margin-top: 12px; width: auto;" onclick="openModuleQuiz(0)">
+                ⏱️ Treinar Questões com Cronômetro (2x XP)
               </button>
             </div>
           </div>
 
           <div class="section-block-title">
-            <span>🏋️ Correção de Execução (Pontos Fracos)</span>
-            <span style="color: var(--orange-400);">2 pontos de atenção</span>
+            <span>⚠️ Pegadinhas Clássicas de Prova (Revisão)</span>
+            <span style="color: var(--orange-400);">Alta Incidência</span>
           </div>
 
           <div class="weak-point-card">
             <div class="wp-top">
-              <span style="font-weight: 900; font-size: 0.95rem;">1. Supino Reto com Barra — Ângulo dos Cotovelos</span>
-              <span class="wp-badge-err">⚠️ Proteção de Ombro</span>
+              <span style="font-weight: 900; font-size: 0.95rem;">1. Direito Constitucional — Violabilidade de Domicílio (Art. 5º, XI)</span>
+              <span class="wp-badge-err">⚠️ Cebraspe / FGV</span>
             </div>
             <div class="wp-compare-grid">
               <div class="wp-box-wrong">
-                ❌ <strong>Erro Comum:</strong> Descer a barra com cotovelos abertos a 90° e ombros projetados à frente.
+                ❌ <strong>Pegadinha da Banca:</strong> "Ordem judicial permite entrar na casa à noite sem consentimento do morador."
               </div>
               <div class="wp-box-right">
-                ✅ <strong>Ajuste Lumi:</strong> Feche os cotovelos a ~45°–60° e mantenha as escápulas retraídas no banco.
+                ✅ <strong>Gabarito Lumi:</strong> Ordem judicial SÓ permite entrada <strong>durante o dia</strong>! À noite, apenas flagrante delito, desastre ou para prestar socorro.
               </div>
             </div>
           </div>
 
           <div class="weak-point-card">
             <div class="wp-top">
-              <span style="font-weight: 900; font-size: 0.95rem;">2. Agachamento Livre — Tripé do Pé &amp; Joelhos</span>
-              <span class="wp-badge-err">⚠️ Estabilidade Lombar</span>
+              <span style="font-weight: 900; font-size: 0.95rem;">2. Raciocínio Lógico — Negação da Condicional (Se P, então Q)</span>
+              <span class="wp-badge-err">⚠️ Regra do MANÉ</span>
             </div>
             <div class="wp-compare-grid">
               <div class="wp-box-wrong">
-                ❌ <strong>Erro Comum:</strong> Calcanhar descolando do chão e joelhos colapsando para dentro (valgo).
+                ❌ <strong>Pegadinha da Banca:</strong> Negar "Se estudo, passo" dizendo "Se não estudo, não passo".
               </div>
               <div class="wp-box-right">
-                ✅ <strong>Ajuste Lumi:</strong> Pressione o chão com o pé inteiro e aponte os joelhos na direção dos pés.
+                ✅ <strong>Gabarito Lumi (MANÉ):</strong> <strong>MA</strong>ntém a primeira E <strong>NE</strong>ga a segunda: "Estudo E não passo".
               </div>
             </div>
           </div>
 
           <div class="section-block-title">
-            <span>🍽️ Flashcards de Macros Nutricionais (Clique para Virar)</span>
-            <span style="color: var(--emerald-400);">Interativo 3D</span>
+            <span>🃏 Flashcards de Véspera de Prova (Clique para Virar)</span>
+            <span style="color: var(--emerald-400);">Memorização Ativa</span>
           </div>
 
           <div class="flashcards-carousel">
-            <div class="macro-flashcard" onclick="flipMacroCard(this, '🥩 Proteína', '1 Palma da mão = ~28g de proteína pura. Ideal: 3 a 4 porções ao dia.')">
-              <div style="font-size: 2rem;">🥩</div>
-              <div style="font-size: 0.88rem; font-weight: 900;">Proteína</div>
+            <div class="macro-flashcard" onclick="flipMacroCard(this, '📚 Crase Proibida', 'NUNCA ocorre crase antes de verbos, pronomes pessoais ou palavras masculinas!')">
+              <div style="font-size: 2rem;">📚</div>
+              <div style="font-size: 0.88rem; font-weight: 900;">Português: Crase</div>
               <div style="font-size: 0.72rem; color: var(--text-secondary);">Clique p/ virar</div>
             </div>
 
-            <div class="macro-flashcard" onclick="flipMacroCard(this, '🍚 Carboidrato', '1 Punho fechado = ~35g de carboidrato para explosão muscular no treino.')">
-              <div style="font-size: 2rem;">🍚</div>
-              <div style="font-size: 0.88rem; font-weight: 900;">Carboidrato</div>
+            <div class="macro-flashcard" onclick="flipMacroCard(this, '⚖️ Cláusulas Pétreas', 'Art. 60 §4º CF: Forma federativa, Voto DSU, Separação dos Poderes e Direitos/Garantias Individuais.')">
+              <div style="font-size: 2rem;">⚖️</div>
+              <div style="font-size: 0.88rem; font-weight: 900;">CF/88: FO-VO-SE-DI</div>
               <div style="font-size: 0.72rem; color: var(--text-secondary);">Clique p/ virar</div>
             </div>
 
-            <div class="macro-flashcard" onclick="flipMacroCard(this, '🥑 Gordura Boa', '1 Polegar = ~10g de lipídios essenciais para produção hormonal.')">
-              <div style="font-size: 2rem;">🥑</div>
-              <div style="font-size: 0.88rem; font-weight: 900;">Gorduras</div>
+            <div class="macro-flashcard" onclick="flipMacroCard(this, '🏛️ Atos Administrativos', 'Requisitos (CO-FI-FO-MO-OB): Competência, Finalidade, Forma, Motivo e Objeto.')">
+              <div style="font-size: 2rem;">🏛️</div>
+              <div style="font-size: 0.88rem; font-weight: 900;">Dir. Administrativo</div>
               <div style="font-size: 0.72rem; color: var(--text-secondary);">Clique p/ virar</div>
             </div>
           </div>
         </section>
 
         <!-- =====================================================
-             ABA 2 (🏆): LIGAS SEMANAIS E RANKING DE XP
+             ABA 2 (🏆): LIGAS DE CONCURSEIROS E RANKING DE XP
              ===================================================== -->
-        <section class="app-screen" id="screen-leagues" aria-label="Ligas Semanais e Ranking de XP">
+        <section class="app-screen" id="screen-leagues" aria-label="Ligas Semanais de Concurseiros">
           <div class="screen-title-row">
             <div>
-              <h1 class="screen-heading">🏆 Liga Esmeralda</h1>
-              <p class="screen-sub">Os Top 3 avançam para a Liga Titânio ao final da semana!</p>
+              <h1 class="screen-heading">🏆 Liga Auditor Esmeralda</h1>
+              <p class="screen-sub">Os Top 3 concurseiros sobem para a Liga Magistratura ao final da semana!</p>
             </div>
             <span class="story-xp-pill">Semana #14</span>
           </div>
@@ -617,13 +622,13 @@
             <div class="league-trophy-icon">🏆</div>
             <div style="flex: 1;">
               <div style="font-size: 0.74rem; font-weight: 900; color: #FBBF24; text-transform: uppercase;">
-                🎁 Recompensa da Liga Semanal
+                🎁 Recompensa da Liga Studyloom
               </div>
               <div style="font-size: 1.05rem; font-weight: 900; color: #fff; margin-top: 3px;">
-                Você está em #2 na Zona de Promoção!
+                Você está em #2 na Zona de Nomeação!
               </div>
               <div style="font-size: 0.8rem; color: #94A3B8; margin-top: 4px;">
-                Apenas 160 XP separam você da liderança da Liga Esmeralda.
+                Responda questões abaixo do tempo limite para ganhar 2x XP e assumir o 1º lugar!
               </div>
             </div>
           </div>
@@ -633,8 +638,8 @@
               <div class="leader-rank">🥇</div>
               <div class="leader-avatar">🦊</div>
               <div class="leader-info">
-                <div class="leader-name">Marina Fit • Coach</div>
-                <div class="leader-streak">🔥 32 dias de ofensiva</div>
+                <div class="leader-name">Marina Concurseira • TJ/TRF <span style="color: var(--emerald-400); font-size: 0.72rem;">💎 PRO</span></div>
+                <div class="leader-streak">🔥 32 dias de edital • 94% acerto</div>
               </div>
               <div class="leader-xp">1.580 XP</div>
             </div>
@@ -643,7 +648,7 @@
               <div class="leader-rank">🥈</div>
               <div class="leader-avatar">⚡</div>
               <div class="leader-info">
-                <div class="leader-name"><span id="league-user-name">Samir</span> (Você)</div>
+                <div class="leader-name"><span id="league-user-name">Samir</span> (Você) <span id="league-pro-tag" style="display: none; color: var(--emerald-400); font-size: 0.72rem;">💎 PRO</span></div>
                 <div class="leader-streak">🔥 <span id="league-my-streak">14</span> dias de ofensiva</div>
               </div>
               <div class="leader-xp"><span id="league-my-xp">1.420</span> XP</div>
@@ -651,21 +656,21 @@
 
             <div class="leader-row">
               <div class="leader-rank">🥉</div>
-              <div class="leader-avatar">🏋️</div>
+              <div class="leader-avatar">⚖️</div>
               <div class="leader-info">
-                <div class="leader-name">Lucas Hypertrophy</div>
+                <div class="leader-name">Lucas Fiscal • RFB</div>
                 <div class="leader-streak">🔥 19 dias de ofensiva</div>
               </div>
               <div class="leader-xp">1.310 XP</div>
             </div>
 
-            <div class="promo-zone-divider">▲ ZONA DE PROMOÇÃO PARA LIGA TITÂNIO ▲</div>
+            <div class="promo-zone-divider">▲ ZONA DE PROMOÇÃO PARA LIGA MAGISTRATURA ▲</div>
 
             <div class="leader-row">
               <div class="leader-rank">4</div>
-              <div class="leader-avatar">🥗</div>
+              <div class="leader-avatar">📚</div>
               <div class="leader-info">
-                <div class="leader-name">Camila Nutri</div>
+                <div class="leader-name">Camila Delta • PF</div>
                 <div class="leader-streak">🔥 11 dias de ofensiva</div>
               </div>
               <div class="leader-xp">1.190 XP</div>
@@ -673,9 +678,9 @@
 
             <div class="leader-row">
               <div class="leader-rank">5</div>
-              <div class="leader-avatar">🏃</div>
+              <div class="leader-avatar">🏛️</div>
               <div class="leader-info">
-                <div class="leader-name">Rafael Cardio</div>
+                <div class="leader-name">Rafael Analista • MPU</div>
                 <div class="leader-streak">🔥 8 dias de ofensiva</div>
               </div>
               <div class="leader-xp">980 XP</div>
@@ -684,13 +689,13 @@
         </section>
 
         <!-- =====================================================
-             ABA 3 (❤️): FEED DA COMUNIDADE, AMIGOS E STREAKS
+             ABA 3 (❤️): COMUNIDADE DE CONCURSEIROS & STREAKS
              ===================================================== -->
-        <section class="app-screen" id="screen-social" aria-label="Comunidade e Comparação de Streaks">
+        <section class="app-screen" id="screen-social" aria-label="Comunidade de Estudos">
           <div class="screen-title-row">
             <div>
-              <h1 class="screen-heading">❤️ Comunidade &amp; Duplas de Streak</h1>
-              <p class="screen-sub">Celebre conquistas dos seus parceiros de treino e mantenha a chama acesa em dupla</p>
+              <h1 class="screen-heading">❤️ Comunidade Studyloom</h1>
+              <p class="screen-sub">Parceiros de estudo em dupla e marcos de questões resolvidas</p>
             </div>
           </div>
 
@@ -698,109 +703,165 @@
             <div style="display: flex; align-items: center; gap: 12px;">
               <div class="leader-avatar">🦊</div>
               <div>
-                <div style="font-weight: 900; font-size: 0.95rem;">Você &amp; Marina Fit</div>
+                <div style="font-weight: 900; font-size: 0.95rem;">Você &amp; Marina (Dupla de Edital)</div>
                 <div style="font-size: 0.78rem; color: var(--orange-400); font-weight: 800; margin-top: 2px;">
-                  🔥 14 dias de Streak em Dupla! Não deixem a chama apagar hoje!
+                  🔥 14 dias resolvendo questões todos os dias sem falhar!
                 </div>
               </div>
             </div>
-            <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Marina Fit')">
-              👋 Mandar Energia
+            <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Marina')">
+              👋 Incentivar
             </button>
           </div>
 
           <div class="friend-streak-card">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <div class="leader-avatar">🏋️</div>
+              <div class="leader-avatar">⚖️</div>
               <div>
-                <div style="font-weight: 900; font-size: 0.95rem;">Lucas completou "Biomecânica do Supino"</div>
+                <div style="font-weight: 900; font-size: 0.95rem;">Lucas gabaritou a bateria de "Direito Constitucional"</div>
                 <div style="font-size: 0.78rem; color: var(--emerald-400); font-weight: 700; margin-top: 2px;">
-                  ⚡ 100% de precisão • Há 12 minutos
+                  ⚡ Bônus de Tempo 2x XP conquistado • Há 10 min
                 </div>
               </div>
             </div>
             <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Lucas')">
-              🎉 Celebrar
+              🎉 Parabenizar
             </button>
           </div>
 
           <div class="friend-streak-card">
             <div style="display: flex; align-items: center; gap: 12px;">
-              <div class="leader-avatar">🥗</div>
+              <div class="leader-avatar">📚</div>
               <div>
-                <div style="font-weight: 900; font-size: 0.95rem;">Camila desbloqueou a medalha "Mestre da Dieta"</div>
+                <div style="font-weight: 900; font-size: 0.95rem;">Camila desbloqueou a insígnia "Mestre da Lei Seca"</div>
                 <div style="font-size: 0.78rem; color: var(--text-secondary); font-weight: 700; margin-top: 2px;">
-                  🏅 25 micro-lições de nutrição concluídas sem erro
+                  🏅 50 questões de Art. 5º CF/88 resolvidas sem erro
                 </div>
               </div>
             </div>
             <button type="button" class="high-five-btn" onclick="sendHighFive(this, 'Camila')">
-              👏 Parabenizar
+              👏 Celebrar
             </button>
           </div>
         </section>
 
         <!-- =====================================================
-             ABA 4 (🦊): LOJA DE CUSTOMIZAÇÃO DA LUMI & BÔNUS
+             ABA 4 (🦊): LOJA DA LUMI, FANTASIAS ÉPICAS & POWER-UPS
              ===================================================== -->
         <section class="app-screen" id="screen-shop" aria-label="Loja da Lumi">
           <div class="screen-title-row">
             <div>
-              <h1 class="screen-heading">🦊 Loja da Lumi</h1>
-              <p class="screen-sub">Customize sua coach 3D Lumi e equipe proteções de ofensiva</p>
+              <h1 class="screen-heading">🦊 Loja &amp; Guarda-Roupas da Lumi</h1>
+              <p class="screen-sub">Personalize seu avatar padrão Lumi 3D com estilos gratuitos, fantasias épicas e power-ups</p>
             </div>
+            <button type="button" class="high-five-btn" onclick="switchScreen('profile')">
+              🎒 Abrir Guarda-Roupas no Perfil
+            </button>
           </div>
 
           <div class="shop-lumi-showcase">
-            <div class="shop-lumi-preview">
-              <img src="assets/lumi-hero.jpg" alt="Lumi 3D na Loja" id="shop-lumi-img" />
-              <div class="shop-skin-badge" id="shop-skin-label">Regata Teal Oficial</div>
+            <div class="lumi-avatar-stage-3d" id="shop-avatar-stage">
+              <img src="assets/lumi-hero.jpg" alt="Lumi 3D na Loja" id="shop-lumi-img" class="fur-classic" />
+              <!-- Overlays de Acessórios Gratuitos na Loja -->
+              <div class="lumi-acc-layer">
+                <svg class="lumi-acc-headphones" id="shop-acc-headphones" viewBox="0 0 120 120" fill="none">
+                  <path d="M22 60 C22 24, 98 24, 98 60" stroke="#0D9488" stroke-width="7" stroke-linecap="round" />
+                  <path d="M26 56 C26 27, 94 27, 94 56" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" />
+                  <rect x="13" y="48" width="14" height="26" rx="7" fill="#0F172A" stroke="#10B981" stroke-width="3" />
+                  <rect x="93" y="48" width="14" height="26" rx="7" fill="#0F172A" stroke="#10B981" stroke-width="3" />
+                </svg>
+                <svg class="lumi-acc-glasses" id="shop-acc-glasses" viewBox="0 0 120 120" fill="none">
+                  <rect x="27" y="45" width="28" height="19" rx="6" fill="rgba(15, 23, 42, 0.28)" stroke="#1E293B" stroke-width="3.5" />
+                  <rect x="65" y="45" width="28" height="19" rx="6" fill="rgba(15, 23, 42, 0.28)" stroke="#1E293B" stroke-width="3.5" />
+                  <rect x="27" y="45" width="28" height="19" rx="6" stroke="#FBBF24" stroke-width="1.5" />
+                  <rect x="65" y="45" width="28" height="19" rx="6" stroke="#FBBF24" stroke-width="1.5" />
+                  <line x1="55" y1="53" x2="65" y2="53" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="lumi-avatar-tag" id="shop-skin-label">Lumi Aprovada 🎓</div>
             </div>
-            <div>
+            <div style="flex: 1;">
               <div style="font-size: 0.74rem; font-weight: 900; color: var(--orange-400); text-transform: uppercase;">
-                ✨ Visual Equipado na Lumi 3D
+                ✨ Avatar Oficial Equipado em Todo o App
               </div>
               <div style="font-size: 1.1rem; font-weight: 900; margin-top: 4px;" id="shop-lumi-title">
-                Lumi Dry-Fit Teal (Padrão)
+                Lumi Concurseira Aprovada (Capelo &amp; Diploma)
               </div>
-              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;">
-                Troque o estilo 3D da Lumi abaixo ou use seu XP para proteger seu Streak!
+              <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px;" id="shop-lumi-sub">
+                Pelagem: Laranja Clássico • Acessório: Sem Acessório
               </div>
             </div>
           </div>
 
           <div class="section-block-title">
-            <span>🎽 Poses &amp; Estilos 3D da Lumi</span>
+            <span>👑 Fantasias Épicas da Lumi 3D (XP, Ligas &amp; Studyloom Pro)</span>
+            <span style="color: var(--orange-400);"> Coleção Especial</span>
           </div>
 
-          <div class="shop-item-card">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <div class="shop-item-icon">🎉</div>
+          <div class="epic-costumes-grid">
+            <!-- Fantasia Épica 1: Pijama de Dinossauro -->
+            <div class="epic-costume-card" id="shop-epic-card-dino">
               <div>
-                <div style="font-weight: 900; font-size: 0.92rem;">Lumi Modo Campeã Olímpica</div>
-                <div style="font-size: 0.78rem; color: var(--text-secondary);">Comemorando com estrelas 3D e chama máxima</div>
+                <div class="epic-costume-thumb">
+                  <img src="assets/lumi-dino.jpg" alt="Lumi Pijama de Dinossauro 3D" />
+                  <span class="epic-tier-badge xp-tier">⚡ RECOMPENSA XP</span>
+                </div>
+                <div class="epic-costume-title" style="margin-top: 10px;">🦖 Pijama de Dinossauro</div>
+                <div class="epic-costume-desc" style="margin-top: 4px;">
+                  Skin realista, fofa e detalhada com capuz de escamas, dentinhos de pelúcia e cauda texturizada.
+                </div>
+              </div>
+              <div>
+                <div class="epic-unlock-req" style="margin-bottom: 6px;">🔓 Desbloqueável por XP (500 XP)</div>
+                <button type="button" class="epic-action-btn" id="shop-btn-epic-dino" onclick="equipEpicCostume('dino')">
+                  ⚡ Desbloquear &amp; Equipar (500 XP)
+                </button>
               </div>
             </div>
-            <button type="button" class="shop-buy-btn" onclick="equipLumiSkin('assets/lumi-celebrate.jpg', 'Lumi Campeã 3D')">
-              Equipar
-            </button>
-          </div>
 
-          <div class="shop-item-card">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <div class="shop-item-icon">🏋️</div>
+            <!-- Fantasia Épica 2: Toga de Juiz / Magistrado -->
+            <div class="epic-costume-card" id="shop-epic-card-judge">
               <div>
-                <div style="font-weight: 900; font-size: 0.92rem;">Lumi Personal Trainer Pro</div>
-                <div style="font-size: 0.78rem; color: var(--text-secondary);">Segurando halteres com piscadinha técnica</div>
+                <div class="epic-costume-thumb">
+                  <img src="assets/lumi-judge.jpg" alt="Lumi Toga de Juiz Magistrado 3D" />
+                  <span class="epic-tier-badge league-tier">🏆 LIGA MAGISTRATURA</span>
+                </div>
+                <div class="epic-costume-title" style="margin-top: 10px;">⚖️ Toga de Juiz / Magistrado</div>
+                <div class="epic-costume-desc" style="margin-top: 4px;">
+                  Vestimenta solene com jabô branco, bordado dourado e martelo para as Ligas altas de carreiras jurídicas.
+                </div>
+              </div>
+              <div>
+                <div class="epic-unlock-req" style="margin-bottom: 6px;">🏆 Recompensa de Liga Alta / Jurídica</div>
+                <button type="button" class="epic-action-btn" id="shop-btn-epic-judge" onclick="equipEpicCostume('judge')">
+                  🏆 Equipar Toga de Magistrado
+                </button>
               </div>
             </div>
-            <button type="button" class="shop-buy-btn" onclick="equipLumiSkin('assets/lumi-coach.jpg', 'Lumi Trainer Pro')">
-              Equipar
-            </button>
+
+            <!-- Fantasia Épica 3: Farda de Auditor / Fiscal -->
+            <div class="epic-costume-card" id="shop-epic-card-auditor">
+              <div>
+                <div class="epic-costume-thumb">
+                  <img src="assets/lumi-auditor.jpg" alt="Lumi Farda de Auditor Fiscal 3D" />
+                  <span class="epic-tier-badge pro-tier">💎 STUDYLOOM PRO</span>
+                </div>
+                <div class="epic-costume-title" style="margin-top: 10px;">🛡️ Farda de Auditor / Fiscal</div>
+                <div class="epic-costume-desc" style="margin-top: 4px;">
+                  Colete tático com insígnia dourada e tablet analítico voltado para concursos de controle e fiscalização.
+                </div>
+              </div>
+              <div>
+                <div class="epic-unlock-req" style="margin-bottom: 6px;">💎 Exclusivo Plano Studyloom Pro</div>
+                <button type="button" class="epic-action-btn pro-btn" id="shop-btn-epic-auditor" onclick="equipEpicCostume('auditor')">
+                  💎 Equipar Farda de Auditor
+                </button>
+              </div>
+            </div>
           </div>
 
           <div class="section-block-title">
-            <span>⚡ Power-Ups &amp; Vidas Extras</span>
+            <span>⚡ Power-Ups de Estudo &amp; Vidas Extras</span>
           </div>
 
           <div class="shop-item-card">
@@ -808,7 +869,7 @@
               <div class="shop-item-icon">❤️</div>
               <div>
                 <div style="font-weight: 900; font-size: 0.92rem;">Recarga Total de Vidas (5/5)</div>
-                <div style="font-size: 0.78rem; color: var(--text-secondary);">Restaura imediatamente todas as suas energias</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Continue resolvendo baterias sem interrupção</div>
               </div>
             </div>
             <button type="button" class="shop-buy-btn" onclick="buyShopPowerup('hearts')">
@@ -821,7 +882,7 @@
               <div class="shop-item-icon">🧊</div>
               <div>
                 <div style="font-weight: 900; font-size: 0.92rem;">Congelamento de Ofensiva (Streak Freeze)</div>
-                <div style="font-size: 0.78rem; color: var(--text-secondary);">Protege seu Streak caso você falte 1 dia</div>
+                <div style="font-size: 0.78rem; color: var(--text-secondary);">Protege sua ofensiva caso você imprevistamente perca 1 dia</div>
               </div>
             </div>
             <button type="button" class="shop-buy-btn" onclick="buyShopPowerup('freeze')">
@@ -831,36 +892,175 @@
         </section>
 
         <!-- =====================================================
-             ABA 5 (👤): PERFIL, CONQUISTAS & CRIADOR DE AVATAR
+             3. TELA DE PLANOS PAGOS: STUDYLOOM PRO (DUOLINGO SUPER STYLE)
              ===================================================== -->
-        <section class="app-screen" id="screen-profile" aria-label="Perfil, Conquistas e Criador de Avatar">
+        <section class="app-screen" id="screen-pro" aria-label="Assinatura Premium Studyloom Pro">
+          <div class="pro-hero-card">
+            <div class="pro-hero-lumi">
+              <img src="assets/lumi-auditor.jpg" alt="Lumi 3D Studyloom Pro" />
+            </div>
+            <div>
+              <span class="pro-super-pill">💎 STUDYLOOM PRO • ACELERE SUA NOMEAÇÃO</span>
+              <h1 style="font-size: 1.55rem; font-weight: 900; line-height: 1.2;">
+                Aprovação 3,4x mais rápida com IA de Editais e Vidas Ilimitadas.
+              </h1>
+              <p style="font-size: 0.86rem; color: #CBD5E1; margin-top: 8px; line-height: 1.4; font-weight: 600;">
+                Desbloqueie todo o poder da Mentora Lumi 3D sem limite de corações, com trilhas adaptativas e resumos gerados por IA para o seu edital específico.
+              </p>
+            </div>
+          </div>
+
+          <div class="section-block-title">
+            <span>🚀 Benefícios Exclusivos do Studyloom Pro</span>
+            <span style="color: var(--emerald-400);">Inspirado no Duolingo Super</span>
+          </div>
+
+          <!-- 5 Benefícios Principais do Studyloom Pro -->
+          <div class="pro-benefits-grid">
+            <div class="pro-benefit-card">
+              <div class="pro-benefit-icon">🤖</div>
+              <div>
+                <div class="pro-benefit-title">Resumos por IA para cada Edital</div>
+                <div class="pro-benefit-desc">
+                  Envie qualquer edital (FGV, Cebraspe, FCC) e receba resumos enxutos, mapas de artigos e tabelas das súmulas mais cobradas.
+                </div>
+              </div>
+            </div>
+
+            <div class="pro-benefit-card">
+              <div class="pro-benefit-icon">🧠</div>
+              <div>
+                <div class="pro-benefit-title">Questões Complexas de Nível Avançado</div>
+                <div class="pro-benefit-desc">
+                  Acesso liberado a baterias para Magistratura, Receita Federal, Delta e Procuradorias com comentários aprofundados.
+                </div>
+              </div>
+            </div>
+
+            <div class="pro-benefit-card">
+              <div class="pro-benefit-icon">🧭</div>
+              <div>
+                <div class="pro-benefit-title">Trilhas Adaptativas Inteligentes</div>
+                <div class="pro-benefit-desc">
+                  O algoritmo da Lumi recalcula sua Trilha do Edital diariamente priorizando os tópicos em que sua taxa de acerto está abaixo de 80%.
+                </div>
+              </div>
+            </div>
+
+            <div class="pro-benefit-card">
+              <div class="pro-benefit-icon">♾️</div>
+              <div>
+                <div class="pro-benefit-title">Vidas / Energia Ilimitadas (❤️ ∞)</div>
+                <div class="pro-benefit-desc">
+                  Resolva centenas de questões por dia sem travar por falta de corações e sem anúncios.
+                </div>
+              </div>
+            </div>
+
+            <div class="pro-benefit-card" style="grid-column: 1 / -1;">
+              <div class="pro-benefit-icon">🦊</div>
+              <div>
+                <div class="pro-benefit-title">Fantasias Épicas Exclusivas para a Lumi 3D &amp; Escudos de Streak</div>
+                <div class="pro-benefit-desc">
+                  Desbloqueie imediatamente a <strong>Farda de Auditor / Fiscal</strong>, a <strong>Toga de Juiz / Magistrado</strong> e o <strong>Pijama de Dinossauro</strong>, além de 2 Congelamentos de Ofensiva automáticos todo mês!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparativo Grátis vs Studyloom Pro -->
+          <div class="pro-compare-box">
+            <div class="pro-compare-row header">
+              <span>Recurso de Preparação</span>
+              <span class="pro-col-center">Grátis</span>
+              <span class="pro-col-center" style="color: var(--emerald-400);">💎 PRO</span>
+            </div>
+            <div class="pro-compare-row">
+              <span>Avatar Padrão Lumi 3D + Cores &amp; Acessórios Básicos</span>
+              <span class="pro-col-center">✅ Incluso</span>
+              <span class="pro-col-center">✅ Incluso</span>
+            </div>
+            <div class="pro-compare-row">
+              <span>Vidas / Energia Ilimitadas (❤️ ∞)</span>
+              <span class="pro-col-center">5 / dia</span>
+              <span class="pro-col-center">♾️ Ilimitado</span>
+            </div>
+            <div class="pro-compare-row">
+              <span>Resumos Personalizados por IA do Edital</span>
+              <span class="pro-col-center">—</span>
+              <span class="pro-col-center">✅ Incluso</span>
+            </div>
+            <div class="pro-compare-row">
+              <span>Questões Avançadas &amp; Trilhas Adaptativas</span>
+              <span class="pro-col-center">—</span>
+              <span class="pro-col-center">✅ Incluso</span>
+            </div>
+            <div class="pro-compare-row">
+              <span>Fantasias Épicas (Farda de Auditor &amp; Toga de Juiz)</span>
+              <span class="pro-col-center">—</span>
+              <span class="pro-col-center">✅ Incluso</span>
+            </div>
+          </div>
+
+          <!-- Escolha de Plano -->
+          <div class="pro-plans-grid">
+            <div class="pro-plan-card selected" id="plan-card-annual" onclick="selectProPlan('annual')">
+              <span class="pro-plan-ribbon">🔥 MAIS POPULAR • -50%</span>
+              <div style="font-size: 0.76rem; font-weight: 900; color: var(--emerald-400); text-transform: uppercase;">Plano Anual Aprovação</div>
+              <div style="font-size: 1.45rem; font-weight: 900; margin-top: 4px;">R$ 29,90 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">/ mês</span></div>
+              <div style="font-size: 0.74rem; color: var(--text-secondary); margin-top: 4px;">Cobrado anualmente • 7 dias grátis para testar</div>
+            </div>
+
+            <div class="pro-plan-card" id="plan-card-monthly" onclick="selectProPlan('monthly')">
+              <div style="font-size: 0.76rem; font-weight: 900; color: var(--text-secondary); text-transform: uppercase;">Plano Mensal Flexível</div>
+              <div style="font-size: 1.45rem; font-weight: 900; margin-top: 4px;">R$ 59,90 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-secondary);">/ mês</span></div>
+              <div style="font-size: 0.74rem; color: var(--text-secondary); margin-top: 4px;">Cancele quando quiser sem multa</div>
+            </div>
+          </div>
+
+          <button type="button" class="btn-vamos-iniciar" id="btn-activate-pro" onclick="activateStudyloomPro()">
+            <span>💎 Começar 7 Dias Grátis do Studyloom Pro</span>
+          </button>
+        </section>
+
+        <!-- =====================================================
+             ABA 5 (👤): PERFIL, AVATAR PADRÃO LUMI 3D & GUARDA-ROUPAS
+             ===================================================== -->
+        <section class="app-screen" id="screen-profile" aria-label="Perfil do Concurseiro">
           <div class="profile-header-card">
-            <div class="avatar-svg-stage" id="profile-avatar-stage">
-              <svg width="84" height="84" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path id="av-shirt" d="M20 96 C20 72, 80 72, 80 96 Z" fill="#0D9488" />
-                <text x="50" y="91" text-anchor="middle" fill="#FF5722" font-size="9" font-weight="900" font-family="Nunito">FITLOOM</text>
-                <rect id="av-neck" x="42" y="58" width="16" height="16" rx="6" fill="#F3C6A5" />
-                <circle id="av-skin" cx="50" cy="44" r="22" fill="#F3C6A5" />
-                <path d="M27 40 C27 20, 73 20, 73 40 C65 28, 35 28, 27 40 Z" fill="#231815" />
-                <rect id="av-headband" x="28" y="30" width="44" height="6" rx="3" fill="#FF5722" />
-                <circle cx="42" cy="44" r="3" fill="#1E293B" />
-                <circle cx="58" cy="44" r="3" fill="#1E293B" />
-                <path d="M43 53 Q50 59 57 53" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
-                <g id="av-glasses" style="display: none;">
-                  <rect x="33" y="39" width="15" height="10" rx="3" fill="#FF5722" fill-opacity="0.75" stroke="#FFFFFF" stroke-width="2" />
-                  <rect x="52" y="39" width="15" height="10" rx="3" fill="#FF5722" fill-opacity="0.75" stroke="#FFFFFF" stroke-width="2" />
-                  <line x1="48" y1="44" x2="52" y2="44" stroke="#FFFFFF" stroke-width="2" />
-                </g>
-              </svg>
+            <!-- 1. AVATAR PADRÃO OBRIGATÓRIO: RAPOSA 3D LUMI -->
+            <div class="lumi-avatar-stage-3d" id="profile-avatar-stage">
+              <img src="assets/lumi-hero.jpg" alt="Avatar Padrão Obrigatório: Raposa 3D Lumi" id="profile-lumi-img" class="fur-classic" />
+              <!-- Overlays de Acessórios Gratuitos sobre a Lumi 3D (Óculos de Grau e Fones de Estudo) -->
+              <div class="lumi-acc-layer">
+                <svg class="lumi-acc-headphones" id="profile-acc-headphones" viewBox="0 0 120 120" fill="none">
+                  <path d="M22 60 C22 24, 98 24, 98 60" stroke="#0D9488" stroke-width="7" stroke-linecap="round" />
+                  <path d="M26 56 C26 27, 94 27, 94 56" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" />
+                  <rect x="13" y="48" width="14" height="26" rx="7" fill="#0F172A" stroke="#10B981" stroke-width="3" />
+                  <rect x="93" y="48" width="14" height="26" rx="7" fill="#0F172A" stroke="#10B981" stroke-width="3" />
+                </svg>
+                <svg class="lumi-acc-glasses" id="profile-acc-glasses" viewBox="0 0 120 120" fill="none">
+                  <rect x="27" y="45" width="28" height="19" rx="6" fill="rgba(15, 23, 42, 0.28)" stroke="#1E293B" stroke-width="3.5" />
+                  <rect x="65" y="45" width="28" height="19" rx="6" fill="rgba(15, 23, 42, 0.28)" stroke="#1E293B" stroke-width="3.5" />
+                  <rect x="27" y="45" width="28" height="19" rx="6" stroke="#FBBF24" stroke-width="1.5" />
+                  <rect x="65" y="45" width="28" height="19" rx="6" stroke="#FBBF24" stroke-width="1.5" />
+                  <line x1="55" y1="53" x2="65" y2="53" stroke="#FBBF24" stroke-width="3.5" stroke-linecap="round" />
+                </svg>
+              </div>
+              <div class="lumi-avatar-tag" id="profile-lumi-skin-tag">Lumi Aprovada 🎓</div>
             </div>
 
             <div style="flex: 1;">
-              <div style="font-size: 1.25rem; font-weight: 900;" id="profile-user-name">Samir • Atleta FitLoom</div>
+              <span class="default-avatar-pill">🎓 Avatar Padrão Oficial: Lumi Aprovada (Capelo &amp; Diploma)</span>
+              <div style="font-size: 1.25rem; font-weight: 900;" id="profile-user-name">Samir • Concurseiro Studyloom</div>
               <div style="font-size: 0.82rem; color: var(--emerald-400); font-weight: 800; margin-top: 3px;" id="profile-user-focus">
-                🛡️ Liga Esmeralda • Foco: Cutting &amp; Definição
+                🛡️ Liga Auditor Esmeralda • Foco: Tribunais &amp; MP
               </div>
-              <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px;">
-                Plano personalizado salvo com a Lumi 3D
+              <div style="font-size: 0.76rem; color: var(--text-secondary); margin-top: 4px; font-weight: 700;" id="profile-style-summary">
+                Visual: Lumi Concurseira Aprovada (Capelo &amp; Diploma) • Pelagem: Laranja Clássico • Sem Acessório
+              </div>
+              <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;" id="profile-plan-status">
+                Plano Atual: Studyloom Gratuito
               </div>
             </div>
           </div>
@@ -870,14 +1070,14 @@
               <span style="font-size: 1.6rem;">🔥</span>
               <div>
                 <div class="p-stat-val" id="prof-streak-val">14 Dias</div>
-                <div class="p-stat-lbl">Ofensiva Atual</div>
+                <div class="p-stat-lbl">Ofensiva de Estudo</div>
               </div>
             </div>
             <div class="p-stat-card">
               <span style="font-size: 1.6rem;">⚡</span>
               <div>
                 <div class="p-stat-val" id="prof-xp-val">1.420 XP</div>
-                <div class="p-stat-lbl">Total de XP</div>
+                <div class="p-stat-lbl">Total de XP (c/ Bônus 2x)</div>
               </div>
             </div>
             <div class="p-stat-card">
@@ -890,64 +1090,174 @@
             <div class="p-stat-card">
               <span style="font-size: 1.6rem;">🎯</span>
               <div>
-                <div class="p-stat-val">96%</div>
-                <div class="p-stat-lbl">Precisão Biomecânica</div>
+                <div class="p-stat-val">92%</div>
+                <div class="p-stat-lbl">Taxa de Acerto nas Bancas</div>
               </div>
             </div>
           </div>
 
-          <!-- Criador de Avatar Personalizado -->
+          <!-- 2 & 3. GUARDA-ROUPAS DA LUMI 3D: ESTILOS GRATUITOS (FREE) + FANTASIAS ÉPICAS -->
           <div class="avatar-creator-box">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 900; font-size: 0.96rem;">🎨 Criador de Avatar Personalizado</span>
-              <span style="font-size: 0.74rem; color: var(--orange-400); font-weight: 800;">Preview Instantâneo</span>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <div>
+                <span style="font-weight: 900; font-size: 1.02rem;">🦊 Guarda-Roupas &amp; Customização da Lumi 3D</span>
+                <div style="font-size: 0.76rem; color: var(--text-secondary); font-weight: 600; margin-top: 2px;">
+                  A raposa 3D Lumi é o seu avatar oficial! Customize cores de pelagem, acessórios de estudo ou equipe Fantasias Épicas.
+                </div>
+              </div>
+              <span style="font-size: 0.74rem; color: var(--orange-400); font-weight: 900;">Preview 3D Instantâneo</span>
             </div>
 
-            <div class="creator-row">
-              <div class="creator-row-label">Tom de Pele</div>
-              <div class="creator-swatches">
-                <button type="button" class="skin-dot active" style="background: #F3C6A5;" onclick="setAvatarSkin('#F3C6A5', this)" aria-label="Tom 1"></button>
-                <button type="button" class="skin-dot" style="background: #FADCB8;" onclick="setAvatarSkin('#FADCB8', this)" aria-label="Tom 2"></button>
-                <button type="button" class="skin-dot" style="background: #D99B72;" onclick="setAvatarSkin('#D99B72', this)" aria-label="Tom 3"></button>
-                <button type="button" class="skin-dot" style="background: #A86B43;" onclick="setAvatarSkin('#A86B43', this)" aria-label="Tom 4"></button>
-                <button type="button" class="skin-dot" style="background: #6E3F23;" onclick="setAvatarSkin('#6E3F23', this)" aria-label="Tom 5"></button>
+            <!-- Barra de Abas do Guarda-Roupas -->
+            <div class="wardrobe-tabs-bar">
+              <button type="button" class="wardrobe-tab-btn active" id="wardrobe-tab-free" onclick="switchWardrobeTab('free')">
+                <span>🎒 Estilos Gratuitos (Free)</span>
+              </button>
+              <button type="button" class="wardrobe-tab-btn" id="wardrobe-tab-epic" onclick="switchWardrobeTab('epic')">
+                <span>👑 Fantasias Épicas (XP / Ligas / Pro)</span>
+              </button>
+            </div>
+
+            <!-- ABA 1: GUARDA-ROUPAS E ESTILOS GRATUITOS (DESBLOQUEADOS DESDE O INÍCIO) -->
+            <div class="wardrobe-pane active" id="wardrobe-pane-free">
+              <div class="creator-row" style="margin-top: 4px;">
+                <div class="creator-row-label">
+                  Cores de Pelagem da Lumi 3D <span class="free-tag-pill">✓ 100% Grátis • Desbloqueado</span>
+                </div>
+                <div class="creator-swatches" id="fur-swatches-group">
+                  <button type="button" class="swatch-btn active" onclick="setLumiFurColor('classic', 'Laranja Clássico', this)">
+                    <span class="fur-swatch-dot" style="background: linear-gradient(135deg, #FF5722, #FB923C);"></span>
+                    <span>Laranja Clássico (Padrão)</span>
+                  </button>
+                  <button type="button" class="swatch-btn" onclick="setLumiFurColor('urban-grey', 'Cinza Urbano', this)">
+                    <span class="fur-swatch-dot" style="background: linear-gradient(135deg, #64748B, #CBD5E1);"></span>
+                    <span>Cinza Urbano</span>
+                  </button>
+                  <button type="button" class="swatch-btn" onclick="setLumiFurColor('cream', 'Creme Suave', this)">
+                    <span class="fur-swatch-dot" style="background: linear-gradient(135deg, #FDE68A, #FFFBEB);"></span>
+                    <span>Creme Suave</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="creator-row">
+                <div class="creator-row-label">
+                  Acessórios Simples de Concurseiro <span class="free-tag-pill">✓ 100% Grátis • Desbloqueado</span>
+                </div>
+                <div class="creator-swatches" id="acc-swatches-group">
+                  <button type="button" class="swatch-btn active" onclick="setLumiAccessory('none', 'Sem Acessório', this)">
+                    ✨ Sem Acessório
+                  </button>
+                  <button type="button" class="swatch-btn" onclick="setLumiAccessory('glasses', 'Óculos de Grau de Concurseiro', this)">
+                    👓 Óculos de Grau de Concurseiro
+                  </button>
+                  <button type="button" class="swatch-btn" onclick="setLumiAccessory('headphones', 'Fones de Ouvido para Estudo', this)">
+                    🎧 Fones de Ouvido para Estudo
+                  </button>
+                  <button type="button" class="swatch-btn" onclick="setLumiAccessory('both', 'Combo Óculos + Fones de Estudo', this)">
+                    👓+🎧 Combo Foco Total (Óculos + Fones)
+                  </button>
+                </div>
+              </div>
+
+              <div class="creator-row">
+                <div class="creator-row-label">
+                  Visual Base &amp; Poses de Aprovação (Capelo &amp; Diploma) <span class="free-tag-pill">✓ 100% Grátis • Desbloqueado</span>
+                </div>
+                <div class="creator-swatches" id="base-pose-swatches-group">
+                  <button type="button" class="swatch-btn active" id="btn-pose-default" onclick="equipFreeLumiBase('assets/lumi-hero.jpg', 'Lumi Aprovada 🎓', 'Lumi Concurseira Aprovada (Capelo & Diploma)', this)">
+                    🎓 Lumi Padrão (Capelo Preto &amp; Canudo de Formatura)
+                  </button>
+                  <button type="button" class="swatch-btn" id="btn-pose-coach" onclick="equipFreeLumiBase('assets/lumi-coach.jpg', 'Mentora c/ Diploma', 'Lumi Mentora de Banca (Capelo & Diploma)', this)">
+                    📜 Lumi Mentora de Banca (Capelo &amp; Diploma)
+                  </button>
+                  <button type="button" class="swatch-btn" id="btn-pose-celebrate" onclick="equipFreeLumiBase('assets/lumi-celebrate.jpg', 'Nomeação 🎓', 'Lumi Comemorando Aprovação c/ Diploma', this)">
+                    🎉 Lumi Comemorando a Posse (Capelo &amp; Diploma)
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div class="creator-row">
-              <div class="creator-row-label">Roupas de Treino (Dry-Fit)</div>
-              <div class="creator-swatches">
-                <button type="button" class="swatch-btn active" onclick="setAvatarShirt('#0D9488', this)">Teal FitLoom</button>
-                <button type="button" class="swatch-btn" onclick="setAvatarShirt('#FF5722', this)">Laranja Energético</button>
-                <button type="button" class="swatch-btn" onclick="setAvatarShirt('#10B981', this)">Verde Esmeralda</button>
-                <button type="button" class="swatch-btn" onclick="setAvatarShirt('#1E293B', this)">Black Pro</button>
-              </div>
-            </div>
+            <!-- ABA 2: FANTASIAS ÉPICAS (DESBLOQUEÁVEIS POR XP / LIGAS & STUDYLOOM PRO) -->
+            <div class="wardrobe-pane" id="wardrobe-pane-epic">
+              <div class="epic-costumes-grid">
+                <!-- 1. Pijama de Dinossauro -->
+                <div class="epic-costume-card" id="prof-epic-card-dino">
+                  <div>
+                    <div class="epic-costume-thumb">
+                      <img src="assets/lumi-dino.jpg" alt="Lumi Pijama de Dinossauro 3D" />
+                      <span class="epic-tier-badge xp-tier">⚡ RECOMPENSA XP</span>
+                    </div>
+                    <div class="epic-costume-title" style="margin-top: 10px;">🦖 Pijama de Dinossauro</div>
+                    <div class="epic-costume-desc" style="margin-top: 4px;">
+                      Skin realista, fofa e detalhada com capuz de escamas, dentinhos de pelúcia e cauda texturizada para maratonas de estudo noturno.
+                    </div>
+                  </div>
+                  <div>
+                    <div class="epic-unlock-req" style="margin-bottom: 6px;">🔓 Desbloqueável por XP (500 XP)</div>
+                    <button type="button" class="epic-action-btn" id="prof-btn-epic-dino" onclick="equipEpicCostume('dino')">
+                      ⚡ Desbloquear &amp; Equipar (500 XP)
+                    </button>
+                  </div>
+                </div>
 
-            <div class="creator-row">
-              <div class="creator-row-label">Óculos &amp; Acessórios</div>
-              <div class="creator-swatches">
-                <button type="button" class="swatch-btn active" onclick="setAvatarGlasses(false, '#FF5722', this)">Faixa Laranja</button>
-                <button type="button" class="swatch-btn" onclick="setAvatarGlasses(true, '#10B981', this)">🕶️ Óculos Sport + Faixa Esmeralda</button>
-                <button type="button" class="swatch-btn" onclick="setAvatarGlasses(true, '#0D9488', this)">🕶️ Viseira Teal</button>
+                <!-- 2. Toga de Juiz / Magistrado -->
+                <div class="epic-costume-card" id="prof-epic-card-judge">
+                  <div>
+                    <div class="epic-costume-thumb">
+                      <img src="assets/lumi-judge.jpg" alt="Lumi Toga de Juiz Magistrado 3D" />
+                      <span class="epic-tier-badge league-tier">🏆 LIGA MAGISTRATURA</span>
+                    </div>
+                    <div class="epic-costume-title" style="margin-top: 10px;">⚖️ Toga de Juiz / Magistrado</div>
+                    <div class="epic-costume-desc" style="margin-top: 4px;">
+                      Vestimenta solene com jabô branco, detalhes dourados e martelo para quem atingir as Ligas mais altas focadas em carreiras jurídicas.
+                    </div>
+                  </div>
+                  <div>
+                    <div class="epic-unlock-req" style="margin-bottom: 6px;">🏆 Recompensa de Liga Alta / Jurídica</div>
+                    <button type="button" class="epic-action-btn" id="prof-btn-epic-judge" onclick="equipEpicCostume('judge')">
+                      🏆 Equipar Toga de Magistrado
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 3. Farda de Auditor / Fiscal -->
+                <div class="epic-costume-card" id="prof-epic-card-auditor">
+                  <div>
+                    <div class="epic-costume-thumb">
+                      <img src="assets/lumi-auditor.jpg" alt="Lumi Farda de Auditor Fiscal 3D" />
+                      <span class="epic-tier-badge pro-tier">💎 STUDYLOOM PRO</span>
+                    </div>
+                    <div class="epic-costume-title" style="margin-top: 10px;">🛡️ Farda de Auditor / Fiscal</div>
+                    <div class="epic-costume-desc" style="margin-top: 4px;">
+                      Estilo tático oficial com brasão dourado e tablet de fiscalização voltado para concursos de controle e Receita Federal.
+                    </div>
+                  </div>
+                  <div>
+                    <div class="epic-unlock-req" style="margin-bottom: 6px;">💎 Exclusivo Plano Studyloom Pro</div>
+                    <button type="button" class="epic-action-btn pro-btn" id="prof-btn-epic-auditor" onclick="equipEpicCostume('auditor')">
+                      💎 Equipar Farda de Auditor
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="section-block-title">
-            <span>🏅 Medalhas e Conquistas Desbloqueáveis</span>
+            <span>🏅 Medalhas e Conquistas do Concurseiro</span>
             <span style="color: var(--emerald-400);">3 / 4 Conquistadas</span>
           </div>
 
           <div class="achievement-card">
-            <div class="ach-medal">🥗</div>
+            <div class="ach-medal">⚖️</div>
             <div style="flex: 1;">
               <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 900;">
-                <span>Mestre da Dieta</span>
+                <span>Mestre da Lei Seca</span>
                 <span style="color: var(--emerald-400);">Nível MAX</span>
               </div>
               <div style="font-size: 0.78rem; color: var(--text-secondary);">
-                Dominou equivalências de proteína e déficit calórico sem balança.
+                Acertou 50 questões seguidas de Direito Constitucional e Administrativo.
               </div>
               <div class="ach-progress-track">
                 <div class="ach-progress-fill" style="width: 100%;"></div>
@@ -959,11 +1269,11 @@
             <div class="ach-medal">🔥</div>
             <div style="flex: 1;">
               <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 900;">
-                <span>100 Dias de Treino</span>
+                <span>100 Dias de Edital</span>
                 <span style="color: var(--orange-400);">14 / 100</span>
               </div>
               <div style="font-size: 0.78rem; color: var(--text-secondary);">
-                Mantenha sua ofensiva diária com a Lumi 3D para desbloquear.
+                Resolva baterias diárias com a Lumi 3D até a data da sua prova.
               </div>
               <div class="ach-progress-track">
                 <div class="ach-progress-fill" style="width: 28%;"></div>
@@ -973,11 +1283,11 @@
         </section>
 
         <!-- =====================================================
-             TELA DE LIÇÃO (QUIZ INTERATIVO EM STORIES)
+             SIMULADOR DE BATERIA DE QUESTÕES COM CRONÔMETRO DINÂMICO
              ===================================================== -->
-        <section class="app-screen" id="screen-quiz" aria-label="Quiz Interativo">
+        <section class="app-screen" id="screen-quiz" aria-label="Bateria de Questões de Concurso com Cronômetro">
           <div class="quiz-top-bar">
-            <button type="button" class="quiz-close-btn" onclick="switchScreen('trail')" title="Voltar para a Trilha">
+            <button type="button" class="quiz-close-btn" onclick="closeQuizAndReturn()" title="Sair da Bateria">
               ✕
             </button>
             <div class="stories-segments" id="stories-segments">
@@ -990,72 +1300,92 @@
           <article class="story-quiz-card" id="story-quiz-card">
             <div class="story-header-meta">
               <span class="story-pillar-badge nutrition" id="quiz-pillar-badge">
-                🥗 Story 1/3 • Nutrição Prática
+                📚 Questão 1/3 • Língua Portuguesa (FGV)
               </span>
-              <span class="story-xp-pill" id="quiz-xp-pill">+15 XP 🔥</span>
+              <span class="story-xp-pill" id="quiz-xp-pill">Base: +15 XP | Rápido: +30 XP ⚡</span>
             </div>
 
+            <!-- CRONÔMETRO DINÂMICO POR QUESTÃO (Bônus 2x XP abaixo do tempo limite) -->
+            <div class="question-timer-box" id="question-timer-box">
+              <div class="question-timer-top">
+                <span class="timer-countdown-badge" id="timer-countdown-badge">
+                  ⏱️ Tempo da Questão: <span id="timer-seconds-text">30s</span>
+                </span>
+                <span class="bonus-2x-pill" id="bonus-2x-pill">
+                  ⚡ BÔNUS AGILIDADE 2X XP ATIVO!
+                </span>
+              </div>
+              <div class="question-timer-track">
+                <div class="question-timer-fill" id="question-timer-fill"></div>
+              </div>
+            </div>
+
+            <!-- Mentora Lumi 3D apresentando a questão -->
             <div class="quiz-lumi-presenter">
               <div class="quiz-lumi-avatar" id="quiz-lumi-avatar-box">
-                <img src="assets/lumi-hero.jpg" alt="Lumi 3D reagindo ao quiz" id="quiz-lumi-img" />
+                <img src="assets/lumi-hero.jpg" alt="Lumi 3D na questão" id="quiz-lumi-img" />
               </div>
               <div class="quiz-prompt-bubble">
                 <div class="quiz-micro-lesson" id="quiz-micro-tip">
-                  💡 Micro-lição de 30s • Sem contar calorias
+                  💡 Banca FGV • Assunto: Emprego do Sinal Indicativo de Crase
                 </div>
                 <h2 class="quiz-question-title" id="quiz-question-title">
-                  Carregando desafio da Lumi...
+                  Carregando questão oficial...
                 </h2>
               </div>
             </div>
 
+            <!-- Dica / Comando de Apoio da Lumi -->
             <div class="quiz-visual-cue" id="quiz-visual-cue">
-              <div class="cue-icon-box" id="quiz-cue-icon">🖐️</div>
+              <div class="cue-icon-box" id="quiz-cue-icon">📌</div>
               <div id="quiz-cue-text">
-                Regra visual FitLoom: 1 palma da mão de proteína magra ≈ 25g a 30g de proteína pura.
+                Bizu da Lumi: Analise o termo regente e a palavra seguinte antes de marcar!
               </div>
             </div>
 
+            <!-- Alternativas da Questão (Múltipla Escolha ou Certo/Errado Cebraspe) -->
             <div class="quiz-options-list" id="quiz-options-list"></div>
 
+            <!-- Gabarito Comentado pela Lumi 3D -->
             <div class="quiz-feedback-panel" id="quiz-feedback-panel">
               <div class="feedback-header" id="feedback-header">
-                ✨ Mandou muito bem!
+                ✨ Gabarito Comentado pela Lumi:
               </div>
               <p class="feedback-explanation" id="feedback-explanation"></p>
               <button type="button" class="primary-3d-btn" id="btn-next-story" onclick="nextStoryCard()">
-                Continuar Story ➔
+                Próxima Questão ➔
               </button>
             </div>
           </article>
 
+          <!-- Modal de Conclusão da Bateria de Questões -->
           <div class="lesson-complete-modal" id="lesson-complete-modal">
             <div class="celebrate-lumi-box">
               <img src="assets/lumi-celebrate.jpg" alt="Lumi comemorando em 3D" />
             </div>
-            <span class="story-pillar-badge workout">🔥 OFENSIVA BLINDADA!</span>
-            <h2 style="font-size: 1.5rem; font-weight: 900;">Lição Concluída!</h2>
-            <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 360px; font-weight: 600;">
-              A Lumi 3D aumentou sua chama! Você dominou os conceitos práticos de treino e nutrição.
+            <span class="story-pillar-badge workout">🔥 BATERIA DE EDITAL CONCLUÍDA!</span>
+            <h2 style="font-size: 1.5rem; font-weight: 900;">Mais Perto da Nomeação!</h2>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); max-width: 380px; font-weight: 600;">
+              A Lumi 3D registrou suas respostas no Studyloom! Você dominou questões de Português, Direito Constitucional e Raciocínio Lógico.
             </p>
 
             <div class="reward-stats-grid">
               <div class="reward-stat-box">
-                <div class="reward-stat-label">XP Ganho</div>
-                <div class="reward-stat-val">+45 XP</div>
+                <div class="reward-stat-label">XP Total Ganho</div>
+                <div class="reward-stat-val" id="reward-xp-earned">+90 XP</div>
               </div>
               <div class="reward-stat-box">
                 <div class="reward-stat-label">Ofensiva</div>
                 <div class="reward-stat-val">🔥 15d</div>
               </div>
               <div class="reward-stat-box">
-                <div class="reward-stat-label">Precisão</div>
+                <div class="reward-stat-label">Aproveitamento</div>
                 <div class="reward-stat-val" id="reward-acc-val">100%</div>
               </div>
             </div>
 
             <button type="button" class="primary-3d-btn emerald" onclick="finishLessonAndReturn()">
-              Continuar na Trilha 🏆
+              Voltar para a Trilha do Edital 🏆
             </button>
           </div>
         </section>
@@ -1064,11 +1394,10 @@
     </main>
 
     <!-- COLUNA 3: PAINEL LATERAL DIREITO DE ESTATÍSTICAS E LIGAS DA LUMI (DESKTOP) -->
-    <aside class="right-widgets-panel" aria-label="Estatísticas e Ligas da Lumi">
+    <aside class="right-widgets-panel" aria-label="Estatísticas e Ligas de Concurseiros">
 
-      <!-- Barra de Status Superior -->
       <div class="top-stats-bar">
-        <div class="stat-chip streak" onclick="pulseStreakEffect()" title="Dias de Ofensiva em Chamas">
+        <div class="stat-chip streak" onclick="pulseStreakEffect()" title="Dias Seguidos Estudando o Edital">
           <span class="flame-animated">🔥</span>
           <span id="streak-count">14</span>
         </div>
@@ -1084,12 +1413,26 @@
         </div>
       </div>
 
-      <!-- Widget 1: Mascote Oficial 3D Lumi Coach & Meta Diária -->
+      <!-- Widget Studyloom Pro (Duolingo Super CTA) -->
+      <div class="side-widget-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(13, 148, 136, 0.22)); border-color: var(--emerald-500);">
+        <div class="widget-header">
+          <span class="widget-title" style="color: var(--emerald-400);">💎 Studyloom Pro</span>
+          <span style="font-size: 0.68rem; font-weight: 900; background: var(--emerald-500); color: #fff; padding: 2px 8px; border-radius: 999px;">SUPER</span>
+        </div>
+        <div style="font-size: 0.8rem; font-weight: 700; line-height: 1.35;">
+          Ative <strong>Vidas Ilimitadas (❤️ ∞)</strong>, Resumos de Edital por IA e Trilhas Adaptativas com a Lumi!
+        </div>
+        <button type="button" class="primary-3d-btn emerald" style="padding: 10px 14px; font-size: 0.78rem;" onclick="switchScreen('pro')">
+          Testar 7 Dias Grátis ➔
+        </button>
+      </div>
+
+      <!-- Widget 1: Mentora Lumi 3D & Meta Diária de Questões -->
       <div class="side-widget-card">
         <div class="widget-header">
-          <span class="widget-title">🦊 Coach Lumi 3D</span>
+          <span class="widget-title">🦊 Mentora Lumi 3D</span>
           <button type="button" class="widget-link-btn" onclick="triggerLumiPush()">
-            🔔 Ouvir Dica
+            🔔 Bizu Rápido
           </button>
         </div>
 
@@ -1099,17 +1442,17 @@
           </div>
           <div style="flex: 1;">
             <div style="font-size: 0.84rem; font-weight: 800; line-height: 1.32;" id="widget-lumi-quote">
-              "Falta só 1 micro-lição para você cravar sua meta diária de 50 XP!"
+              "Responder abaixo de 30s ativa o Bônus de Agilidade 2x XP nas questões!"
             </div>
             <div style="font-size: 0.72rem; color: var(--emerald-400); font-weight: 800; margin-top: 4px;" id="widget-plan-tag">
-              Foco: Cutting &amp; Supino Reto
+              Foco: Tribunais &amp; MP
             </div>
           </div>
         </div>
 
         <div>
           <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 800; color: var(--text-secondary); margin-bottom: 6px;">
-            <span>Meta Diária de XP</span>
+            <span>Meta Diária do Edital</span>
             <span id="daily-xp-label">35 / 50 XP</span>
           </div>
           <div class="xp-progress-track">
@@ -1118,10 +1461,10 @@
         </div>
       </div>
 
-      <!-- Widget 2: Liga Esmeralda Semanal -->
+      <!-- Widget 2: Liga de Concurseiros -->
       <div class="side-widget-card">
         <div class="widget-header">
-          <span class="widget-title">🏆 Liga Esmeralda</span>
+          <span class="widget-title">🏆 Liga Auditor Esmeralda</span>
           <button type="button" class="widget-link-btn" onclick="switchScreen('leagues')">
             Ver Ranking
           </button>
@@ -1134,36 +1477,8 @@
           <div style="flex: 1;">
             <div style="font-size: 0.88rem; font-weight: 900;">Você está em #2 lugar!</div>
             <div style="font-size: 0.74rem; color: var(--text-secondary); font-weight: 600;">
-              Zona de Promoção para a Liga Titânio
+              Zona de Promoção para a Liga Magistratura
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Widget 3: Missões Diárias Gamificadas -->
-      <div class="side-widget-card">
-        <div class="widget-header">
-          <span class="widget-title">⚡ Missões do Dia</span>
-          <span style="font-size: 0.74rem; font-weight: 800; color: var(--orange-400);">2 / 3</span>
-        </div>
-
-        <div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; margin-bottom: 5px;">
-            <span>🔥 Manter a chama acesa</span>
-            <span style="color: var(--emerald-400);">Concluído</span>
-          </div>
-          <div class="xp-progress-track">
-            <div class="xp-progress-fill" style="width: 100%;"></div>
-          </div>
-        </div>
-
-        <div>
-          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 800; margin-bottom: 5px;">
-            <span>🏋️ Acertar 1 quiz de Biomecânica</span>
-            <span style="color: var(--orange-400);">2 / 3</span>
-          </div>
-          <div class="xp-progress-track">
-            <div class="xp-progress-fill" style="width: 66%;"></div>
           </div>
         </div>
       </div>
@@ -1173,10 +1488,10 @@
   </div>
 
   <!-- BARRA DE NAVEGAÇÃO INFERIOR (Exibida automaticamente no Mobile) -->
-  <nav class="bottom-nav" aria-label="Navegação Inferior Mobile">
+  <nav class="bottom-nav" aria-label="Navegação Inferior Mobile Studyloom">
     <button type="button" class="nav-tab active" id="nav-trail" onclick="switchScreen('trail')">
       <span class="nav-icon">🏠</span>
-      <span>Trilha</span>
+      <span>Edital</span>
     </button>
 
     <button type="button" class="nav-tab" id="nav-leagues" onclick="switchScreen('leagues')">
@@ -1191,7 +1506,12 @@
 
     <button type="button" class="nav-tab" id="nav-shop" onclick="switchScreen('shop')">
       <span class="nav-icon">🦊</span>
-      <span>Lumi Shop</span>
+      <span>Loja</span>
+    </button>
+
+    <button type="button" class="nav-tab" id="nav-pro" onclick="switchScreen('pro')">
+      <span class="nav-icon">💎</span>
+      <span>Pro</span>
     </button>
 
     <button type="button" class="nav-tab" id="nav-profile" onclick="switchScreen('profile')">
