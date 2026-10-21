@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useCountdown } from '../../hooks/useCountdown'
 import type { Question } from '../../data/questions'
+import { asset } from '../../utils/asset'
 
 export interface AnswerResult {
   correct: boolean
@@ -58,9 +59,9 @@ export default function QuestionCard({
     pillText = '⏱️ BÔNUS 2X ENCERRADO (XP NORMAL)'
   }
 
-  let lumiSrc = question.type === 'true_false' ? '/assets/lumi-coach.webp' : '/assets/lumi-hero.webp'
+  let lumiSrc = question.type === 'true_false' ? asset('/assets/lumi-coach.webp') : asset('/assets/lumi-hero.webp')
   if (result) {
-    lumiSrc = result.correct ? '/assets/lumi-celebrate.webp' : '/assets/lumi-coach.webp'
+    lumiSrc = result.correct ? asset('/assets/lumi-celebrate.webp') : asset('/assets/lumi-coach.webp')
   }
 
   let feedbackTitle = ''

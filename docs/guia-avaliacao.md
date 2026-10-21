@@ -10,6 +10,12 @@ O app é React 19 com TypeScript, Vite, Zustand e React Router. Ainda não exist
 
 ## Como rodar
 
+### Jeito mais fácil: pelo navegador
+
+Abra **https://samirsousa.github.io/fitloom/** no computador ou no celular. Não precisa instalar nada. No celular, o navegador oferece "Instalar app" (Android) ou "Adicionar à Tela de Início" (iPhone, pelo botão de compartilhar), e o app passa a abrir em tela cheia e até sem internet.
+
+O site é atualizado sozinho a cada mudança na `main`. Se quiser rodar o código na sua máquina, siga os passos abaixo.
+
 ### Requisitos
 
 - Git
@@ -99,8 +105,9 @@ Teste em uma janela larga (desktop) e também abaixo de 720 px. No Chrome: F12, 
 - [ ] Recarregue a página (F5): XP, ofensiva, compras, Lumi, tema e som continuam iguais.
 - [ ] "Apagar meu progresso" volta tudo ao início (o tema e o som ficam).
 
-### 8. App instalável e offline (versão de produção, porta 4173)
+### 8. App instalável e offline (pelo link do site ou pela versão de produção na porta 4173)
 - [ ] O ícone da Lumi aparece na aba, e a barra de endereço oferece "Instalar Studyloom".
+- [ ] No celular, instale pelo link do site e abra pelo ícone: o app abre em tela cheia.
 - [ ] Depois de abrir uma vez, em F12 > Application > Service Workers, marque "Offline" e recarregue: o app continua abrindo.
 
 ### 9. Acessibilidade

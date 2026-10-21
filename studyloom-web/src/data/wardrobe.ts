@@ -1,3 +1,5 @@
+import { asset } from '../utils/asset'
+
 export type FurKey = 'classic' | 'urban-grey' | 'cream'
 export type AccessoryKey = 'none' | 'glasses' | 'headphones' | 'both'
 export type BasePoseKey = 'hero' | 'coach' | 'celebrate'
@@ -76,7 +78,7 @@ export const accessoryOptions: AccessoryOption[] = [
     label: 'Óculos de Grau de Concurseiro',
     buttonLabel: '👓 Óculos de Grau de Concurseiro',
     look: {
-      imgPath: '/assets/lumi-hero-glasses.webp',
+      imgPath: asset('/assets/lumi-hero-glasses.webp'),
       skinTag: 'Lumi de Óculos 👓',
       skinTitle: 'Lumi Padrão com Óculos de Grau',
     },
@@ -86,7 +88,7 @@ export const accessoryOptions: AccessoryOption[] = [
     label: 'Fones de Ouvido para Estudo',
     buttonLabel: '🎧 Fones de Ouvido para Estudo',
     look: {
-      imgPath: '/assets/lumi-hero-headphones.webp',
+      imgPath: asset('/assets/lumi-hero-headphones.webp'),
       skinTag: 'Lumi de Fones 🎧',
       skinTitle: 'Lumi Padrão com Fones de Estudo',
     },
@@ -96,7 +98,7 @@ export const accessoryOptions: AccessoryOption[] = [
     label: 'Combo Óculos + Fones de Estudo',
     buttonLabel: '👓+🎧 Combo Foco Total (Óculos + Fones)',
     look: {
-      imgPath: '/assets/lumi-hero-both.webp',
+      imgPath: asset('/assets/lumi-hero-both.webp'),
       skinTag: 'Foco Total 👓🎧',
       skinTitle: 'Lumi Padrão no Foco Total (Óculos + Fones)',
     },
@@ -109,21 +111,21 @@ export const ACCESSORY_POSE: BasePoseKey = 'hero'
 export const basePoses: BasePose[] = [
   {
     key: 'hero',
-    imgPath: '/assets/lumi-hero.webp',
+    imgPath: asset('/assets/lumi-hero.webp'),
     skinTag: 'Lumi Aprovada 🎓',
     skinTitle: 'Lumi Concurseira Aprovada (Capelo & Diploma)',
     buttonLabel: '🎓 Lumi Padrão (Capelo Preto & Canudo de Formatura)',
   },
   {
     key: 'coach',
-    imgPath: '/assets/lumi-coach.webp',
+    imgPath: asset('/assets/lumi-coach.webp'),
     skinTag: 'Mentora c/ Diploma',
     skinTitle: 'Lumi Mentora de Banca (Capelo & Diploma)',
     buttonLabel: '📜 Lumi Mentora de Banca (Capelo & Diploma)',
   },
   {
     key: 'celebrate',
-    imgPath: '/assets/lumi-celebrate.webp',
+    imgPath: asset('/assets/lumi-celebrate.webp'),
     skinTag: 'Nomeação 🎓',
     skinTitle: 'Lumi Comemorando Aprovação c/ Diploma',
     buttonLabel: '🎉 Lumi Comemorando a Posse (Capelo & Diploma)',
@@ -133,7 +135,7 @@ export const basePoses: BasePose[] = [
 export const epicCostumes: EpicCostume[] = [
   {
     id: 'dino',
-    imgPath: '/assets/lumi-dino.webp',
+    imgPath: asset('/assets/lumi-dino.webp'),
     imgAlt: 'Lumi Pijama de Dinossauro 3D',
     skinTag: '🦖 Lumi Dino 3D',
     skinTitle: 'Fantasia Épica: Pijama de Dinossauro 🦖',
@@ -150,7 +152,7 @@ export const epicCostumes: EpicCostume[] = [
   },
   {
     id: 'judge',
-    imgPath: '/assets/lumi-judge.webp',
+    imgPath: asset('/assets/lumi-judge.webp'),
     imgAlt: 'Lumi Toga de Juiz Magistrado 3D',
     skinTag: '⚖️ Lumi Magistrada',
     skinTitle: 'Fantasia Épica: Toga de Juiz / Magistrado ⚖️',
@@ -167,7 +169,7 @@ export const epicCostumes: EpicCostume[] = [
   },
   {
     id: 'auditor',
-    imgPath: '/assets/lumi-auditor.webp',
+    imgPath: asset('/assets/lumi-auditor.webp'),
     imgAlt: 'Lumi Farda de Auditor Fiscal 3D',
     skinTag: '🛡️ Lumi Auditora',
     skinTitle: 'Fantasia Épica: Farda de Auditor / Fiscal 🛡️',

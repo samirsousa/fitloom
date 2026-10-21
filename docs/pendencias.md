@@ -25,7 +25,7 @@ Lista do que ainda falta antes de um lançamento. As decisões e o histórico da
 ## Testes pendentes
 
 - Sons e vibração da Etapa 5 (o dono do projeto testa em casa): som no desktop, vibração no Android e o primeiro som no iPhone.
-- Instalação do PWA no Chrome e no celular (Etapa 8).
+- Instalação do PWA no Chrome e no celular (Etapa 8), agora possível pelo link do GitHub Pages (https://samirsousa.github.io/fitloom/).
 
 ## Revisões futuras
 
@@ -35,5 +35,5 @@ Lista do que ainda falta antes de um lançamento. As decisões e o histórico da
 
 - Configurar no servidor de hospedagem os cabeçalhos de segurança: `Content-Security-Policy`, `X-Content-Type-Options: nosniff`, `Referrer-Policy` e `Permissions-Policy`. Não foram postos no `index.html` porque a CSP por meta quebra o servidor de desenvolvimento do Vite.
 - Fontes: Nunito e Plus Jakarta Sans vêm do Google Fonts, o que envia o IP do usuário ao Google (ponto de atenção na LGPD) e deixa o app sem essas fontes quando está offline. Antes do lançamento, hospedar as fontes no próprio site.
-- Servir só por HTTPS (o service worker exige HTTPS fora do localhost).
+- Servir só por HTTPS (o service worker exige HTTPS fora do localhost). O GitHub Pages já serve por HTTPS, mas não permite configurar os cabeçalhos de segurança acima; para o lançamento, avaliar uma hospedagem que permita.
 - O `localStorage` guarda só progresso e preferências (nome de exibição incluso). Nenhum dado sensível deve ir para lá; com o backend, o token de sessão não deve ficar no `localStorage`.

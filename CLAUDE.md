@@ -74,7 +74,7 @@ src/
 - Um componente por arquivo, nome em PascalCase. Hooks começam com `use`.
 - Navegação por `useNavigate`. Os itens da barra lateral e da inferior são botões, como no protótipo.
 - As telas usam `<section className="app-screen active" id="screen-...">`, porque o CSS esconde `.app-screen` sem `active`.
-- Imagens são servidas de `/assets/...` (pasta `public/assets`), em WebP. Imagem nova: 1024 x 1024 na origem, convertida para WebP de 768 px.
+- Imagens são servidas de `public/assets`, em WebP, sempre por `asset('/assets/...')` (`src/utils/asset.ts`), que respeita o `base` do Vite. Nunca escreva `/assets/...` direto no código, porque no GitHub Pages o app vive em `/fitloom/`. Imagem nova: 1024 x 1024 na origem, convertida para WebP de 768 px.
 - Elemento clicável que não é `<button>`: use `pressable()` de `src/utils/a11y.ts` (foco e Enter/Espaço).
 - Telas novas entram com `React.lazy` em `App.tsx`. Só a Trilha fica no pacote principal.
 
@@ -340,6 +340,14 @@ Esta etapa exige uma nova dependência, então peça aprovação antes (a sugest
 4. Teste a instalação no Chrome e no celular.
 
 Commit: `feat: PWA`.
+
+## Publicação (GitHub Pages)
+
+- O app é publicado em https://samirsousa.github.io/fitloom/ pelo workflow `.github/workflows/pages.yml`, a cada push na `main` (lint, build, `404.html` para as rotas e deploy).
+- O `vite.config.ts` lê o `base` da variável `PAGES_BASE` (definida só no workflow). Localmente ela não existe e o app fica na raiz. Essa foi a única mudança autorizada no arquivo (21/10/2026).
+- O roteador usa `basename={import.meta.env.BASE_URL}`. O service worker e o manifest usam caminhos relativos ao local onde são publicados.
+- As ações do workflow são as oficiais do GitHub, fixadas por hash de commit, com permissões mínimas por job. Para atualizar uma ação, troque o hash e o comentário com a versão.
+- A `main` passou a ser a branch publicada. Trabalho em andamento continua em `feat/migracao-react` e vai para a `main` quando o dono do projeto pedir.
 
 ## Depois do front: backend (Fase 1)
 

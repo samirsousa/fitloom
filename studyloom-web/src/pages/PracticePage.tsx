@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { flashcards, weakPoints } from '../data/errorNotebook'
 import AdSlot from '../components/ads/AdSlot'
 import { useFeedback } from '../hooks/useFeedback'
+import { asset } from '../utils/asset'
 
 export default function PracticePage() {
   const navigate = useNavigate()
@@ -32,7 +33,7 @@ export default function PracticePage() {
 
       <div className="practice-hero-banner">
         <div className="practice-hero-lumi">
-          <img src="/assets/lumi-coach.webp" alt="Lumi Mentora" />
+          <img src={asset('/assets/lumi-coach.webp')} alt="Lumi Mentora" />
         </div>
         <div style={{ flex: 1 }}>
           <div

@@ -8,26 +8,29 @@
 const CACHE = 'studyloom-v1'
 const MAX_ENTRIES = 80
 
+// Pasta onde o app está publicado: "/" localmente, "/fitloom/" no GitHub Pages
+const BASE = new URL('./', self.location).pathname
+
 // O mínimo para abrir sem internet: a página, o manifest, os ícones e as imagens da Lumi
 const SHELL = [
-  '/',
-  '/manifest.webmanifest',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/icons/favicon-48.png',
-  '/assets/lumi-hero.webp',
-  '/assets/lumi-coach.webp',
-  '/assets/lumi-celebrate.webp',
-  '/assets/lumi-auditor.webp',
-  '/assets/lumi-dino.webp',
-  '/assets/lumi-judge.webp',
-  '/assets/lumi-hero-glasses.webp',
-  '/assets/lumi-hero-headphones.webp',
-  '/assets/lumi-hero-both.webp',
-]
+  '',
+  'manifest.webmanifest',
+  'icons/icon-192.png',
+  'icons/icon-512.png',
+  'icons/favicon-48.png',
+  'assets/lumi-hero.webp',
+  'assets/lumi-coach.webp',
+  'assets/lumi-celebrate.webp',
+  'assets/lumi-auditor.webp',
+  'assets/lumi-dino.webp',
+  'assets/lumi-judge.webp',
+  'assets/lumi-hero-glasses.webp',
+  'assets/lumi-hero-headphones.webp',
+  'assets/lumi-hero-both.webp',
+].map((path) => BASE + path)
 
 // Arquivos gerados pelo build têm hash no nome e nunca mudam de conteúdo
-const HASHED = /^\/assets\/.+-[A-Za-z0-9_-]{8}\.(js|css)$/
+const HASHED = /\/assets\/[^/]+-[A-Za-z0-9_-]{8}\.(js|css)$/
 
 function cacheable(response) {
   return response && response.status === 200 && response.type === 'basic'
@@ -45,11 +48,13 @@ async function put(request, response) {
 
 // Guarda também o JS e o CSS principais citados na página, para o app abrir offline
 async function cacheEntryAssets(cache) {
-  const response = await fetch('/', { cache: 'no-store' })
+  const response = await fetch(BASE, { cache: 'no-store' })
   if (!cacheable(response)) return
-  await cache.put('/', response.clone())
+  await cache.put(BASE, response.clone())
   const html = await response.text()
-  const assets = [...html.matchAll(/(?:src|href)="(\/assets\/[^"]+\.(?:js|css))"/g)].map((m) => m[1])
+  const assets = [...html.matchAll(/(?:src|href)="([^"]*\/assets\/[^"]+\.(?:js|css))"/g)]
+    .map((m) => new URL(m[1], self.location).pathname)
+    .filter((path) => path.startsWith(BASE))
   await cache.addAll(assets)
 }
 
@@ -76,17 +81,17 @@ self.addEventListener('fetch', (event) => {
   const { request } = event
   if (request.method !== 'GET') return
   const url = new URL(request.url)
-  if (url.origin !== self.location.origin) return
+  if (url.origin !== self.location.origin || !url.pathname.startsWith(BASE)) return
 
   // Navegação (SPA): rede primeiro; sem internet, a página guardada
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
         .then((response) => {
-          if (cacheable(response)) put('/', response.clone())
+          if (cacheable(response)) put(BASE, response.clone())
           return response
         })
-        .catch(() => caches.match('/')),
+        .catch(() => caches.match(BASE)),
     )
     return
   }

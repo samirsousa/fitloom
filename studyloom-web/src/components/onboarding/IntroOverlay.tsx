@@ -7,6 +7,7 @@ import { useGameStore } from '../../store/useGameStore'
 import { useIntroStore } from '../../store/useIntroStore'
 import { useLumiPush } from '../../store/useLumiPush'
 import LumiSplashFace from './LumiSplashFace'
+import { asset } from '../../utils/asset'
 
 const SPLASH_MS = 1800
 // Duração da transição de .intro-overlay.hidden no CSS
@@ -170,7 +171,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-0">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-hero.webp"
+                src={asset('/assets/lumi-hero.webp')}
                 alt="Lumi 3D sorrindo e fazendo um joinha"
                 className="lumi-thumbsup-img"
               />
@@ -198,7 +199,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-1">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-hero.webp"
+                src={asset('/assets/lumi-hero.webp')}
                 alt="Lumi 3D perguntando sua carreira-alvo"
                 className="lumi-thumbsup-img"
               />
@@ -233,7 +234,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-2">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-coach.webp"
+                src={asset('/assets/lumi-coach.webp')}
                 alt="Lumi Coach definindo sua meta diária"
                 className="lumi-thumbsup-img"
               />
@@ -268,7 +269,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-3">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-celebrate.webp"
+                src={asset('/assets/lumi-celebrate.webp')}
                 alt="Lumi 3D entregando sua Trilha do Edital"
                 className="lumi-thumbsup-img"
               />

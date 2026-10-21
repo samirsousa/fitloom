@@ -5,6 +5,7 @@ import { HEART_REFILL_COST, useGameStore } from '../store/useGameStore'
 import QuestionCard, { type AnswerResult } from '../components/quiz/QuestionCard'
 import AdSlot from '../components/ads/AdSlot'
 import { useFeedback } from '../hooks/useFeedback'
+import { asset } from '../utils/asset'
 
 export default function QuizPage() {
   const navigate = useNavigate()
@@ -91,7 +92,7 @@ export default function QuizPage() {
         {topBar}
         <div className="lesson-complete-modal visible">
           <div className="celebrate-lumi-box">
-            <img src="/assets/lumi-celebrate.webp" alt="Lumi comemorando" />
+            <img src={asset('/assets/lumi-celebrate.webp')} alt="Lumi comemorando" />
           </div>
           <span className="story-pillar-badge workout">🔥 BATERIA DE EDITAL CONCLUÍDA!</span>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 900 }}>Mais perto da nomeação!</h2>
