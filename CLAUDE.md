@@ -40,7 +40,8 @@ Documents\studyloom\       raiz do repositório git
     assets\                imagens da Lumi usadas pelo protótipo
   studyloom-web\           app React (onde se trabalha)
   studyloom-api\           backend Spring Boot (ainda não existe)
-  docs\                    pendencias.md (o que falta antes do lançamento) e brand\ (arte original do ícone)
+  docs\                    guia-avaliacao.md (como rodar e testar), pendencias.md (o que falta antes do lançamento) e brand\ (artes originais)
+  README.md                apresentação curta do repositório
 ```
 
 Estrutura atual de `studyloom-web`:
