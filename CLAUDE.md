@@ -47,6 +47,8 @@ Estrutura atual de `studyloom-web`:
 
 ```
 public/assets/             imagens da Lumi em WebP 768 px (lumi-hero.webp, lumi-celebrate.webp, lumi-coach.webp e as fantasias)
+public/icons/              ícones do app (favicon, 180, 192, 512 e maskable)
+public/manifest.webmanifest e public/sw.js   PWA (service worker próprio, sem dependência)
 src/
   main.tsx                 BrowserRouter + QueryClientProvider
   App.tsx                  rotas
@@ -319,7 +321,15 @@ Resultado: build, lint e tsc sem erros; `npm audit` sem vulnerabilidades. Testad
 
 Commit: `chore: polimento e pendencias`.
 
-### Etapa 8: PWA
+### Etapa 8: PWA (concluída em 21/10/2026)
+
+Resultado: testado no build de produção (`npm run preview`) com o Edge headless (o service worker ativa, guarda só arquivos do próprio site e o app abre com a rede cortada) e no navegador pelo dono do projeto. Falta a instalação no celular, que exige o app publicado com HTTPS. Decisões (21/10/2026):
+
+- Sem `vite-plugin-pwa`: service worker próprio em `public/sw.js`, por segurança (menos código de terceiros). Só GET do próprio site com status 200; navegação com rede primeiro; arquivos com hash com cache primeiro; demais arquivos respondem do cache e atualizam em segundo plano; cache versionado (`studyloom-v1`) com limite de entradas.
+- Registro só no build de produção (`src/registerServiceWorker.ts`), para o `npm run dev` não servir arquivos antigos.
+- Ícone: a arte do colega (`docs/brand/icone-lumi-original.jpg`), recortada na cabeça com o capelo e sem o texto "LUMI". Tamanhos 48 (favicon), 180 (iPhone), 192, 512 e maskable 512 com margem.
+- Restos do template do Vite (`favicon.svg` e `icons.svg`) removidos.
+- Cabeçalhos de segurança (CSP e outros) ficam para a hospedagem, registrados em `docs/pendencias.md`.
 
 Esta etapa exige uma nova dependência, então peça aprovação antes (a sugestão é `vite-plugin-pwa`).
 
