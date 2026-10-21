@@ -109,17 +109,18 @@ O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use
 - Comunidade, com o botão de incentivo e o banner de push da Lumi.
 - Loja da Lumi: vitrine do avatar, fantasias épicas com regras de desbloqueio (XP, top 3 da liga, Pro), recarga de vidas e congelamento de ofensiva. Avatar compartilhado no app.
 - Perfil: dados do store, taxa de acerto real, guarda-roupa (pelagem, pose base e épicas) e conquistas.
+- Pro: planos anual e mensal, assinatura e cancelamento simulados, identidade dourada e espaços de anúncio (da casa) que somem no Pro.
 
 ## O que falta no front
 
-Pro, onboarding, sons, partículas, persistência local, polimento e PWA. A tela Pro hoje é `PlaceholderPage`.
+Onboarding, sons, partículas, persistência local, polimento e PWA.
 
 ## Pontos em aberto para debate
 
 Itens levantados na Etapa 0 que ainda não têm decisão. Discuta com o dono do projeto antes de alterar.
 
-1. Card Pro do painel direito: usa a paleta verde esmeralda e o texto "Testar 7 dias grátis". O relatório recomenda afastar a paleta esmeralda, e o teste grátis ainda não foi decidido. Sugestão: tratar na Etapa 3 (Pro).
-2. Nome das ligas: a mensagem do baú cita "Liga Auditor Esmeralda", e o relatório recomenda evitar ligas com nome de pedras ou gemas. Sugestão: tratar na Etapa 3, junto com a identidade da tela Pro.
+1. Card Pro do painel direito: resolvido na Etapa 3 (paleta dourada, sem teste grátis).
+2. Nome das ligas: resolvido na Etapa 3 (escada por cargo, sem gemas).
 3. Valores iniciais do store: ofensiva 14 e 1.420 XP vêm do protótipo, como dados de demonstração. Decidir na Etapa 6 (persistência) se um usuário novo começa do zero.
 4. LEMBRETE PARA O DONO DO PROJETO: criar imagens próprias da Lumi com acessórios (óculos de grau, fones e o combo), em cada pose base (hero, coach, celebrate). Os SVGs sobrepostos do protótipo não encaixam nas imagens 3D, por isso os acessórios estão desligados (`ACCESSORIES_ENABLED = false` em `src/data/wardrobe.ts`). Alternativa de longo prazo: a Lumi animada em Rive ou Lottie, com acessórios como camadas. Quando as imagens existirem, religar a chave e trocar a exibição por imagem.
 
@@ -193,7 +194,19 @@ Decisões tomadas na análise (20/10/2026), que prevalecem sobre os itens abaixo
 
 Commit: `feat: tela de perfil`.
 
-### Etapa 3: Pro
+### Etapa 3: Pro (concluída em 21/10/2026)
+
+Resultado: build, lint e tsc sem erros. Testado no navegador pelo dono do projeto, em desktop e mobile: escolha de plano (mouse e teclado), assinatura e cancelamento, vidas infinitas e sem perda no Pro, Farda de Auditor equipada e desequipada, card do painel direito, anúncios aparecendo sem Pro e sumindo com Pro, tema claro.
+
+Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo:
+
+- Identidade do Pro em dourado (tokens `--gold-*` em `index.css`), no lugar do verde esmeralda. Vale para a tela Pro, o card do painel direito, o botão Pro da barra lateral, o selo e o botão Pro das épicas e a marca "PRO" das Ligas.
+- Texto sem promessa: o hero fala só de vidas ilimitadas e da Farda de Auditor. Só aparece como benefício o que funciona hoje. Os recursos planejados (resumos por IA, trilha adaptativa, baterias avançadas) ficam marcados como "EM BREVE", com aviso de que ainda não fazem parte da assinatura. O Pro libera só a Farda de Auditor (Toga e Dino seguem as regras da Etapa 1) e não dá congelamentos mensais.
+- Tela enxuta, em 3 blocos: hero só com selo e título; "O que muda no Pro" em linhas compactas (vidas, Farda de Auditor, anúncios), que substitui a tabela Grátis x Pro e os cards de benefícios; planos e botão. Os recursos planejados viram uma linha "EM BREVE" no rodapé. A fita "-50%" virou "Economia de R$ 360 no ano", calculada a partir dos preços em `src/data/proPlans.ts`.
+- Sem teste grátis no MVP. O botão diz "Assinar plano anual/mensal", com a nota "Simulação: nenhuma cobrança é feita". Há um link "Cancelar assinatura (simulação)" para testes.
+- Assinar e cancelar ficam em `useProSubscription`. Assinar liga `isPro` e `proPlan`, equipa o Auditor e mostra o banner. Cancelar desequipa o Auditor. Som e partículas entram na Etapa 5.
+- Ligas: escada por cargo (Técnico, Analista, Auditor, Magistratura). O usuário está na Liga Auditor, e `LEAGUE_NAME` é usado em todo texto de liga.
+- Anúncios (opção B): componente `AdSlot`, que não aparece no Pro, na conclusão da bateria e no Caderno de Erros, nunca durante a questão. O painel direito fica sem anúncio, porque já tem o card do Pro. Por enquanto mostra anúncios da casa (`src/data/ads.ts`). A rede real (AdSense) só entra depois de ter domínio próprio, política de privacidade e consentimento conforme a LGPD, trocando o conteúdo apenas no `AdSlot`. "Sem anúncios" entrou nos benefícios do Pro.
 
 1. Leia a tela Pro e as funções `selectProPlan` e `activateStudyloomPro`.
 2. Migre a tela com a escolha de plano e a ativação, que muda `isPro` no store. Ela continua simulada, porque o pagamento real só existe no backend. Marque `TODO backend` onde entrar Pix e cartão.

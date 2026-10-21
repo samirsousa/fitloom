@@ -30,27 +30,34 @@ export default function RightPanel() {
       <div
         className="side-widget-card"
         style={{
-          background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.16), rgba(13, 148, 136, 0.22))',
-          borderColor: 'var(--emerald-500)',
+          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(180, 83, 9, 0.2))',
+          borderColor: 'var(--gold-500)',
         }}
       >
         <div className="widget-header">
-          <span className="widget-title" style={{ color: 'var(--emerald-400)' }}>
+          <span className="widget-title" style={{ color: 'var(--gold-500)' }}>
             💎 Studyloom Pro
           </span>
         </div>
-        <div style={{ fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.35 }}>
-          Ative <strong>vidas ilimitadas</strong>, resumos de edital por IA e trilhas adaptativas
-          com a Lumi.
-        </div>
-        <button
-          type="button"
-          className="primary-3d-btn emerald"
-          style={{ padding: '10px 14px', fontSize: '0.78rem' }}
-          onClick={() => navigate('/pro')}
-        >
-          Testar 7 dias grátis ➔
-        </button>
+        {isPro ? (
+          <div style={{ fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.35 }}>
+            ✅ Pro ativo: <strong>vidas ilimitadas</strong> e Farda de Auditor liberadas.
+          </div>
+        ) : (
+          <>
+            <div style={{ fontSize: '0.8rem', fontWeight: 700, lineHeight: 1.35 }}>
+              Estude com <strong>vidas ilimitadas</strong> e libere a Farda de Auditor da Lumi.
+            </div>
+            <button
+              type="button"
+              className="primary-3d-btn gold"
+              style={{ padding: '10px 14px', fontSize: '0.78rem' }}
+              onClick={() => navigate('/pro')}
+            >
+              Conhecer os planos ➔
+            </button>
+          </>
+        )}
       </div>
 
       <div className="side-widget-card">

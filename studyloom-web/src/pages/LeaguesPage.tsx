@@ -66,7 +66,7 @@ export default function LeaguesPage() {
                     {entry.name}
                     {entry.isMe && ' (Você)'}{' '}
                     {entry.isPro && (
-                      <span style={{ color: 'var(--emerald-400)', fontSize: '0.72rem' }}>
+                      <span style={{ color: 'var(--gold-500)', fontSize: '0.72rem' }}>
                         💎 PRO
                       </span>
                     )}

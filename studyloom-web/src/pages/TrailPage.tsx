@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { LEAGUE_NAME } from '../data/leagueRivals'
 import { lumiTrailSpeeches, trailNodes, type TrailAction } from '../data/trailNodes'
 import { useLeague } from '../hooks/useLeague'
 import { useGameStore } from '../store/useGameStore'
@@ -21,7 +22,7 @@ export default function TrailPage() {
     } else if (action.type === 'route') {
       navigate(action.to)
     } else if (claimChest()) {
-      showPush('🎁 BAÚ DO APROVADO ABERTO! +50 XP adicionados ao seu ranking na Liga Auditor Esmeralda!')
+      showPush(`🎁 BAÚ DO APROVADO ABERTO! +50 XP adicionados ao seu ranking na ${LEAGUE_NAME}!`)
     }
   }
 

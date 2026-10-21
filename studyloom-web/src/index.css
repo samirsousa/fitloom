@@ -20,8 +20,11 @@
 
   --heart-red: #FF4B4B;
   --heart-red-dark: #C93030;
+  --gold-400: #FBBF24;
   --gold-500: #F59E0B;
   --gold-600: #D97706;
+  --gold-700: #B45309;
+  --gold-glow: rgba(245, 158, 11, 0.32);
 
   /* Dark Mode Elegante e Fluido (Padrão) */
   --bg-app: #0B1219;
@@ -44,6 +47,7 @@
   --orange-tint: rgba(255, 87, 34, 0.15);
   --emerald-tint: rgba(16, 185, 129, 0.15);
   --teal-tint: rgba(13, 148, 136, 0.18);
+  --gold-tint: rgba(245, 158, 11, 0.15);
 }
 
 [data-theme="light"] {
@@ -66,6 +70,7 @@
   --orange-tint: #FFF0EB;
   --emerald-tint: #D1FAE5;
   --teal-tint: #CCFBF1;
+  --gold-tint: #FEF3C7;
 }
 
 * {
@@ -1591,6 +1596,11 @@ html, body {
   box-shadow: 0 5px 0 var(--emerald-700);
 }
 
+.primary-3d-btn.gold {
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+  box-shadow: 0 5px 0 var(--gold-700);
+}
+
 .lesson-complete-modal {
   background: var(--surface-card);
   border: 2px solid var(--emerald-500);
@@ -1641,19 +1651,19 @@ html, body {
    3. TELA DE PLANOS PAGOS: STUDYLOOM PRO
    ============================================================================ */
 .sidebar-nav-btn.pro-tab {
-  background: linear-gradient(135deg, rgba(255, 87, 34, 0.14), rgba(16, 185, 129, 0.18));
-  border-color: rgba(16, 185, 129, 0.45);
-  color: var(--emerald-400);
+  background: linear-gradient(135deg, rgba(255, 87, 34, 0.14), rgba(245, 158, 11, 0.18));
+  border-color: rgba(245, 158, 11, 0.45);
+  color: var(--gold-400);
 }
 
 [data-theme="light"] .sidebar-nav-btn.pro-tab {
-  color: var(--emerald-700);
+  color: var(--gold-700);
 }
 
 .pro-hero-card {
-  background: linear-gradient(135deg, #111C2D 0%, #0D3B38 52%, #1B2838 100%);
-  border: 2.5px solid var(--emerald-500);
-  box-shadow: 0 8px 0 var(--emerald-700), 0 20px 44px -10px var(--emerald-glow);
+  background: linear-gradient(135deg, #111C2D 0%, #3A2A0E 52%, #1B2838 100%);
+  border: 2.5px solid var(--gold-500);
+  box-shadow: 0 8px 0 var(--gold-700), 0 20px 44px -10px var(--gold-glow);
   border-radius: 30px;
   padding: 26px;
   display: grid;
@@ -1692,7 +1702,7 @@ html, body {
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  background: linear-gradient(90deg, var(--orange-500), var(--emerald-500));
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-700));
   color: #FFFFFF;
   margin-bottom: 8px;
 }
@@ -1717,7 +1727,7 @@ html, body {
 }
 
 .pro-benefit-card:hover {
-  border-color: var(--emerald-500);
+  border-color: var(--gold-500);
   transform: translateY(-2px);
 }
 
@@ -1725,7 +1735,7 @@ html, body {
   width: 46px;
   height: 46px;
   border-radius: 14px;
-  background: var(--emerald-tint);
+  background: var(--gold-tint);
   display: grid;
   place-items: center;
   font-size: 1.45rem;
@@ -1801,22 +1811,191 @@ html, body {
 }
 
 .pro-plan-card.selected {
-  border-color: var(--emerald-500);
-  background: var(--emerald-tint);
-  box-shadow: 0 5px 0 var(--emerald-700);
+  border-color: var(--gold-500);
+  background: var(--gold-tint);
+  box-shadow: 0 5px 0 var(--gold-700);
 }
 
 .pro-plan-ribbon {
   position: absolute;
   top: -11px;
   right: 14px;
-  background: linear-gradient(135deg, var(--orange-500), var(--orange-400));
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
   color: #FFFFFF;
   font-size: 0.66rem;
   font-weight: 900;
   text-transform: uppercase;
   padding: 3px 10px;
   border-radius: 999px;
+}
+
+/* Linha discreta com os recursos planejados */
+.pro-upcoming-line {
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 22px;
+}
+
+.pro-soon-pill {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Bloco "O que muda no Pro": só as diferenças, de / para */
+.pro-diff-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.pro-diff-row:last-child {
+  border-bottom: none;
+}
+
+.pro-diff-icon {
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+.pro-diff-change {
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.pro-diff-change strong {
+  color: var(--gold-500);
+}
+
+[data-theme="light"] .pro-diff-change strong {
+  color: var(--gold-700);
+}
+
+.btn-vamos-iniciar.pro-gold {
+  background: linear-gradient(135deg, var(--gold-500) 0%, var(--gold-600) 100%);
+  box-shadow: 0 6px 0 var(--gold-700), 0 14px 28px var(--gold-glow);
+}
+
+.btn-vamos-iniciar.pro-gold:active {
+  box-shadow: 0 2px 0 var(--gold-700);
+}
+
+.pro-simulation-note {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.pro-active-card {
+  background: var(--gold-tint);
+  border: 2.5px solid var(--gold-500);
+  box-shadow: 0 5px 0 var(--gold-700);
+  border-radius: 22px;
+  padding: 18px;
+  margin-bottom: 14px;
+  font-weight: 800;
+}
+
+.pro-cancel-link {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+/* Espaço de anúncio do plano gratuito (some no Pro) */
+.ad-slot {
+  width: 100%;
+  background: var(--surface-muted);
+  border: 1.5px dashed var(--border-subtle);
+  border-radius: 18px;
+  padding: 12px 14px;
+  margin-top: 16px;
+  text-align: left;
+}
+
+.ad-slot-label {
+  font-size: 0.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.ad-slot-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ad-slot-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: var(--surface-card);
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.ad-slot-title {
+  font-size: 0.82rem;
+  font-weight: 900;
+  color: var(--text-primary);
+}
+
+.ad-slot-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+.ad-slot-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ad-slot-remove {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 44px;
 }
 
 @media (max-width: 720px) {
@@ -2452,7 +2631,7 @@ html, body {
 }
 
 .epic-tier-badge.pro-tier {
-  background: linear-gradient(135deg, #FF5722, #0D9488);
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-700));
 }
 
 .epic-costume-title {
@@ -2494,8 +2673,8 @@ html, body {
 }
 
 .epic-action-btn.pro-btn {
-  background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
-  box-shadow: 0 3px 0 var(--orange-700);
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+  box-shadow: 0 3px 0 var(--gold-700);
 }
 
 .epic-action-btn.equipped-btn {

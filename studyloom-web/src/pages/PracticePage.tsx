@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { flashcards, weakPoints } from '../data/errorNotebook'
+import AdSlot from '../components/ads/AdSlot'
 
 export default function PracticePage() {
   const navigate = useNavigate()
@@ -121,6 +122,8 @@ export default function PracticePage() {
           )
         })}
       </div>
+
+      <AdSlot placement="notebook" />
     </section>
   )
 }

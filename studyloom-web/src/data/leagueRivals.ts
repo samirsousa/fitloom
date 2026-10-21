@@ -8,9 +8,11 @@ export interface Rival {
   isPro?: boolean
 }
 
+// Escada de ligas por cargo: Técnico, Analista, Auditor e Magistratura.
+// O usuário está na Liga Auditor. Na Fase 2 a liga atual vem do backend.
 // Nome da divisão, usado sozinho no card de liga do Perfil
-export const LEAGUE_TIER = 'Esmeralda'
-export const LEAGUE_NAME = `Liga Auditor ${LEAGUE_TIER}`
+export const LEAGUE_TIER = 'Auditor'
+export const LEAGUE_NAME = `Liga ${LEAGUE_TIER}`
 export const NEXT_LEAGUE_NAME = 'Liga Magistratura'
 export const LEAGUE_WEEK = 14
 // Quantos concurseiros sobem de liga no fim da semana

@@ -91,7 +91,7 @@ export default function ProfilePage() {
           </div>
           <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: 2 }}>
             {isPro
-              ? '💎 Assinante Studyloom Pro Ativo (Vidas ∞ & IA p/ Editais)'
+              ? '💎 Assinante Studyloom Pro (Vidas ∞ & Farda de Auditor)'
               : 'Plano Atual: Studyloom Gratuito'}
           </div>
         </div>

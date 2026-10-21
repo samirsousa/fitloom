@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { MAX_STREAK_FREEZES, STREAK_FREEZE_COST } from '../data/wardrobe'
+import type { ProPlanId } from '../data/proPlans'
 
 export type Theme = 'dark' | 'light'
 
@@ -17,6 +18,7 @@ interface GameState {
   dailyXp: number
   dailyXpGoal: number
   isPro: boolean
+  proPlan: ProPlanId | null
   theme: Theme
   chestOpened: boolean
   streakFreezes: number
@@ -32,6 +34,8 @@ interface GameState {
   completeBattery: () => void
   refillHeartsWithXp: () => boolean
   buyStreakFreeze: () => boolean
+  activatePro: (plan: ProPlanId) => void
+  cancelPro: () => void
 }
 
 // Valores iniciais iguais aos do protótipo. Na Fase 1 isso passa a vir do backend.
@@ -45,6 +49,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   dailyXp: 35,
   dailyXpGoal: 50,
   isPro: false,
+  proPlan: null,
   theme: 'dark',
   chestOpened: false,
   streakFreezes: 0,
@@ -110,4 +115,8 @@ export const useGameStore = create<GameState>((set, get) => ({
     set((s) => ({ streakFreezes: s.streakFreezes + 1 }))
     return true
   },
+
+  // Assinatura simulada. TODO backend: ativar só após a confirmação do pagamento.
+  activatePro: (plan) => set({ isPro: true, proPlan: plan }),
+  cancelPro: () => set({ isPro: false, proPlan: null }),
 }))

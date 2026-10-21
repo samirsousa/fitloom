@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { questions } from '../data/questions'
 import { HEART_REFILL_COST, useGameStore } from '../store/useGameStore'
 import QuestionCard, { type AnswerResult } from '../components/quiz/QuestionCard'
+import AdSlot from '../components/ads/AdSlot'
 
 export default function QuizPage() {
   const navigate = useNavigate()
@@ -118,6 +119,8 @@ export default function QuizPage() {
           <button type="button" className="primary-3d-btn emerald" onClick={() => navigate('/')}>
             Voltar para a Trilha do Edital 🏆
           </button>
+
+          <AdSlot placement="battery-complete" />
         </div>
       </section>
     )
