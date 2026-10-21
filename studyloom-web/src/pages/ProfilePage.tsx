@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import EpicCostumeCard from '../components/lumi/EpicCostumeCard'
 import LumiAvatar from '../components/lumi/LumiAvatar'
 import { achievements } from '../data/achievements'
+import { careerById } from '../data/careers'
 import { LEAGUE_NAME, LEAGUE_TIER } from '../data/leagueRivals'
 import {
   ACCESSORIES_ENABLED,
@@ -17,11 +19,14 @@ import { useLeague } from '../hooks/useLeague'
 import { useGameStore } from '../store/useGameStore'
 import { useLumiLook, useLumiStore } from '../store/useLumiStore'
 import { useLumiPush } from '../store/useLumiPush'
+import { useIntroStore } from '../store/useIntroStore'
 
 type WardrobeTab = 'free' | 'epic'
 
 export default function ProfilePage() {
-  const { userName, career, streak, totalXp, isPro, answeredTotal, correctTotal } = useGameStore()
+  const navigate = useNavigate()
+  const replayIntro = useIntroStore((s) => s.replay)
+  const { userName, careerId, streak, totalXp, isPro, answeredTotal, correctTotal } = useGameStore()
   const { furKey, accessoryKey, basePoseKey, activeEpicId, setFur, setAccessory, equipBasePose } =
     useLumiStore()
   const look = useLumiLook()
@@ -76,7 +81,7 @@ export default function ProfilePage() {
               marginTop: 3,
             }}
           >
-            🛡️ {LEAGUE_NAME} • Foco: {career}
+            🛡️ {LEAGUE_NAME} • Foco: {careerById(careerId).label}
           </div>
           <div
             style={{
@@ -282,6 +287,19 @@ export default function ProfilePage() {
           </div>
         </div>
       ))}
+
+      {/* No mobile a barra lateral some, então o botão de rever a abertura fica aqui também */}
+      <button
+        type="button"
+        className="sidebar-util-btn"
+        style={{ marginTop: 18 }}
+        onClick={() => {
+          navigate('/')
+          replayIntro()
+        }}
+      >
+        🎬 Rever abertura
+      </button>
     </section>
   )
 }

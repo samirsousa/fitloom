@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { MAX_STREAK_FREEZES, STREAK_FREEZE_COST } from '../data/wardrobe'
 import type { ProPlanId } from '../data/proPlans'
+import { DEFAULT_CAREER_ID, type CareerId } from '../data/careers'
 
 export type Theme = 'dark' | 'light'
 
@@ -9,8 +10,9 @@ export const MAX_HEARTS = 5
 
 interface GameState {
   userName: string
-  // Carreira-alvo. A Etapa 4 (onboarding) passa a gravar este campo.
-  career: string
+  // Carreira-alvo escolhida no onboarding. Rótulo e módulo vêm de src/data/careers.ts.
+  careerId: CareerId
+  onboardingCompleted: boolean
   streak: number
   lastStudyDay: string | null
   hearts: number
@@ -36,12 +38,15 @@ interface GameState {
   buyStreakFreeze: () => boolean
   activatePro: (plan: ProPlanId) => void
   cancelPro: () => void
+  completeOnboarding: (data: { userName: string; careerId: CareerId; dailyXpGoal: number }) => void
+  skipOnboarding: () => void
 }
 
 // Valores iniciais iguais aos do protótipo. Na Fase 1 isso passa a vir do backend.
 export const useGameStore = create<GameState>((set, get) => ({
   userName: 'Concurseiro',
-  career: 'Tribunais & MP',
+  careerId: DEFAULT_CAREER_ID,
+  onboardingCompleted: false,
   streak: 14,
   lastStudyDay: null,
   hearts: MAX_HEARTS,
@@ -119,4 +124,15 @@ export const useGameStore = create<GameState>((set, get) => ({
   // Assinatura simulada. TODO backend: ativar só após a confirmação do pagamento.
   activatePro: (plan) => set({ isPro: true, proPlan: plan }),
   cancelPro: () => set({ isPro: false, proPlan: null }),
+
+  // Rever a abertura e concluir de novo só troca nome, carreira e meta. XP e ofensiva ficam.
+  completeOnboarding: ({ userName, careerId, dailyXpGoal }) =>
+    set((s) => ({
+      userName,
+      careerId,
+      dailyXpGoal,
+      dailyXp: Math.min(s.dailyXp, dailyXpGoal),
+      onboardingCompleted: true,
+    })),
+  skipOnboarding: () => set({ onboardingCompleted: true }),
 }))

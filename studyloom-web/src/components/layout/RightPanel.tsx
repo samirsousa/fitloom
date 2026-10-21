@@ -1,12 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../../store/useGameStore'
 import { LEAGUE_NAME, PROMOTION_SLOTS } from '../../data/leagueRivals'
+import { careerById } from '../../data/careers'
 import { rankMedal, useLeague } from '../../hooks/useLeague'
 import LumiAvatar from '../lumi/LumiAvatar'
 
 export default function RightPanel() {
   const navigate = useNavigate()
-  const { career, streak, hearts, totalXp, dailyXp, dailyXpGoal, isPro } = useGameStore()
+  const { careerId, streak, hearts, totalXp, dailyXp, dailyXpGoal, isPro } = useGameStore()
   const dailyPct = Math.min(100, Math.round((dailyXp / dailyXpGoal) * 100))
   const { myRank, xpToPromotion } = useLeague()
 
@@ -81,7 +82,7 @@ export default function RightPanel() {
                 marginTop: 4,
               }}
             >
-              Foco: {career}
+              Foco: {careerById(careerId).label}
             </div>
           </div>
         </div>

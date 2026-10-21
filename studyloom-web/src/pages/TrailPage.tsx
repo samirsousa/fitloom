@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { careerById } from '../data/careers'
 import { LEAGUE_NAME } from '../data/leagueRivals'
 import { lumiTrailSpeeches, trailNodes, type TrailAction } from '../data/trailNodes'
 import { useLeague } from '../hooks/useLeague'
@@ -11,6 +12,7 @@ export default function TrailPage() {
   const navigate = useNavigate()
   const chestOpened = useGameStore((s) => s.chestOpened)
   const claimChest = useGameStore((s) => s.claimChest)
+  const career = careerById(useGameStore((s) => s.careerId))
   const showPush = useLumiPush((s) => s.show)
   const [speechIdx, setSpeechIdx] = useState(0)
   const { myRank } = useLeague()
@@ -35,9 +37,7 @@ export default function TrailPage() {
       <div className="section-header-banner">
         <div>
           <div className="section-phase-tag">BLOCO 1 • DISCIPLINAS NUCLEARES DO EDITAL</div>
-          <div className="section-module-title">
-            Português, Direito Constitucional &amp; Raciocínio Lógico
-          </div>
+          <div className="section-module-title">{career.moduleTitle}</div>
         </div>
         <button
           type="button"

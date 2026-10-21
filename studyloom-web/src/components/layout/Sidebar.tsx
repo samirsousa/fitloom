@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useGameStore } from '../../store/useGameStore'
+import { useIntroStore } from '../../store/useIntroStore'
 import { sidebarItems } from './navItems'
 
 export default function Sidebar() {
@@ -7,6 +8,7 @@ export default function Sidebar() {
   const navigate = useNavigate()
   const theme = useGameStore((s) => s.theme)
   const toggleTheme = useGameStore((s) => s.toggleTheme)
+  const replayIntro = useIntroStore((s) => s.replay)
 
   return (
     <aside className="left-sidebar" aria-label="Menu Principal Studyloom">
@@ -41,6 +43,17 @@ export default function Sidebar() {
       <div className="sidebar-footer-actions">
         <button type="button" className="sidebar-util-btn" onClick={toggleTheme}>
           {theme === 'dark' ? '☀️ Alternar para Light Mode' : '🌙 Alternar para Dark Mode'}
+        </button>
+        {/* Volta para a Trilha antes, para não deixar o cronômetro da bateria correndo por baixo */}
+        <button
+          type="button"
+          className="sidebar-util-btn"
+          onClick={() => {
+            navigate('/')
+            replayIntro()
+          }}
+        >
+          🎬 Rever abertura
         </button>
       </div>
     </aside>

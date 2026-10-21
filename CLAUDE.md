@@ -74,9 +74,11 @@ src/
 
 ## Estado global (`useGameStore`)
 
-Campos: `userName` (padrão "Concurseiro"), `streak`, `lastStudyDay`, `hearts`, `totalXp`, `dailyXp`, `dailyXpGoal`, `isPro`, `theme`, `chestOpened`, `streakFreezes`.
+Campos: `userName` (padrão "Concurseiro"), `careerId` (rótulo e módulo em `src/data/careers.ts`), `onboardingCompleted`, `streak`, `lastStudyDay`, `hearts`, `totalXp`, `dailyXp`, `dailyXpGoal`, `isPro`, `proPlan`, `theme`, `chestOpened`, `streakFreezes`, `answeredTotal`, `correctTotal`.
 
-Ações: `toggleTheme`, `claimChest`, `addXp`, `spendXp` (retorna `false` se faltar XP), `loseHeart`, `completeBattery`, `refillHeartsWithXp` (recusa com vidas cheias ou no Pro), `buyStreakFreeze` (máximo 1).
+Ações: `toggleTheme`, `claimChest`, `addXp`, `spendXp` (retorna `false` se faltar XP), `loseHeart`, `recordAnswer`, `completeBattery`, `refillHeartsWithXp` (recusa com vidas cheias ou no Pro), `buyStreakFreeze` (máximo 1), `activatePro`, `cancelPro`, `completeOnboarding`, `skipOnboarding`.
+
+`useIntroStore` guarda só o pedido de rever a abertura (`replay`, `close`).
 
 Constantes exportadas: `HEART_REFILL_COST` e `MAX_HEARTS`. Preços do congelamento (`STREAK_FREEZE_COST`, `MAX_STREAK_FREEZES`) ficam em `src/data/wardrobe.ts`.
 
@@ -109,11 +111,12 @@ O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use
 - Comunidade, com o botão de incentivo e o banner de push da Lumi.
 - Loja da Lumi: vitrine do avatar, fantasias épicas com regras de desbloqueio (XP, top 3 da liga, Pro), recarga de vidas e congelamento de ofensiva. Avatar compartilhado no app.
 - Perfil: dados do store, taxa de acerto real, guarda-roupa (pelagem, pose base e épicas) e conquistas.
+- Onboarding: splash, boas-vindas, carreira-alvo, meta diária e nome, com pular e rever abertura (barra lateral e Perfil).
 - Pro: planos anual e mensal, assinatura e cancelamento simulados, identidade dourada e espaços de anúncio (da casa) que somem no Pro.
 
 ## O que falta no front
 
-Onboarding, sons, partículas, persistência local, polimento e PWA.
+Sons, partículas, persistência local, polimento e PWA.
 
 ## Pontos em aberto para debate
 
@@ -123,6 +126,7 @@ Itens levantados na Etapa 0 que ainda não têm decisão. Discuta com o dono do 
 2. Nome das ligas: resolvido na Etapa 3 (escada por cargo, sem gemas).
 3. Valores iniciais do store: ofensiva 14 e 1.420 XP vêm do protótipo, como dados de demonstração. Decidir na Etapa 6 (persistência) se um usuário novo começa do zero.
 4. LEMBRETE PARA O DONO DO PROJETO: criar imagens próprias da Lumi com acessórios (óculos de grau, fones e o combo), em cada pose base (hero, coach, celebrate). Os SVGs sobrepostos do protótipo não encaixam nas imagens 3D, por isso os acessórios estão desligados (`ACCESSORIES_ENABLED = false` em `src/data/wardrobe.ts`). Alternativa de longo prazo: a Lumi animada em Rive ou Lottie, com acessórios como camadas. Quando as imagens existirem, religar a chave e trocar a exibição por imagem.
+5. Tela inicial (splash e onboarding): aprovada na Etapa 4 como versão provisória (21/10/2026). O dono do projeto deve revisitar o visual e o fluxo no futuro. Os textos e as opções ficam em `src/data/careers.ts`, `src/data/dailyGoals.ts` e `IntroOverlay.tsx`.
 
 ## Referência do protótipo
 
@@ -216,7 +220,20 @@ Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo
 
 Commit: `feat: tela Pro sem referências de terceiros`.
 
-### Etapa 4: Onboarding
+### Etapa 4: Onboarding (concluída em 21/10/2026)
+
+Resultado: build, lint e tsc sem erros. Aprovado pelo dono do projeto como versão provisória da tela inicial (ponto em aberto 5).
+
+Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo:
+
+- Overlay (`IntroOverlay`, montado no `AppShell`), não rota. Aparece enquanto `onboardingCompleted` for falso ou quando o usuário pede para rever. Mantém o DOM e as classes do protótipo.
+- Fluxo: splash (1,8 s ou clique), boas-vindas, carreira-alvo, meta diária e nome. A pergunta de nível saiu, porque o dado não era usado. Volta quando existir trilha adaptativa.
+- Carreiras em `src/data/careers.ts`. O store guarda `careerId`, e o foco (painel direito e Perfil) e o título do módulo no banner da Trilha são derivados. As questões ainda são as mesmas para todas as carreiras (`TODO backend`), então o texto fala em ajustar a trilha ao foco, sem prometer conteúdo exclusivo.
+- Meta diária em XP, ligada ao `dailyXpGoal` (`src/data/dailyGoals.ts`): Leve 30, Consistente 60, Intensa 120. Sem minutos, porque o app não mede tempo. "Rotina Blindada" saiu.
+- Tela final só com o nome (até 24 caracteres; vazio vira "Concurseiro"). Sem e-mail e sem "Criar conta", que voltam com a autenticação e a LGPD. Botão "Começar minha Trilha". A mensagem final não promete ofensiva acesa.
+- "Já tenho conta" virou "Pular", que marca o onboarding como concluído com os valores padrão. "Rever abertura" fica na barra lateral e no fim do Perfil (para o mobile). Concluir de novo troca só nome, carreira e meta.
+- Título da boas-vindas sem comparação com terceiros. Som e partículas ficam marcados para a Etapa 5.
+- Até a Etapa 6, o onboarding aparece a cada recarga da página. Aceito: a persistência fica toda na Etapa 6.
 
 1. Leia o splash e o onboarding no HTML e no JS do protótipo.
 2. Implemente como rota ou overlay: abertura, boas-vindas e as perguntas (carreira-alvo, nome e meta de estudo). Ao concluir, grave `userName`, a carreira e o módulo no store. O título do banner da Trilha e o foco do painel direito passam a vir dessa escolha.

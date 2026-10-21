@@ -6,6 +6,7 @@ import Sidebar from './Sidebar'
 import RightPanel from './RightPanel'
 import BottomNav from './BottomNav'
 import LumiPushBanner from './LumiPushBanner'
+import IntroOverlay from '../onboarding/IntroOverlay'
 
 export default function AppShell() {
   const theme = useGameStore((s) => s.theme)
@@ -28,6 +29,7 @@ export default function AppShell() {
         <RightPanel />
       </div>
       <BottomNav />
+      <IntroOverlay />
     </>
   )
 }
