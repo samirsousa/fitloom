@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useGameStore } from '../../store/useGameStore'
+import { useLumiPush } from '../../store/useLumiPush'
 import MobileHeader from './MobileHeader'
 import Sidebar from './Sidebar'
 import RightPanel from './RightPanel'
@@ -16,6 +17,23 @@ export default function AppShell() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  // Virada de dia ao abrir o app e quando a aba volta a ficar visível
+  // (cobre quem deixa o app aberto de um dia para o outro)
+  useEffect(() => {
+    function sync() {
+      if (document.visibilityState !== 'visible') return
+      if (useGameStore.getState().syncDay()) {
+        const { streak } = useGameStore.getState()
+        useLumiPush
+          .getState()
+          .show(`🧊 Você ficou um dia sem estudar, mas o Congelamento protegeu sua ofensiva de ${streak} dias! Resolva uma bateria hoje.`)
+      }
+    }
+    sync()
+    document.addEventListener('visibilitychange', sync)
+    return () => document.removeEventListener('visibilitychange', sync)
+  }, [])
 
   // Libera o áudio no primeiro gesto (exigência do iOS). Continua ouvindo porque
   // o iOS pode suspender o áudio de novo depois de uma ligação ou troca de app.

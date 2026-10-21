@@ -103,7 +103,7 @@ export default function TrailPage() {
 
         {trailNodes.map((node) => {
           const isChest = node.action.type === 'chest'
-          const caption = isChest && chestOpened ? '🎁 Baú já resgatado' : node.caption
+          const caption = isChest && chestOpened ? '🎁 Baú resgatado • volta amanhã' : node.caption
 
           return (
             <div key={node.id} className={`trail-step pos-${node.pos}`}>

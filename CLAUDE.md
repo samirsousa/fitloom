@@ -74,9 +74,11 @@ src/
 
 ## Estado global (`useGameStore`)
 
-Campos: `userName` (padrão "Concurseiro"), `careerId` (rótulo e módulo em `src/data/careers.ts`), `onboardingCompleted`, `streak`, `lastStudyDay`, `hearts`, `totalXp`, `dailyXp`, `dailyXpGoal`, `isPro`, `proPlan`, `theme`, `soundEnabled`, `chestOpened`, `streakFreezes`, `answeredTotal`, `correctTotal`.
+Campos: `userName` (padrão "Concurseiro"), `careerId` (rótulo e módulo em `src/data/careers.ts`), `onboardingCompleted`, `streak`, `lastStudyDay`, `hearts`, `totalXp`, `dailyXp`, `dailyXpGoal`, `isPro`, `proPlan`, `theme`, `soundEnabled`, `lastActiveDay`, `chestOpened`, `streakFreezes`, `answeredTotal`, `correctTotal`.
 
-Ações: `toggleTheme`, `toggleSound`, `claimChest`, `addXp`, `spendXp` (retorna `false` se faltar XP), `loseHeart`, `recordAnswer`, `completeBattery`, `refillHeartsWithXp` (recusa com vidas cheias ou no Pro), `buyStreakFreeze` (máximo 1), `activatePro`, `cancelPro`, `completeOnboarding`, `skipOnboarding`.
+Ações: `toggleTheme`, `toggleSound`, `claimChest`, `addXp`, `spendXp` (retorna `false` se faltar XP), `loseHeart`, `recordAnswer`, `completeBattery`, `refillHeartsWithXp` (recusa com vidas cheias ou no Pro), `buyStreakFreeze` (máximo 1), `activatePro`, `cancelPro`, `completeOnboarding`, `skipOnboarding`, `syncDay` (virada de dia, chamada pelo `AppShell`), `resetProgress`.
+
+Persistência: `useGameStore` e `useLumiStore` (que ganhou `reset`) usam o middleware `persist` configurado em `src/store/persistence.ts`, único ponto de acesso ao `localStorage` (chave `studyloom-state-v1`, partes `game` e `lumi`, com versão). Novos campos de dados entram automaticamente. Se o formato mudar, suba `STORAGE_VERSION` e trate em `migrate`.
 
 `useIntroStore` guarda só o pedido de rever a abertura (`replay`, `close`). `useParticles` expõe `spawn(modo)`, registrado pelo `ParticlesCanvas`.
 
@@ -95,10 +97,11 @@ O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use
 ## Regras de negócio já decididas (não reverter)
 
 - Bônus 2x XP: só vale se a resposta correta vier com mais da metade do tempo da questão ainda restante. Depois disso o XP é o normal.
-- Vidas: erro tira uma vida, e o mínimo é 0. Com 0 vidas (e sem Pro), a bateria não inicia. Dá para recarregar por 100 XP. No Pro, as vidas são ilimitadas.
-- Ofensiva (streak): sobe 1 por dia, no máximo uma vez, quando uma bateria é concluída. Nunca fixa em 15.
+- Vidas: erro tira uma vida, e o mínimo é 0. Com 0 vidas (e sem Pro), a bateria não inicia. Dá para recarregar por 100 XP. No Pro, as vidas são ilimitadas. Na virada do dia as vidas voltam ao máximo (decisão da Etapa 6, provisória até a recarga por tempo no servidor).
+- Ofensiva (streak): sobe 1 por dia, no máximo uma vez, quando uma bateria é concluída. Nunca fixa em 15. Se o último dia de estudo foi antes de ontem, volta a 0 ao abrir o app, exceto quando faltou exatamente um dia e há congelamento: ele é consumido e a ofensiva se mantém.
 - Aproveitamento: acertos divididos pelas questões respondidas na sessão. Sem `Math.max(1, ...)`.
-- Baú do Aprovado: só pode ser resgatado uma vez, soma 50 XP e aciona o banner da Lumi.
+- Baú do Aprovado: só pode ser resgatado uma vez por dia (decisão da Etapa 6), soma 50 XP e aciona o banner da Lumi.
+- Meta diária: o XP do dia volta a 0 na virada do dia.
 - Ranking das ligas: calculado. O usuário entra na lista com o XP do store, a lista é ordenada, e a posição aparece na tela de Ligas e no painel direito. Os 3 primeiros sobem de liga.
 - XP nunca é vendido por dinheiro. Ele vem só de estudo (questões, baú, metas), porque também é a pontuação do ranking. A monetização da loja no MVP é pelas fantasias exclusivas do Pro. Venda direta de fantasias em reais ou uma moeda comprável separada do XP só será decidida quando houver backend e pagamento.
 - Copy de marketing: não pode haver promessa sem comprovação (por exemplo "Aprovação 3,4x mais rápida"). Também não pode haver nenhuma menção a Duolingo, na tela, no código ou nos comentários.
@@ -114,12 +117,13 @@ O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use
 - Loja da Lumi: vitrine do avatar, fantasias épicas com regras de desbloqueio (XP, top 3 da liga, Pro), recarga de vidas e congelamento de ofensiva. Avatar compartilhado no app.
 - Perfil: dados do store, taxa de acerto real, guarda-roupa (pelagem, pose base e épicas) e conquistas.
 - Onboarding: splash, boas-vindas, carreira-alvo, meta diária e nome, com pular e rever abertura (barra lateral e Perfil).
+- Persistência local do progresso, virada de dia e "Apagar meu progresso".
 - Sons, partículas e vibração por eventos (`useFeedback`), com o controle "Sons e vibração".
 - Pro: planos anual e mensal, assinatura e cancelamento simulados, identidade dourada e espaços de anúncio (da casa) que somem no Pro.
 
 ## O que falta no front
 
-Persistência local, polimento e PWA. Também falta o teste de som e vibração da Etapa 5.
+Polimento e PWA. Também falta o teste de som e vibração da Etapa 5.
 
 ## Pontos em aberto para debate
 
@@ -127,7 +131,7 @@ Itens levantados na Etapa 0 que ainda não têm decisão. Discuta com o dono do 
 
 1. Card Pro do painel direito: resolvido na Etapa 3 (paleta dourada, sem teste grátis).
 2. Nome das ligas: resolvido na Etapa 3 (escada por cargo, sem gemas).
-3. Valores iniciais do store: ofensiva 14 e 1.420 XP vêm do protótipo, como dados de demonstração. Decidir na Etapa 6 (persistência) se um usuário novo começa do zero.
+3. Valores iniciais do store: resolvido na Etapa 6. Usuário novo começa do zero (ofensiva 0, 0 XP, meta de 60 XP).
 4. LEMBRETE PARA O DONO DO PROJETO: criar imagens próprias da Lumi com acessórios (óculos de grau, fones e o combo), em cada pose base (hero, coach, celebrate). Os SVGs sobrepostos do protótipo não encaixam nas imagens 3D, por isso os acessórios estão desligados (`ACCESSORIES_ENABLED = false` em `src/data/wardrobe.ts`). Alternativa de longo prazo: a Lumi animada em Rive ou Lottie, com acessórios como camadas. Quando as imagens existirem, religar a chave e trocar a exibição por imagem.
 5. Tela inicial (splash e onboarding): aprovada na Etapa 4 como versão provisória (21/10/2026). O dono do projeto deve revisitar o visual e o fluxo no futuro. Os textos e as opções ficam em `src/data/careers.ts`, `src/data/dailyGoals.ts` e `IntroOverlay.tsx`.
 
@@ -265,7 +269,19 @@ Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo
 
 Commit: `feat: sons, particulas e vibracao`.
 
-### Etapa 6: persistência local provisória
+### Etapa 6: persistência local provisória (concluída em 21/10/2026)
+
+Resultado: build, lint e tsc sem erros. Funções de data testadas com datas simuladas (inclusive viradas de mês e de ano). Testado no navegador pelo dono do projeto: progresso, tema e som mantidos ao recarregar, baú uma vez por dia, "Apagar meu progresso" e a virada de dia simulada pelo console (congelamento salvando a ofensiva, ofensiva zerando sem congelamento, estudo de ontem mantendo a ofensiva).
+
+Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo:
+
+- Módulo único `src/store/persistence.ts`: chave `studyloom-state-v1` com as partes `game` e `lumi`, `localStorage` protegido (aba anônima, bloqueio, JSON inválido), só dados (sem funções), versão com descarte de formato desconhecido.
+- Persistem todos os dados dos dois stores. A bateria em andamento não persiste.
+- Usuário novo começa do zero (ofensiva 0, 0 XP, meta padrão 60 XP, a opção Consistente).
+- Virada de dia (`syncDay`) ao abrir o app e quando a aba volta a ficar visível, com data local: meta diária zera, baú renova, vidas recarregam e a regra da ofensiva com congelamento é aplicada (banner da Lumi quando o congelamento salva).
+- Baú uma vez por dia e vidas recarregadas na virada do dia (regras de negócio atualizadas acima).
+- "Apagar meu progresso" no Perfil, com confirmação: volta ao estado de usuário novo e ao onboarding. Tema e som são preferências e ficam.
+- O tema salvo é aplicado em `main.tsx` antes da primeira renderização. Duas abas abertas: vale a última gravação.
 
 Hoje tudo zera ao recarregar a página. Antes do backend existir, use o middleware `persist` do Zustand com `localStorage`:
 

@@ -27,3 +27,6 @@ export const dailyGoals: DailyGoal[] = [
     desc: 'Cerca de duas baterias por dia para disputar o topo da liga.',
   },
 ]
+
+// Meta de quem pula o onboarding: a opção Consistente
+export const DEFAULT_DAILY_XP_GOAL = 60

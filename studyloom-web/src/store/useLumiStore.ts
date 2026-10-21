@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import {
   accessoryOptions,
   basePoses,
@@ -9,36 +10,51 @@ import {
   type EpicId,
   type FurKey,
 } from '../data/wardrobe'
+import { persistOptions } from './persistence'
 
-interface LumiState {
+interface LumiData {
   furKey: FurKey
   accessoryKey: AccessoryKey
   basePoseKey: BasePoseKey
   activeEpicId: EpicId | null
   // Fantasias pagas com XP que já foram compradas
   ownedEpics: EpicId[]
+}
+
+interface LumiState extends LumiData {
   setFur: (key: FurKey) => void
   setAccessory: (key: AccessoryKey) => void
   equipBasePose: (key: BasePoseKey) => void
   equipEpic: (id: EpicId) => void
   markEpicOwned: (id: EpicId) => void
+  reset: () => void
 }
 
-// Guarda só as escolhas. Imagem e textos são derivados em useLumiLook.
-export const useLumiStore = create<LumiState>((set) => ({
+const initialLumiData: LumiData = {
   furKey: 'classic',
   accessoryKey: 'none',
   basePoseKey: 'hero',
   activeEpicId: null,
   ownedEpics: [],
+}
 
-  setFur: (key) => set({ furKey: key }),
-  setAccessory: (key) => set({ accessoryKey: key }),
-  equipBasePose: (key) => set({ basePoseKey: key, activeEpicId: null }),
-  equipEpic: (id) => set({ activeEpicId: id }),
-  markEpicOwned: (id) =>
-    set((s) => (s.ownedEpics.includes(id) ? s : { ownedEpics: [...s.ownedEpics, id] })),
-}))
+// Guarda só as escolhas. Imagem e textos são derivados em useLumiLook.
+export const useLumiStore = create<LumiState>()(
+  persist(
+    (set) => ({
+      ...initialLumiData,
+
+      setFur: (key) => set({ furKey: key }),
+      setAccessory: (key) => set({ accessoryKey: key }),
+      equipBasePose: (key) => set({ basePoseKey: key, activeEpicId: null }),
+      equipEpic: (id) => set({ activeEpicId: id }),
+      markEpicOwned: (id) =>
+        set((s) => (s.ownedEpics.includes(id) ? s : { ownedEpics: [...s.ownedEpics, id] })),
+      reset: () => set(initialLumiData),
+    }),
+    persistOptions<LumiState>('lumi'),
+  ),
+)
 
 export function useLumiLook() {
   const furKey = useLumiStore((s) => s.furKey)

@@ -29,9 +29,18 @@ export default function ProfilePage() {
   const replayIntro = useIntroStore((s) => s.replay)
   const soundEnabled = useGameStore((s) => s.soundEnabled)
   const toggleSound = useGameStore((s) => s.toggleSound)
+  const resetProgress = useGameStore((s) => s.resetProgress)
   const { userName, careerId, streak, totalXp, isPro, answeredTotal, correctTotal } = useGameStore()
-  const { furKey, accessoryKey, basePoseKey, activeEpicId, setFur, setAccessory, equipBasePose } =
-    useLumiStore()
+  const {
+    furKey,
+    accessoryKey,
+    basePoseKey,
+    activeEpicId,
+    setFur,
+    setAccessory,
+    equipBasePose,
+    reset: resetLumi,
+  } = useLumiStore()
   const look = useLumiLook()
   const { myRank } = useLeague()
   const showPush = useLumiPush((s) => s.show)
@@ -63,6 +72,17 @@ export default function ProfilePage() {
     equipBasePose(pose.key)
     fx('tap')
     showPush(`🦊 Estilo gratuito "${pose.skinTitle}" equipado na Lumi 3D!`)
+  }
+
+  // Apaga o progresso salvo neste aparelho. Tema e som ficam.
+  function eraseProgress() {
+    const ok = window.confirm(
+      'Apagar todo o seu progresso neste aparelho? XP, ofensiva, compras e escolhas da Lumi voltam ao início, e a abertura aparece de novo. Não dá para desfazer.',
+    )
+    if (!ok) return
+    resetProgress()
+    resetLumi()
+    navigate('/')
   }
 
   return (
@@ -321,6 +341,14 @@ export default function ProfilePage() {
         }}
       >
         🎬 Rever abertura
+      </button>
+      <button
+        type="button"
+        className="sidebar-util-btn"
+        style={{ marginTop: 10, color: 'var(--heart-red)' }}
+        onClick={eraseProgress}
+      >
+        🗑️ Apagar meu progresso
       </button>
     </section>
   )
