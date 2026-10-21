@@ -8,6 +8,8 @@ export default function Sidebar() {
   const navigate = useNavigate()
   const theme = useGameStore((s) => s.theme)
   const toggleTheme = useGameStore((s) => s.toggleTheme)
+  const soundEnabled = useGameStore((s) => s.soundEnabled)
+  const toggleSound = useGameStore((s) => s.toggleSound)
   const replayIntro = useIntroStore((s) => s.replay)
 
   return (
@@ -43,6 +45,9 @@ export default function Sidebar() {
       <div className="sidebar-footer-actions">
         <button type="button" className="sidebar-util-btn" onClick={toggleTheme}>
           {theme === 'dark' ? '☀️ Alternar para Light Mode' : '🌙 Alternar para Dark Mode'}
+        </button>
+        <button type="button" className="sidebar-util-btn" onClick={toggleSound} aria-pressed={soundEnabled}>
+          {soundEnabled ? '🔊 Sons e vibração: ligados' : '🔇 Sons e vibração: desligados'}
         </button>
         {/* Volta para a Trilha antes, para não deixar o cronômetro da bateria correndo por baixo */}
         <button

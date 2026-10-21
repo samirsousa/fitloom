@@ -16,6 +16,7 @@ import {
   type FurOption,
 } from '../data/wardrobe'
 import { useLeague } from '../hooks/useLeague'
+import { useFeedback } from '../hooks/useFeedback'
 import { useGameStore } from '../store/useGameStore'
 import { useLumiLook, useLumiStore } from '../store/useLumiStore'
 import { useLumiPush } from '../store/useLumiPush'
@@ -26,12 +27,15 @@ type WardrobeTab = 'free' | 'epic'
 export default function ProfilePage() {
   const navigate = useNavigate()
   const replayIntro = useIntroStore((s) => s.replay)
+  const soundEnabled = useGameStore((s) => s.soundEnabled)
+  const toggleSound = useGameStore((s) => s.toggleSound)
   const { userName, careerId, streak, totalXp, isPro, answeredTotal, correctTotal } = useGameStore()
   const { furKey, accessoryKey, basePoseKey, activeEpicId, setFur, setAccessory, equipBasePose } =
     useLumiStore()
   const look = useLumiLook()
   const { myRank } = useLeague()
   const showPush = useLumiPush((s) => s.show)
+  const fx = useFeedback()
   const [tab, setTab] = useState<WardrobeTab>('free')
 
   const accuracy =
@@ -45,16 +49,19 @@ export default function ProfilePage() {
 
   function chooseFur(fur: FurOption) {
     setFur(fur.key)
+    fx('tap')
     showPush(`🦊 Pelagem gratuita "${fur.label}" aplicada no seu avatar Lumi 3D!`)
   }
 
   function chooseAccessory(acc: AccessoryOption) {
     setAccessory(acc.key)
+    fx('tap')
     showPush(`🎒 Acessório gratuito "${acc.label}" atualizado na Lumi 3D!`)
   }
 
   function choosePose(pose: BasePose) {
     equipBasePose(pose.key)
+    fx('tap')
     showPush(`🦊 Estilo gratuito "${pose.skinTitle}" equipado na Lumi 3D!`)
   }
 
@@ -168,14 +175,20 @@ export default function ProfilePage() {
           <button
             type="button"
             className={`wardrobe-tab-btn${tab === 'free' ? ' active' : ''}`}
-            onClick={() => setTab('free')}
+            onClick={() => {
+              fx('tap')
+              setTab('free')
+            }}
           >
             <span>🎒 Estilos Gratuitos (Free)</span>
           </button>
           <button
             type="button"
             className={`wardrobe-tab-btn${tab === 'epic' ? ' active' : ''}`}
-            onClick={() => setTab('epic')}
+            onClick={() => {
+              fx('tap')
+              setTab('epic')
+            }}
           >
             <span>👑 Fantasias Épicas (XP / Ligas / Pro)</span>
           </button>
@@ -288,11 +301,20 @@ export default function ProfilePage() {
         </div>
       ))}
 
-      {/* No mobile a barra lateral some, então o botão de rever a abertura fica aqui também */}
+      {/* No mobile a barra lateral some, então estes controles ficam aqui também */}
       <button
         type="button"
         className="sidebar-util-btn"
         style={{ marginTop: 18 }}
+        onClick={toggleSound}
+        aria-pressed={soundEnabled}
+      >
+        {soundEnabled ? '🔊 Sons e vibração: ligados' : '🔇 Sons e vibração: desligados'}
+      </button>
+      <button
+        type="button"
+        className="sidebar-util-btn"
+        style={{ marginTop: 10 }}
         onClick={() => {
           navigate('/')
           replayIntro()

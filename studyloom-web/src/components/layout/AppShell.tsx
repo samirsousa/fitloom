@@ -7,6 +7,8 @@ import RightPanel from './RightPanel'
 import BottomNav from './BottomNav'
 import LumiPushBanner from './LumiPushBanner'
 import IntroOverlay from '../onboarding/IntroOverlay'
+import ParticlesCanvas from '../fx/ParticlesCanvas'
+import { unlockAudio } from '../../hooks/useSound'
 
 export default function AppShell() {
   const theme = useGameStore((s) => s.theme)
@@ -14,6 +16,17 @@ export default function AppShell() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
+
+  // Libera o áudio no primeiro gesto (exigência do iOS). Continua ouvindo porque
+  // o iOS pode suspender o áudio de novo depois de uma ligação ou troca de app.
+  useEffect(() => {
+    window.addEventListener('pointerdown', unlockAudio, true)
+    window.addEventListener('keydown', unlockAudio, true)
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio, true)
+      window.removeEventListener('keydown', unlockAudio, true)
+    }
+  }, [])
 
   return (
     <>
@@ -30,6 +43,7 @@ export default function AppShell() {
       </div>
       <BottomNav />
       <IntroOverlay />
+      <ParticlesCanvas />
     </>
   )
 }

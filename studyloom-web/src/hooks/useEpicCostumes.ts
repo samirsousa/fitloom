@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import type { EpicCostume } from '../data/wardrobe'
 import { PROMOTION_SLOTS } from '../data/leagueRivals'
 import { useLeague } from './useLeague'
+import { triggerFeedback } from './useFeedback'
 import { useGameStore } from '../store/useGameStore'
 import { useLumiStore } from '../store/useLumiStore'
 import { useLumiPush } from '../store/useLumiPush'
@@ -40,6 +41,7 @@ export function useEpicCostumes() {
     }
 
     equipEpic(costume.id)
+    triggerFeedback('reward')
     showPush(costume.pushMsg)
   }
 

@@ -74,11 +74,13 @@ src/
 
 ## Estado global (`useGameStore`)
 
-Campos: `userName` (padrão "Concurseiro"), `careerId` (rótulo e módulo em `src/data/careers.ts`), `onboardingCompleted`, `streak`, `lastStudyDay`, `hearts`, `totalXp`, `dailyXp`, `dailyXpGoal`, `isPro`, `proPlan`, `theme`, `chestOpened`, `streakFreezes`, `answeredTotal`, `correctTotal`.
+Campos: `userName` (padrão "Concurseiro"), `careerId` (rótulo e módulo em `src/data/careers.ts`), `onboardingCompleted`, `streak`, `lastStudyDay`, `hearts`, `totalXp`, `dailyXp`, `dailyXpGoal`, `isPro`, `proPlan`, `theme`, `soundEnabled`, `chestOpened`, `streakFreezes`, `answeredTotal`, `correctTotal`.
 
-Ações: `toggleTheme`, `claimChest`, `addXp`, `spendXp` (retorna `false` se faltar XP), `loseHeart`, `recordAnswer`, `completeBattery`, `refillHeartsWithXp` (recusa com vidas cheias ou no Pro), `buyStreakFreeze` (máximo 1), `activatePro`, `cancelPro`, `completeOnboarding`, `skipOnboarding`.
+Ações: `toggleTheme`, `toggleSound`, `claimChest`, `addXp`, `spendXp` (retorna `false` se faltar XP), `loseHeart`, `recordAnswer`, `completeBattery`, `refillHeartsWithXp` (recusa com vidas cheias ou no Pro), `buyStreakFreeze` (máximo 1), `activatePro`, `cancelPro`, `completeOnboarding`, `skipOnboarding`.
 
-`useIntroStore` guarda só o pedido de rever a abertura (`replay`, `close`).
+`useIntroStore` guarda só o pedido de rever a abertura (`replay`, `close`). `useParticles` expõe `spawn(modo)`, registrado pelo `ParticlesCanvas`.
+
+Efeitos (som, partículas e vibração): use `useFeedback()` (ou `triggerFeedback` fora de componentes) com um evento de `src/hooks/useFeedback.ts`. Não chame `playSound` nem `spawn` direto nas telas.
 
 Constantes exportadas: `HEART_REFILL_COST` e `MAX_HEARTS`. Preços do congelamento (`STREAK_FREEZE_COST`, `MAX_STREAK_FREEZES`) ficam em `src/data/wardrobe.ts`.
 
@@ -112,11 +114,12 @@ O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use
 - Loja da Lumi: vitrine do avatar, fantasias épicas com regras de desbloqueio (XP, top 3 da liga, Pro), recarga de vidas e congelamento de ofensiva. Avatar compartilhado no app.
 - Perfil: dados do store, taxa de acerto real, guarda-roupa (pelagem, pose base e épicas) e conquistas.
 - Onboarding: splash, boas-vindas, carreira-alvo, meta diária e nome, com pular e rever abertura (barra lateral e Perfil).
+- Sons, partículas e vibração por eventos (`useFeedback`), com o controle "Sons e vibração".
 - Pro: planos anual e mensal, assinatura e cancelamento simulados, identidade dourada e espaços de anúncio (da casa) que somem no Pro.
 
 ## O que falta no front
 
-Sons, partículas, persistência local, polimento e PWA.
+Persistência local, polimento e PWA. Também falta o teste de som e vibração da Etapa 5.
 
 ## Pontos em aberto para debate
 
@@ -242,7 +245,18 @@ Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo
 
 Commit: `feat: onboarding`.
 
-### Etapa 5: sons, partículas e vibração
+### Etapa 5: sons, partículas e vibração (implementada em 21/10/2026, teste pendente)
+
+Resultado: build, lint e tsc sem erros. Commit feito a pedido do dono do projeto antes do teste no navegador. Pendente: ele testar em casa os sons, a vibração no Android, o primeiro som no iPhone e as partículas, e pedir ajustes se precisar.
+
+Decisões tomadas na análise (21/10/2026), que prevalecem sobre os itens abaixo:
+
+- Eventos com nome de significado em `useFeedback` (tap, correct, bonus, wrong, batteryComplete, reward, proActivated, heartsRefill, freeze, highFive, onboardingDone). A receita de cada um (som, partículas, vibração) fica só nesse arquivo.
+- Mapa mais enxuto que o protótipo: navegação e banner da Lumi sem efeito; confete no acerto só com o bônus 2x; erro com som e vibração dupla; fanfarra com confete na conclusão da bateria, no baú, nas épicas, no Pro e no fim do onboarding; `pop` nas microinterações (opções do onboarding, plano, flashcard, guarda-roupa, clique na Lumi).
+- Um único controle "Sons e vibração" (`soundEnabled`, ligado por padrão), na barra lateral e no Perfil. A persistência entra na Etapa 6.
+- Partículas desligadas com `prefers-reduced-motion`. Canvas ajustado para telas retina e com teto de partículas.
+- O `AudioContext` é criado ou retomado no primeiro toque ou tecla (listener no `AppShell`, exigência do iOS).
+- Vibração só onde existe `navigator.vibrate` (Chrome no Android). No Safari do iPhone, não vibra.
 
 1. Sons: crie `src/hooks/useSound.ts` com Web Audio, reproduzindo os mesmos tipos de som do protótipo. O `AudioContext` só pode ser criado ou retomado após o primeiro toque do usuário (exigência do iOS). Adicione `soundEnabled` ao store, com um controle para silenciar.
 2. Partículas: crie um componente `ParticlesCanvas` montado no `AppShell`, com `position: fixed`, `pointer-events: none` e acima do conteúdo. Exponha uma função (store ou contexto) para disparar `confetti` e `flames`. Respeite `prefers-reduced-motion`.

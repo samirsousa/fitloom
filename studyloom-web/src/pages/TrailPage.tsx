@@ -4,6 +4,7 @@ import { careerById } from '../data/careers'
 import { LEAGUE_NAME } from '../data/leagueRivals'
 import { lumiTrailSpeeches, trailNodes, type TrailAction } from '../data/trailNodes'
 import { useLeague } from '../hooks/useLeague'
+import { useFeedback } from '../hooks/useFeedback'
 import { useGameStore } from '../store/useGameStore'
 import { useLumiPush } from '../store/useLumiPush'
 import LumiAvatar from '../components/lumi/LumiAvatar'
@@ -14,6 +15,7 @@ export default function TrailPage() {
   const claimChest = useGameStore((s) => s.claimChest)
   const career = careerById(useGameStore((s) => s.careerId))
   const showPush = useLumiPush((s) => s.show)
+  const fx = useFeedback()
   const [speechIdx, setSpeechIdx] = useState(0)
   const { myRank } = useLeague()
   const speeches = lumiTrailSpeeches(myRank)
@@ -24,11 +26,13 @@ export default function TrailPage() {
     } else if (action.type === 'route') {
       navigate(action.to)
     } else if (claimChest()) {
+      fx('reward')
       showPush(`🎁 BAÚ DO APROVADO ABERTO! +50 XP adicionados ao seu ranking na ${LEAGUE_NAME}!`)
     }
   }
 
   function interactWithLumi() {
+    fx('tap')
     setSpeechIdx((i) => (i + 1) % speeches.length)
   }
 

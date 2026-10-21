@@ -2,6 +2,7 @@ import type { ProPlanId } from '../data/proPlans'
 import { useGameStore } from '../store/useGameStore'
 import { useLumiStore } from '../store/useLumiStore'
 import { useLumiPush } from '../store/useLumiPush'
+import { triggerFeedback } from './useFeedback'
 
 // Assinatura e cancelamento do Pro, que mexem no jogo e no avatar ao mesmo tempo
 export function useProSubscription() {
@@ -15,7 +16,7 @@ export function useProSubscription() {
   function subscribe(plan: ProPlanId) {
     activatePro(plan)
     useLumiStore.getState().equipEpic('auditor')
-    // Etapa 5: som 'fanfare' e partículas de confete e corações, como no protótipo
+    triggerFeedback('proActivated')
     showPush('💎 Bem-vindo ao Studyloom Pro! Vidas ilimitadas (❤️ ∞) e a Farda de Auditor / Fiscal foram ativadas!')
   }
 

@@ -22,12 +22,15 @@ interface GameState {
   isPro: boolean
   proPlan: ProPlanId | null
   theme: Theme
+  // Um único controle para sons e vibração
+  soundEnabled: boolean
   chestOpened: boolean
   streakFreezes: number
   // Histórico de respostas para a taxa de acerto do Perfil
   answeredTotal: number
   correctTotal: number
   toggleTheme: () => void
+  toggleSound: () => void
   claimChest: () => boolean
   addXp: (amount: number) => void
   spendXp: (amount: number) => boolean
@@ -56,6 +59,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   isPro: false,
   proPlan: null,
   theme: 'dark',
+  soundEnabled: true,
   chestOpened: false,
   streakFreezes: 0,
   answeredTotal: 0,
@@ -63,6 +67,8 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   toggleTheme: () =>
     set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
+
+  toggleSound: () => set((s) => ({ soundEnabled: !s.soundEnabled })),
 
   claimChest: () => {
     if (get().chestOpened) return false

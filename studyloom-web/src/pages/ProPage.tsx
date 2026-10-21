@@ -9,12 +9,20 @@ import {
   type ProPlanId,
 } from '../data/proPlans'
 import { useProSubscription } from '../hooks/useProSubscription'
+import { useFeedback } from '../hooks/useFeedback'
 
 const auditor = epicCostumes.find((c) => c.id === 'auditor')!
 
 export default function ProPage() {
   const { isPro, proPlan, subscribe, cancel } = useProSubscription()
   const [selectedPlan, setSelectedPlan] = useState<ProPlanId>('annual')
+  const fx = useFeedback()
+
+  function selectPlan(id: ProPlanId) {
+    if (id === selectedPlan) return
+    fx('tap')
+    setSelectedPlan(id)
+  }
   const selected = proPlans.find((p) => p.id === selectedPlan)!
   const activePlan = proPlans.find((p) => p.id === proPlan)
 
@@ -77,11 +85,11 @@ export default function ProPage() {
                 role="radio"
                 aria-checked={plan.id === selectedPlan}
                 tabIndex={0}
-                onClick={() => setSelectedPlan(plan.id)}
+                onClick={() => selectPlan(plan.id)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    setSelectedPlan(plan.id)
+                    selectPlan(plan.id)
                   }
                 }}
               >

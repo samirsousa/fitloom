@@ -4,10 +4,12 @@ import { questions } from '../data/questions'
 import { HEART_REFILL_COST, useGameStore } from '../store/useGameStore'
 import QuestionCard, { type AnswerResult } from '../components/quiz/QuestionCard'
 import AdSlot from '../components/ads/AdSlot'
+import { useFeedback } from '../hooks/useFeedback'
 
 export default function QuizPage() {
   const navigate = useNavigate()
   const location = useLocation()
+  const fx = useFeedback()
   const stateIndex = (location.state as { startIndex?: number } | null)?.startIndex ?? 0
   const startIndex = stateIndex >= 0 && stateIndex < questions.length ? stateIndex : 0
 
@@ -37,6 +39,7 @@ export default function QuizPage() {
     setAnsweredCurrent(true)
     setAnsweredCount((c) => c + 1)
     recordAnswer(result.correct)
+    fx(result.correct ? (result.fast ? 'bonus' : 'correct') : 'wrong')
     if (result.correct) {
       setCorrectCount((c) => c + 1)
       setSessionXp((x) => x + result.gainedXp)
@@ -51,6 +54,7 @@ export default function QuizPage() {
     if (isLast) {
       completeBattery()
       setFinished(true)
+      fx('batteryComplete')
     } else {
       setIndex((i) => i + 1)
     }

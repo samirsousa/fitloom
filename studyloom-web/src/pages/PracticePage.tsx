@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { flashcards, weakPoints } from '../data/errorNotebook'
 import AdSlot from '../components/ads/AdSlot'
+import { useFeedback } from '../hooks/useFeedback'
 
 export default function PracticePage() {
   const navigate = useNavigate()
   const [flipped, setFlipped] = useState<Set<string>>(new Set())
+  const fx = useFeedback()
 
   function toggleCard(id: string) {
+    fx('tap')
     setFlipped((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)

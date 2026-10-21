@@ -10,6 +10,7 @@ import {
 import { HEART_REFILL_COST, MAX_HEARTS, useGameStore } from '../store/useGameStore'
 import { useLumiLook } from '../store/useLumiStore'
 import { useLumiPush } from '../store/useLumiPush'
+import { useFeedback } from '../hooks/useFeedback'
 
 export default function ShopPage() {
   const navigate = useNavigate()
@@ -17,6 +18,7 @@ export default function ShopPage() {
     useGameStore()
   const look = useLumiLook()
   const showPush = useLumiPush((s) => s.show)
+  const fx = useFeedback()
 
   function buyHearts() {
     if (isPro) {
@@ -24,6 +26,7 @@ export default function ShopPage() {
     } else if (hearts >= MAX_HEARTS) {
       showPush(`❤️ Suas vidas já estão cheias (${MAX_HEARTS}/${MAX_HEARTS}). Guarde o XP para depois!`)
     } else if (refillHeartsWithXp()) {
+      fx('heartsRefill')
       showPush(`❤️ Vidas recarregadas (${MAX_HEARTS}/${MAX_HEARTS})! Continue resolvendo questões sem parar!`)
     } else {
       showPush(`⚡ Faltam ${HEART_REFILL_COST - totalXp} XP para recarregar as vidas.`)
@@ -34,6 +37,7 @@ export default function ShopPage() {
     if (streakFreezes >= MAX_STREAK_FREEZES) {
       showPush('🧊 Você já tem um Congelamento de Ofensiva ativo. Ele protege 1 dia sem estudo.')
     } else if (buyStreakFreeze()) {
+      fx('freeze')
       showPush('🧊 Congelamento de Ofensiva equipado! Seu Streak de estudos está blindado.')
     } else {
       showPush(`⚡ Faltam ${STREAK_FREEZE_COST - totalXp} XP para o Congelamento de Ofensiva.`)

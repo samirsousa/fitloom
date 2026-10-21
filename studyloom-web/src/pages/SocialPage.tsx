@@ -1,13 +1,16 @@
 import { useState } from 'react'
 import { communityItems, toneStyles } from '../data/community'
 import { useLumiPush } from '../store/useLumiPush'
+import { useFeedback } from '../hooks/useFeedback'
 
 export default function SocialPage() {
   const showPush = useLumiPush((s) => s.show)
+  const fx = useFeedback()
   const [sent, setSent] = useState<Set<string>>(new Set())
 
   function sendHighFive(id: string, friend: string) {
     setSent((prev) => new Set(prev).add(id))
+    fx('highFive')
     showPush(
       `🙌 Você enviou incentivo de estudo para ${friend}! Duplas de estudo mantêm a constância até o edital!`,
     )

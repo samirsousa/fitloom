@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { careerById, careers, type CareerId } from '../../data/careers'
 import { dailyGoals } from '../../data/dailyGoals'
+import { triggerFeedback } from '../../hooks/useFeedback'
 import { useGameStore } from '../../store/useGameStore'
 import { useIntroStore } from '../../store/useIntroStore'
 import { useLumiPush } from '../../store/useLumiPush'
@@ -73,20 +74,19 @@ function IntroFlow() {
   }
 
   function skip() {
-    // Etapa 5: som 'pop'
     closeThen(() => {
       if (!game.onboardingCompleted) game.skipOnboarding()
     })
   }
 
   function chooseCareer(id: CareerId) {
-    // Etapa 5: som 'correct'
+    triggerFeedback('tap')
     setCareerId(id)
     later(() => setStep(2), 240)
   }
 
   function chooseGoal(xp: number) {
-    // Etapa 5: som 'correct' e partículas de confete
+    triggerFeedback('tap')
     setGoalXp(xp)
     later(() => setStep(3), 280)
   }
@@ -95,7 +95,7 @@ function IntroFlow() {
     e.preventDefault()
     const userName = name.trim() || DEFAULT_NAME
     const career = careerById(careerId ?? game.careerId)
-    // Etapa 5: som 'fanfare' e partículas de confete e chamas
+    triggerFeedback('onboardingDone')
     closeThen(() => {
       game.completeOnboarding({
         userName,
