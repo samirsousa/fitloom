@@ -5,6 +5,7 @@ import { LEAGUE_NAME } from '../data/leagueRivals'
 import { lumiTrailSpeeches, trailNodes, type TrailAction } from '../data/trailNodes'
 import { useLeague } from '../hooks/useLeague'
 import { useFeedback } from '../hooks/useFeedback'
+import { pressable } from '../utils/a11y'
 import { useGameStore } from '../store/useGameStore'
 import { useLumiPush } from '../store/useLumiPush'
 import LumiAvatar from '../components/lumi/LumiAvatar'
@@ -53,7 +54,7 @@ export default function TrailPage() {
         </button>
       </div>
 
-      <div className="focused-practice-strip" onClick={() => navigate('/erros')}>
+      <div className="focused-practice-strip" {...pressable(() => navigate('/erros'))}>
         <div className="fp-strip-left">
           <div className="fp-strip-icon">📚</div>
           <div>
@@ -92,13 +93,15 @@ export default function TrailPage() {
 
         <div
           className="trail-lumi-companion"
-          onClick={interactWithLumi}
           title="Clique na Mentora Lumi!"
+          {...pressable(interactWithLumi, 'Conversar com a Mentora Lumi')}
         >
           <div className="trail-lumi-3d-frame">
             <LumiAvatar alt="Mentora Lumi guiando a Trilha do Edital" />
           </div>
-          <div className="trail-lumi-mini-speech">{speeches[speechIdx]}</div>
+          <div className="trail-lumi-mini-speech" aria-live="polite">
+            {speeches[speechIdx]}
+          </div>
         </div>
 
         {trailNodes.map((node) => {
@@ -106,7 +109,10 @@ export default function TrailPage() {
           const caption = isChest && chestOpened ? '🎁 Baú resgatado • volta amanhã' : node.caption
 
           return (
-            <div key={node.id} className={`trail-step pos-${node.pos}`}>
+            <div
+              key={node.id}
+              className={`trail-step pos-${node.pos}${node.active ? ' has-bubble' : ''}`}
+            >
               <div className="node-bundle" onClick={() => handleAction(node.action)}>
                 {node.active && <div className="node-start-bubble">⏱️ BATERIA 2X XP</div>}
                 <button

@@ -1,13 +1,16 @@
+import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
 import TrailPage from './pages/TrailPage'
-import PracticePage from './pages/PracticePage'
-import LeaguesPage from './pages/LeaguesPage'
-import SocialPage from './pages/SocialPage'
-import ShopPage from './pages/ShopPage'
-import ProPage from './pages/ProPage'
-import ProfilePage from './pages/ProfilePage'
-import QuizPage from './pages/QuizPage'
+
+// A Trilha é a tela inicial e vai no pacote principal. As demais carregam quando abertas.
+const PracticePage = lazy(() => import('./pages/PracticePage'))
+const LeaguesPage = lazy(() => import('./pages/LeaguesPage'))
+const SocialPage = lazy(() => import('./pages/SocialPage'))
+const ShopPage = lazy(() => import('./pages/ShopPage'))
+const ProPage = lazy(() => import('./pages/ProPage'))
+const ProfilePage = lazy(() => import('./pages/ProfilePage'))
+const QuizPage = lazy(() => import('./pages/QuizPage'))
 
 export default function App() {
   return (

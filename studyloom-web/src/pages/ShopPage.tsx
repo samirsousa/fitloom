@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom'
 import EpicCostumeCard from '../components/lumi/EpicCostumeCard'
 import LumiAvatar from '../components/lumi/LumiAvatar'
 import {
-  ACCESSORIES_ENABLED,
   epicCostumes,
   MAX_STREAK_FREEZES,
   STREAK_FREEZE_COST,
@@ -60,7 +59,7 @@ export default function ShopPage() {
 
       <div className="shop-lumi-showcase">
         <div className="lumi-avatar-stage-3d" id="shop-avatar-stage">
-          <LumiAvatar alt="Lumi 3D na Loja" withAccessories />
+          <LumiAvatar alt="Lumi 3D na Loja" />
           <div className="lumi-avatar-tag">{look.skinTag}</div>
         </div>
         <div style={{ flex: 1 }}>
@@ -77,7 +76,7 @@ export default function ShopPage() {
           <div style={{ fontSize: '1.1rem', fontWeight: 900, marginTop: 4 }}>{look.skinTitle}</div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', marginTop: 4 }}>
             Pelagem: {look.furLabel}
-            {ACCESSORIES_ENABLED && ` • Acessório: ${look.accessoryLabel}`}
+            {` • Acessório: ${look.accessoryLabel}`}
           </div>
         </div>
       </div>

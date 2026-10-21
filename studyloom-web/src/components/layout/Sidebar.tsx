@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useGameStore } from '../../store/useGameStore'
 import { useIntroStore } from '../../store/useIntroStore'
 import { sidebarItems } from './navItems'
+import { pressable } from '../../utils/a11y'
 
 export default function Sidebar() {
   const { pathname } = useLocation()
@@ -15,7 +16,7 @@ export default function Sidebar() {
   return (
     <aside className="left-sidebar" aria-label="Menu Principal Studyloom">
       <div>
-        <div className="sidebar-brand" onClick={() => navigate('/')}>
+        <div className="sidebar-brand" {...pressable(() => navigate('/'), 'Studyloom, ir para a Trilha')}>
           <div className="brand-icon-3d">S</div>
           <div className="brand-wordmark">
             Study<span>loom</span>

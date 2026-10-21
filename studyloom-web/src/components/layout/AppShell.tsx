@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useGameStore } from '../../store/useGameStore'
 import { useLumiPush } from '../../store/useLumiPush'
@@ -54,7 +54,15 @@ export default function AppShell() {
         <Sidebar />
         <main className="main-content-area">
           <div className="content-column-inner">
-            <Outlet />
+            <Suspense
+              fallback={
+                <section className="app-screen active" aria-busy="true">
+                  <p style={{ color: 'var(--text-secondary)', fontWeight: 700 }}>Carregando...</p>
+                </section>
+              }
+            >
+              <Outlet />
+            </Suspense>
           </div>
         </main>
         <RightPanel />

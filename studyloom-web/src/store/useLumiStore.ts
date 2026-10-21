@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import {
+  ACCESSORY_POSE,
   accessoryOptions,
   basePoses,
   epicCostumes,
@@ -45,8 +46,20 @@ export const useLumiStore = create<LumiState>()(
       ...initialLumiData,
 
       setFur: (key) => set({ furKey: key }),
-      setAccessory: (key) => set({ accessoryKey: key }),
-      equipBasePose: (key) => set({ basePoseKey: key, activeEpicId: null }),
+      // Acessório equipa a pose Padrão e tira a épica, porque só existe imagem nessa combinação
+      setAccessory: (key) =>
+        set(
+          key === 'none'
+            ? { accessoryKey: key }
+            : { accessoryKey: key, basePoseKey: ACCESSORY_POSE, activeEpicId: null },
+        ),
+      // Outra pose base não tem imagem com acessório, então o acessório volta para "nenhum"
+      equipBasePose: (key) =>
+        set((s) => ({
+          basePoseKey: key,
+          activeEpicId: null,
+          accessoryKey: key === ACCESSORY_POSE ? s.accessoryKey : 'none',
+        })),
       equipEpic: (id) => set({ activeEpicId: id }),
       markEpicOwned: (id) =>
         set((s) => (s.ownedEpics.includes(id) ? s : { ownedEpics: [...s.ownedEpics, id] })),
@@ -64,7 +77,10 @@ export function useLumiLook() {
 
   const base = basePoses.find((p) => p.key === basePoseKey) ?? basePoses[0]
   const epic = epicCostumes.find((c) => c.id === activeEpicId)
-  const skin = epic ?? base
+  const accessory = accessoryOptions.find((a) => a.key === accessoryKey)
+  // Prioridade: fantasia épica, depois acessório (só na pose Padrão), depois a pose base
+  const accessoryLook = base.key === ACCESSORY_POSE ? accessory?.look : undefined
+  const skin = epic ?? accessoryLook ?? base
 
   return {
     imgPath: skin.imgPath,
@@ -72,8 +88,6 @@ export function useLumiLook() {
     skinTitle: skin.skinTitle,
     furClass: `fur-${furKey}`,
     furLabel: furOptions.find((f) => f.key === furKey)?.label ?? '',
-    accessoryLabel: accessoryOptions.find((a) => a.key === accessoryKey)?.label ?? '',
-    showGlasses: accessoryKey === 'glasses' || accessoryKey === 'both',
-    showHeadphones: accessoryKey === 'headphones' || accessoryKey === 'both',
+    accessoryLabel: accessory?.label ?? '',
   }
 }

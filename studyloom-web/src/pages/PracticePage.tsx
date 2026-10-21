@@ -32,7 +32,7 @@ export default function PracticePage() {
 
       <div className="practice-hero-banner">
         <div className="practice-hero-lumi">
-          <img src="/assets/lumi-coach.jpg" alt="Lumi Mentora" />
+          <img src="/assets/lumi-coach.webp" alt="Lumi Mentora" />
         </div>
         <div style={{ flex: 1 }}>
           <div

@@ -4,6 +4,7 @@ import { LEAGUE_NAME, PROMOTION_SLOTS } from '../../data/leagueRivals'
 import { careerById } from '../../data/careers'
 import { rankMedal, useLeague } from '../../hooks/useLeague'
 import LumiAvatar from '../lumi/LumiAvatar'
+import { pressable } from '../../utils/a11y'
 
 export default function RightPanel() {
   const navigate = useNavigate()
@@ -18,7 +19,11 @@ export default function RightPanel() {
           <span className="flame-animated">🔥</span>
           <span>{streak}</span>
         </div>
-        <div className="stat-chip xp" onClick={() => navigate('/ligas')} title="Total de XP">
+        <div
+          className="stat-chip xp"
+          title="Total de XP"
+          {...pressable(() => navigate('/ligas'), `${totalXp} XP, ver ranking`)}
+        >
           <span>⚡</span>
           <span>{totalXp.toLocaleString('pt-BR')}</span>
         </div>

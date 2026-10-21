@@ -14,6 +14,8 @@ export interface AccessoryOption {
   key: AccessoryKey
   label: string
   buttonLabel: string
+  // Imagem própria da Lumi com o acessório, só na pose Padrão (hero)
+  look?: { imgPath: string; skinTag: string; skinTitle: string }
 }
 
 export interface BasePose {
@@ -73,37 +75,55 @@ export const accessoryOptions: AccessoryOption[] = [
     key: 'glasses',
     label: 'Óculos de Grau de Concurseiro',
     buttonLabel: '👓 Óculos de Grau de Concurseiro',
+    look: {
+      imgPath: '/assets/lumi-hero-glasses.webp',
+      skinTag: 'Lumi de Óculos 👓',
+      skinTitle: 'Lumi Padrão com Óculos de Grau',
+    },
   },
   {
     key: 'headphones',
     label: 'Fones de Ouvido para Estudo',
     buttonLabel: '🎧 Fones de Ouvido para Estudo',
+    look: {
+      imgPath: '/assets/lumi-hero-headphones.webp',
+      skinTag: 'Lumi de Fones 🎧',
+      skinTitle: 'Lumi Padrão com Fones de Estudo',
+    },
   },
   {
     key: 'both',
     label: 'Combo Óculos + Fones de Estudo',
     buttonLabel: '👓+🎧 Combo Foco Total (Óculos + Fones)',
+    look: {
+      imgPath: '/assets/lumi-hero-both.webp',
+      skinTag: 'Foco Total 👓🎧',
+      skinTitle: 'Lumi Padrão no Foco Total (Óculos + Fones)',
+    },
   },
 ]
+
+// Os acessórios só têm imagem na pose Padrão. Escolher um acessório equipa essa pose.
+export const ACCESSORY_POSE: BasePoseKey = 'hero'
 
 export const basePoses: BasePose[] = [
   {
     key: 'hero',
-    imgPath: '/assets/lumi-hero.jpg',
+    imgPath: '/assets/lumi-hero.webp',
     skinTag: 'Lumi Aprovada 🎓',
     skinTitle: 'Lumi Concurseira Aprovada (Capelo & Diploma)',
     buttonLabel: '🎓 Lumi Padrão (Capelo Preto & Canudo de Formatura)',
   },
   {
     key: 'coach',
-    imgPath: '/assets/lumi-coach.jpg',
+    imgPath: '/assets/lumi-coach.webp',
     skinTag: 'Mentora c/ Diploma',
     skinTitle: 'Lumi Mentora de Banca (Capelo & Diploma)',
     buttonLabel: '📜 Lumi Mentora de Banca (Capelo & Diploma)',
   },
   {
     key: 'celebrate',
-    imgPath: '/assets/lumi-celebrate.jpg',
+    imgPath: '/assets/lumi-celebrate.webp',
     skinTag: 'Nomeação 🎓',
     skinTitle: 'Lumi Comemorando Aprovação c/ Diploma',
     buttonLabel: '🎉 Lumi Comemorando a Posse (Capelo & Diploma)',
@@ -113,7 +133,7 @@ export const basePoses: BasePose[] = [
 export const epicCostumes: EpicCostume[] = [
   {
     id: 'dino',
-    imgPath: '/assets/lumi-dino.jpg',
+    imgPath: '/assets/lumi-dino.webp',
     imgAlt: 'Lumi Pijama de Dinossauro 3D',
     skinTag: '🦖 Lumi Dino 3D',
     skinTitle: 'Fantasia Épica: Pijama de Dinossauro 🦖',
@@ -130,7 +150,7 @@ export const epicCostumes: EpicCostume[] = [
   },
   {
     id: 'judge',
-    imgPath: '/assets/lumi-judge.jpg',
+    imgPath: '/assets/lumi-judge.webp',
     imgAlt: 'Lumi Toga de Juiz Magistrado 3D',
     skinTag: '⚖️ Lumi Magistrada',
     skinTitle: 'Fantasia Épica: Toga de Juiz / Magistrado ⚖️',
@@ -147,7 +167,7 @@ export const epicCostumes: EpicCostume[] = [
   },
   {
     id: 'auditor',
-    imgPath: '/assets/lumi-auditor.jpg',
+    imgPath: '/assets/lumi-auditor.webp',
     imgAlt: 'Lumi Farda de Auditor Fiscal 3D',
     skinTag: '🛡️ Lumi Auditora',
     skinTitle: 'Fantasia Épica: Farda de Auditor / Fiscal 🛡️',
@@ -163,10 +183,6 @@ export const epicCostumes: EpicCostume[] = [
     unlock: { type: 'pro' },
   },
 ]
-
-// Acessórios desligados até existir arte própria da Lumi com óculos e fones.
-// Os SVGs sobrepostos do protótipo não encaixam nas imagens 3D.
-export const ACCESSORIES_ENABLED: boolean = false
 
 export const STREAK_FREEZE_COST = 200
 export const MAX_STREAK_FREEZES = 1

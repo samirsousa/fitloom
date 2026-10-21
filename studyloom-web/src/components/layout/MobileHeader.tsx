@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useGameStore } from '../../store/useGameStore'
+import { pressable } from '../../utils/a11y'
 
 export default function MobileHeader() {
   const navigate = useNavigate()
@@ -9,7 +10,7 @@ export default function MobileHeader() {
     <header className="mobile-top-header" aria-label="Cabeçalho Mobile Studyloom">
       <div
         style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
-        onClick={() => navigate('/')}
+        {...pressable(() => navigate('/'), 'Studyloom, ir para a Trilha')}
       >
         <div className="brand-icon-3d" style={{ width: 32, height: 32, fontSize: '1rem' }}>
           S
@@ -17,14 +18,14 @@ export default function MobileHeader() {
         <div className="brand-wordmark" style={{ fontSize: '1.25rem' }}>
           Study<span>loom</span>
         </div>
-      </div> 
+      </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
         <div className="stat-chip streak">
           <span className="flame-animated">🔥</span>
           <span>{streak}</span>
         </div>
-        <div className="stat-chip xp" onClick={() => navigate('/ligas')}>
+        <div className="stat-chip xp" {...pressable(() => navigate('/ligas'), `${totalXp} XP, ver ranking`)}>
           <span>⚡</span>
           <span>{totalXp.toLocaleString('pt-BR')}</span>
         </div>
@@ -32,7 +33,13 @@ export default function MobileHeader() {
           <span className="heart-pulse">❤️</span>
           <span>{isPro ? '∞' : hearts}</span>
         </div>
-        <button type="button" className="stat-chip" onClick={toggleTheme} title="Alternar tema">
+        <button
+          type="button"
+          className="stat-chip"
+          onClick={toggleTheme}
+          title="Alternar tema"
+          aria-label="Alternar tema claro e escuro"
+        >
           🌓
         </button>
       </div>

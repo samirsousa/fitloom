@@ -170,7 +170,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-0">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-hero.jpg"
+                src="/assets/lumi-hero.webp"
                 alt="Lumi 3D sorrindo e fazendo um joinha"
                 className="lumi-thumbsup-img"
               />
@@ -198,7 +198,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-1">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-hero.jpg"
+                src="/assets/lumi-hero.webp"
                 alt="Lumi 3D perguntando sua carreira-alvo"
                 className="lumi-thumbsup-img"
               />
@@ -233,7 +233,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-2">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-coach.jpg"
+                src="/assets/lumi-coach.webp"
                 alt="Lumi Coach definindo sua meta diária"
                 className="lumi-thumbsup-img"
               />
@@ -268,7 +268,7 @@ function IntroFlow() {
           <section className="onb-step-stage active" id="onb-step-3">
             <div className="kiss-camera-viewport">
               <img
-                src="/assets/lumi-celebrate.jpg"
+                src="/assets/lumi-celebrate.webp"
                 alt="Lumi 3D entregando sua Trilha do Edital"
                 className="lumi-thumbsup-img"
               />

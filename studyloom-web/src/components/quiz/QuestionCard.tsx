@@ -58,9 +58,9 @@ export default function QuestionCard({
     pillText = '⏱️ BÔNUS 2X ENCERRADO (XP NORMAL)'
   }
 
-  let lumiSrc = question.type === 'true_false' ? '/assets/lumi-coach.jpg' : '/assets/lumi-hero.jpg'
+  let lumiSrc = question.type === 'true_false' ? '/assets/lumi-coach.webp' : '/assets/lumi-hero.webp'
   if (result) {
-    lumiSrc = result.correct ? '/assets/lumi-celebrate.jpg' : '/assets/lumi-coach.jpg'
+    lumiSrc = result.correct ? '/assets/lumi-celebrate.webp' : '/assets/lumi-coach.webp'
   }
 
   let feedbackTitle = ''

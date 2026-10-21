@@ -67,6 +67,7 @@ export default function QuizPage() {
         className="quiz-close-btn"
         onClick={() => navigate('/')}
         title="Sair da bateria"
+        aria-label="Sair da bateria"
       >
         ✕
       </button>
@@ -90,7 +91,7 @@ export default function QuizPage() {
         {topBar}
         <div className="lesson-complete-modal visible">
           <div className="celebrate-lumi-box">
-            <img src="/assets/lumi-celebrate.jpg" alt="Lumi comemorando" />
+            <img src="/assets/lumi-celebrate.webp" alt="Lumi comemorando" />
           </div>
           <span className="story-pillar-badge workout">🔥 BATERIA DE EDITAL CONCLUÍDA!</span>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 900 }}>Mais perto da nomeação!</h2>

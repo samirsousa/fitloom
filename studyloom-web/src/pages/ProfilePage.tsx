@@ -6,7 +6,7 @@ import { achievements } from '../data/achievements'
 import { careerById } from '../data/careers'
 import { LEAGUE_NAME, LEAGUE_TIER } from '../data/leagueRivals'
 import {
-  ACCESSORIES_ENABLED,
+  ACCESSORY_POSE,
   accessoryOptions,
   basePoses,
   epicCostumes,
@@ -65,13 +65,22 @@ export default function ProfilePage() {
   function chooseAccessory(acc: AccessoryOption) {
     setAccessory(acc.key)
     fx('tap')
-    showPush(`🎒 Acessório gratuito "${acc.label}" atualizado na Lumi 3D!`)
+    showPush(
+      acc.key === 'none'
+        ? '🎒 Acessório removido da Lumi 3D.'
+        : `🎒 "${acc.label}" aplicado na Lumi Padrão! Os acessórios usam a pose Padrão.`,
+    )
   }
 
   function choosePose(pose: BasePose) {
+    const hadAccessory = accessoryKey !== 'none' && pose.key !== ACCESSORY_POSE
     equipBasePose(pose.key)
     fx('tap')
-    showPush(`🦊 Estilo gratuito "${pose.skinTitle}" equipado na Lumi 3D!`)
+    showPush(
+      hadAccessory
+        ? `🦊 "${pose.skinTitle}" equipado! Os acessórios só existem na pose Padrão e foram guardados.`
+        : `🦊 Estilo gratuito "${pose.skinTitle}" equipado na Lumi 3D!`,
+    )
   }
 
   // Apaga o progresso salvo neste aparelho. Tema e som ficam.
@@ -89,7 +98,7 @@ export default function ProfilePage() {
     <section className="app-screen active" id="screen-profile" aria-label="Perfil do Concurseiro">
       <div className="profile-header-card">
         <div className="lumi-avatar-stage-3d" id="profile-avatar-stage">
-          <LumiAvatar alt="Avatar Padrão Obrigatório: Raposa 3D Lumi" withAccessories />
+          <LumiAvatar alt="Avatar Padrão Obrigatório: Raposa 3D Lumi" />
           <div className="lumi-avatar-tag">{look.skinTag}</div>
         </div>
 
@@ -119,7 +128,7 @@ export default function ProfilePage() {
             }}
           >
             Visual: {look.skinTitle} • Pelagem: {look.furLabel}
-            {ACCESSORIES_ENABLED && ` • ${look.accessoryLabel}`}
+            {` • ${look.accessoryLabel}`}
           </div>
           <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: 2 }}>
             {isPro
@@ -235,26 +244,24 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {ACCESSORIES_ENABLED && (
-            <div className="creator-row">
-              <div className="creator-row-label">
-                Acessórios Simples de Concurseiro{' '}
-                <span className="free-tag-pill">✓ 100% Grátis • Desbloqueado</span>
-              </div>
-              <div className="creator-swatches">
-                {accessoryOptions.map((acc) => (
-                  <button
-                    key={acc.key}
-                    type="button"
-                    className={`swatch-btn${accessoryKey === acc.key ? ' active' : ''}`}
-                    onClick={() => chooseAccessory(acc)}
-                  >
-                    {acc.buttonLabel}
-                  </button>
-                ))}
-              </div>
+          <div className="creator-row">
+            <div className="creator-row-label">
+              Acessórios Simples de Concurseiro (na pose Padrão){' '}
+              <span className="free-tag-pill">✓ 100% Grátis • Desbloqueado</span>
             </div>
-          )}
+            <div className="creator-swatches">
+              {accessoryOptions.map((acc) => (
+                <button
+                  key={acc.key}
+                  type="button"
+                  className={`swatch-btn${accessoryKey === acc.key ? ' active' : ''}`}
+                  onClick={() => chooseAccessory(acc)}
+                >
+                  {acc.buttonLabel}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div className="creator-row">
             <div className="creator-row-label">

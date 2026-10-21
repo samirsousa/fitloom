@@ -682,6 +682,12 @@ html, body {
   z-index: 2;
 }
 
+/* O selo do nó ativo fica 42 px acima do círculo e pulava sobre a legenda do nó anterior
+   (o gap da trilha é 28 px). O espaço extra vale só para o passo com o selo. */
+.trail-step.has-bubble {
+  margin-top: 26px;
+}
+
 .trail-step.pos-center   { transform: translateX(0px); }
 .trail-step.pos-left     { transform: translateX(-78px); }
 .trail-step.pos-right    { transform: translateX(78px); }
@@ -2747,5 +2753,78 @@ html, body {
   .trail-lumi-3d-frame {
     width: 104px;
     height: 116px;
+  }
+}
+
+/* ============================================================================
+   ACESSIBILIDADE, TOQUE E ÁREAS SEGURAS (Etapa 7)
+   ============================================================================ */
+
+/* Foco visível só na navegação por teclado */
+:where(button, a, input, [tabindex], [role="button"], [role="radio"]):focus-visible {
+  outline: 3px solid var(--orange-400);
+  outline-offset: 3px;
+}
+
+/* Alvos de toque de 44 px em telas de toque, sem mudar o desktop */
+@media (pointer: coarse) {
+  .sidebar-util-btn,
+  .swatch-btn,
+  .epic-action-btn,
+  .shop-buy-btn,
+  .high-five-btn,
+  .wardrobe-tab-btn,
+  .section-practice-btn,
+  .pro-cancel-link,
+  .ad-slot-remove {
+    min-height: 44px;
+  }
+
+  /* Elementos pequenos: a área de toque cresce por um pseudo-elemento invisível */
+  .stat-chip,
+  .quiz-close-btn,
+  .widget-link-btn {
+    position: relative;
+  }
+
+  .stat-chip[role="button"]::after,
+  button.stat-chip::after,
+  .quiz-close-btn::after,
+  .widget-link-btn::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+  }
+}
+
+/* Quem pediu menos movimento no sistema não vê animações nem transições longas */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Áreas seguras do iPhone (viewport-fit=cover no index.html) */
+.bottom-nav {
+  height: calc(74px + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.mobile-top-header {
+  padding-top: calc(12px + env(safe-area-inset-top));
+}
+
+.lumi-push-banner {
+  top: calc(20px + env(safe-area-inset-top));
+}
+
+@media (max-width: 960px) {
+  .right-widgets-panel {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
   }
 }

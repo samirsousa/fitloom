@@ -40,12 +40,13 @@ Documents\studyloom\       raiz do repositório git
     assets\                imagens da Lumi usadas pelo protótipo
   studyloom-web\           app React (onde se trabalha)
   studyloom-api\           backend Spring Boot (ainda não existe)
+  docs\                    pendencias.md (o que falta antes do lançamento) e brand\ (arte original do ícone)
 ```
 
 Estrutura atual de `studyloom-web`:
 
 ```
-public/assets/             imagens da Lumi (lumi-hero.jpg, lumi-celebrate.jpg, lumi-coach.jpg e as fantasias)
+public/assets/             imagens da Lumi em WebP 768 px (lumi-hero.webp, lumi-celebrate.webp, lumi-coach.webp e as fantasias)
 src/
   main.tsx                 BrowserRouter + QueryClientProvider
   App.tsx                  rotas
@@ -70,7 +71,9 @@ src/
 - Um componente por arquivo, nome em PascalCase. Hooks começam com `use`.
 - Navegação por `useNavigate`. Os itens da barra lateral e da inferior são botões, como no protótipo.
 - As telas usam `<section className="app-screen active" id="screen-...">`, porque o CSS esconde `.app-screen` sem `active`.
-- Imagens são servidas de `/assets/...` (pasta `public/assets`).
+- Imagens são servidas de `/assets/...` (pasta `public/assets`), em WebP. Imagem nova: 1024 x 1024 na origem, convertida para WebP de 768 px.
+- Elemento clicável que não é `<button>`: use `pressable()` de `src/utils/a11y.ts` (foco e Enter/Espaço).
+- Telas novas entram com `React.lazy` em `App.tsx`. Só a Trilha fica no pacote principal.
 
 ## Estado global (`useGameStore`)
 
@@ -88,9 +91,9 @@ Constantes exportadas: `HEART_REFILL_COST` e `MAX_HEARTS`. Preços do congelamen
 
 ## Avatar da Lumi (`useLumiStore`)
 
-Guarda só as escolhas: `furKey`, `accessoryKey`, `basePoseKey`, `activeEpicId` e `ownedEpics`. Ações: `setFur`, `setAccessory`, `equipBasePose` (desequipa a épica), `equipEpic`, `markEpicOwned`. O hook `useLumiLook()` deriva de `src/data/wardrobe.ts` a imagem, a tag, o título, a classe de pelagem e a visibilidade dos acessórios.
+Guarda só as escolhas: `furKey`, `accessoryKey`, `basePoseKey`, `activeEpicId` e `ownedEpics`. Ações: `setFur`, `setAccessory` (um acessório equipa a pose Padrão e tira a épica), `equipBasePose` (desequipa a épica; pose diferente da Padrão volta o acessório para "nenhum"), `equipEpic`, `markEpicOwned`, `reset`. O hook `useLumiLook()` deriva de `src/data/wardrobe.ts` a imagem, a tag, o título e a classe de pelagem, nesta prioridade: fantasia épica, acessório (só na pose Padrão, `ACCESSORY_POSE`), pose base.
 
-O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use `withAccessories` nas vitrines grandes (Loja e Perfil). Ele aparece no painel direito, na Trilha, no banner de push e na Loja. O apresentador da bateria mantém as imagens de reação fixas.
+O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai), já com o acessório, porque cada acessório tem imagem própria. Ele aparece no painel direito, na Trilha, no banner de push e na Loja. O apresentador da bateria mantém as imagens de reação fixas.
 
 `useLumiPush` expõe `show(mensagem)` e `hide()` para o banner de notificação da Lumi, que fica montado no `AppShell`.
 
@@ -123,7 +126,7 @@ O componente `LumiAvatar` renderiza a Lumi equipada (a moldura fica no pai). Use
 
 ## O que falta no front
 
-Polimento e PWA. Também falta o teste de som e vibração da Etapa 5.
+O plano do front está completo. Faltam os testes do dono do projeto (som e vibração da Etapa 5, instalação do PWA no celular) e os itens de `docs/pendencias.md`.
 
 ## Pontos em aberto para debate
 
@@ -132,7 +135,7 @@ Itens levantados na Etapa 0 que ainda não têm decisão. Discuta com o dono do 
 1. Card Pro do painel direito: resolvido na Etapa 3 (paleta dourada, sem teste grátis).
 2. Nome das ligas: resolvido na Etapa 3 (escada por cargo, sem gemas).
 3. Valores iniciais do store: resolvido na Etapa 6. Usuário novo começa do zero (ofensiva 0, 0 XP, meta de 60 XP).
-4. LEMBRETE PARA O DONO DO PROJETO: criar imagens próprias da Lumi com acessórios (óculos de grau, fones e o combo), em cada pose base (hero, coach, celebrate). Os SVGs sobrepostos do protótipo não encaixam nas imagens 3D, por isso os acessórios estão desligados (`ACCESSORIES_ENABLED = false` em `src/data/wardrobe.ts`). Alternativa de longo prazo: a Lumi animada em Rive ou Lottie, com acessórios como camadas. Quando as imagens existirem, religar a chave e trocar a exibição por imagem.
+4. Lumi com acessórios: resolvido na Etapa 7 (21/10/2026) com 3 imagens próprias na pose Padrão (`lumi-hero-glasses`, `-headphones` e `-both`; originais em `docs/brand/lumi-acessorios-originais`). A camada de SVG do protótipo e a chave `ACCESSORIES_ENABLED` foram removidas. Se vierem imagens das outras poses, basta estender o catálogo em `wardrobe.ts`. Alternativa de longo prazo: a Lumi animada em Rive ou Lottie, com acessórios como camadas.
 5. Tela inicial (splash e onboarding): aprovada na Etapa 4 como versão provisória (21/10/2026). O dono do projeto deve revisitar o visual e o fluxo no futuro. Os textos e as opções ficam em `src/data/careers.ts`, `src/data/dailyGoals.ts` e `IntroOverlay.tsx`.
 
 ## Referência do protótipo
@@ -293,7 +296,19 @@ Hoje tudo zera ao recarregar a página. Antes do backend existir, use o middlewa
 
 Commit: `feat: persistencia local do progresso`.
 
-### Etapa 7: polimento
+### Etapa 7: polimento (concluída em 21/10/2026)
+
+Resultado: build, lint e tsc sem erros; `npm audit` sem vulnerabilidades. Testado no navegador pelo dono do projeto: selo da Trilha, navegação por teclado, imagens WebP e os acessórios da Lumi no guarda-roupa. Decisões da análise (21/10/2026):
+
+- Selo "BATERIA 2X XP": o defeito vinha do protótipo (selo 42 px acima do nó, gap de 28 px). Corrigido com espaço extra só no passo com o selo (`.trail-step.has-bubble`).
+- Foco visível global por `:focus-visible`. Alvos de 44 px só em telas de toque (`pointer: coarse`), para não mudar o desktop; nos chips, no fechar da bateria e nos links pequenos a área cresce por pseudo-elemento invisível.
+- Elementos clicáveis que não são botão (marcas, chips de XP, faixa do Caderno, Lumi da Trilha) ganharam foco e teclado por `pressable()`. O banner da Lumi segue como região de aviso (`role="status"`). `aria-label` nos botões só com ícone.
+- `prefers-reduced-motion` desliga as animações e transições de CSS (as partículas já respeitavam).
+- Áreas seguras do iPhone na barra inferior, no cabeçalho mobile, no banner e no fim do conteúdo.
+- Rotas com `React.lazy` (menos a Trilha), com `Suspense` em volta do `Outlet`. `PlaceholderPage` removida.
+- Imagens: os 6 JPGs (1024 px, cerca de 550 KB) viraram WebP de 768 px (25 a 30 KB), convertidos pelo Chrome sem dependência. Os JPGs saíram de `public` (os originais seguem na pasta do protótipo e no git).
+- `docs/pendencias.md` na raiz, com imagens, conteúdo, simulações, testes, revisões e segurança ao publicar.
+- Acessórios da Lumi (ponto em aberto 4): as 3 imagens do colega (1200 x 1600, só na pose Padrão) viraram WebP quadrado de 768 px, com as laterais completadas pela borda da própria imagem. Escolher acessório equipa a pose Padrão; outra pose devolve o acessório a "nenhum"; a épica tem prioridade.
 
 1. Compare a Trilha com o protótipo na mesma largura. Há uma sobreposição do selo "BATERIA 2X XP" com a legenda do nó anterior, que pode existir também no original. Se existir, corrija no CSS.
 2. Acessibilidade e toque: alvos de pelo menos 44 px, foco visível, `aria-label` nos botões só com ícone.
