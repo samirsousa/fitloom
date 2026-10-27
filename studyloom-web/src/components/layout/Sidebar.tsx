@@ -14,12 +14,12 @@ export default function Sidebar() {
   const replayIntro = useIntroStore((s) => s.replay)
 
   return (
-    <aside className="left-sidebar" aria-label="Menu Principal Studyloom">
+    <aside className="left-sidebar" aria-label="Menu Principal GoLumi">
       <div>
-        <div className="sidebar-brand" {...pressable(() => navigate('/'), 'Studyloom, ir para a Trilha')}>
-          <div className="brand-icon-3d">S</div>
+        <div className="sidebar-brand" {...pressable(() => navigate('/'), 'GoLumi, ir para a Trilha')}>
+          <div className="brand-icon-3d">G</div>
           <div className="brand-wordmark">
-            Study<span>loom</span>
+            Go<span>Lumi</span>
           </div>
         </div>
 

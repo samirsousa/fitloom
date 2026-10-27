@@ -13,7 +13,7 @@ export const sidebarItems: NavItem[] = [
   { to: '/ligas', icon: '🏆', label: 'Ligas & Ranking', matches: ['/ligas'] },
   { to: '/comunidade', icon: '❤️', label: 'Comunidade', matches: ['/comunidade'] },
   { to: '/loja', icon: '🦊', label: 'Loja da Lumi', matches: ['/loja'] },
-  { to: '/pro', icon: '💎', label: 'Studyloom Pro', matches: ['/pro'], className: 'pro-tab' },
+  { to: '/pro', icon: '💎', label: 'GoLumi Pro', matches: ['/pro'], className: 'pro-tab' },
   { to: '/perfil', icon: '👤', label: 'Perfil & Acertos', matches: ['/perfil'] },
 ]
 

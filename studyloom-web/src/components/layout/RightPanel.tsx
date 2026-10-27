@@ -42,7 +42,7 @@ export default function RightPanel() {
       >
         <div className="widget-header">
           <span className="widget-title" style={{ color: 'var(--gold-500)' }}>
-            💎 Studyloom Pro
+            💎 GoLumi Pro
           </span>
         </div>
         {isPro ? (

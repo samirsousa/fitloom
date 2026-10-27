@@ -10,13 +10,13 @@ export default function MobileHeader() {
     <header className="mobile-top-header" aria-label="Cabeçalho Mobile Studyloom">
       <div
         style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}
-        {...pressable(() => navigate('/'), 'Studyloom, ir para a Trilha')}
+        {...pressable(() => navigate('/'), 'GoLumi, ir para a Trilha')}
       >
         <div className="brand-icon-3d" style={{ width: 32, height: 32, fontSize: '1rem' }}>
-          S
+          G
         </div>
         <div className="brand-wordmark" style={{ fontSize: '1.25rem' }}>
-          Study<span>loom</span>
+          Go<span>Lumi</span>
         </div>
       </div>
 

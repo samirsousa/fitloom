@@ -6,7 +6,7 @@ export default function BottomNav() {
   const navigate = useNavigate()
 
   return (
-    <nav className="bottom-nav" aria-label="Navegação Inferior Mobile Studyloom">
+    <nav className="bottom-nav" aria-label="Navegação Inferior Mobile GoLumi">
       {bottomItems.map((item) => (
         <button
           key={item.to}

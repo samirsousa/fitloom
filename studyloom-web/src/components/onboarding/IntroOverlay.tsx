@@ -119,7 +119,7 @@ function IntroFlow() {
       id="intro-overlay"
       role="dialog"
       aria-modal="true"
-      aria-label="Boas-vindas ao Studyloom"
+      aria-label="Boas-vindas ao GoLumi"
     >
       <div
         className={`splash-orange-stage${splashOut ? ' fade-out' : ''}`}
@@ -129,7 +129,7 @@ function IntroFlow() {
         <div style={{ height: 24 }} />
         <LumiSplashFace />
         <div className="splash-bottom-brand">
-          <div className="splash-app-name">Studyloom</div>
+          <div className="splash-app-name">GoLumi</div>
           <div className="splash-app-tagline">Preparação Gamificada para Concursos</div>
         </div>
       </div>
@@ -137,9 +137,9 @@ function IntroFlow() {
       <div className="onboarding-wizard-shell">
         <header className="onb-top-bar">
           <div className="sidebar-brand" style={{ padding: 0 }}>
-            <div className="brand-icon-3d">S</div>
+            <div className="brand-icon-3d">G</div>
             <div className="brand-wordmark">
-              Study<span>loom</span>
+              Go<span>Lumi</span>
             </div>
           </div>
 
@@ -178,7 +178,7 @@ function IntroFlow() {
             </div>
             <div className="onb-copy-col">
               <div className="onb-speech-bubble">
-                🦊 <strong>Lumi:</strong> "Rumo à aprovação no Studyloom! 👍 Eu sou a Lumi e vou
+                🦊 <strong>Lumi:</strong> "Rumo à aprovação no GoLumi! 👍 Eu sou a Lumi e vou
                 transformar o seu edital em baterias rápidas de questões com cronômetro e gabarito
                 comentado!"
               </div>
@@ -207,7 +207,7 @@ function IntroFlow() {
             <div className="onb-copy-col">
               <div className="onb-speech-bubble">
                 🦊 <strong>Pergunta 1 de 2:</strong> "Qual é a sua carreira-alvo principal no
-                Studyloom?"
+                GoLumi?"
               </div>
               <h2 className="onb-title">Escolha sua Carreira-Alvo</h2>
               <div className="onb-options-grid">
@@ -276,7 +276,7 @@ function IntroFlow() {
             </div>
             <form className="onb-copy-col" onSubmit={finish}>
               <div className="onb-speech-bubble">
-                🎉 <strong>Sua Trilha no Studyloom está pronta!</strong> Diga como a Lumi deve te chamar
+                🎉 <strong>Sua Trilha no GoLumi está pronta!</strong> Diga como a Lumi deve te chamar
                 e conclua a primeira bateria para manter sua <strong>ofensiva (🔥)</strong> acesa!
               </div>
               <h2 className="onb-title">Como a Lumi deve te chamar?</h2>
@@ -313,7 +313,7 @@ function IntroFlow() {
             fontWeight: 700,
           }}
         >
-          Studyloom • Plataforma Web Responsiva para Concursos Públicos • Guiada pela Mentora 3D Lumi
+          GoLumi • Plataforma Web Responsiva para Concursos Públicos • Guiada pela Mentora 3D Lumi
         </footer>
       </div>
     </div>
