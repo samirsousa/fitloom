@@ -6,6 +6,7 @@ import QuestionCard, { type AnswerResult } from '../components/quiz/QuestionCard
 import AdSlot from '../components/ads/AdSlot'
 import { useFeedback } from '../hooks/useFeedback'
 import { asset } from '../utils/asset'
+import Ofensiva from '../components/pages/Ofensiva'; // Importa a tela de ofensiva que criamos
 
 export default function QuizPage() {
   const navigate = useNavigate()
@@ -32,6 +33,7 @@ export default function QuizPage() {
   const [correctCount, setCorrectCount] = useState(0)
   const [sessionXp, setSessionXp] = useState(0)
   const [finished, setFinished] = useState(false)
+  const [showOfensiva, setShowOfensiva] = useState(false) // Estado para controlar a exibição da tela de ofensiva
 
   const isLast = index === questions.length - 1
   const outOfHearts = !isPro && hearts === 0
@@ -86,6 +88,11 @@ export default function QuizPage() {
   )
 
   if (finished) {
+    // Se o usuário concluiu a bateria e escolheu ver a ofensiva, renderiza a tela da Lumi
+    if (showOfensiva) {
+      return <Ofensiva />
+    }
+
     const accuracy = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0
     return (
       <section className="app-screen active" id="screen-quiz" aria-label="Bateria concluída">
@@ -122,8 +129,12 @@ export default function QuizPage() {
             </div>
           </div>
 
-          <button type="button" className="primary-3d-btn emerald" onClick={() => navigate('/')}>
-            Voltar para a Trilha do Edital 🏆
+          <button 
+            type="button" 
+            className="primary-3d-btn emerald" 
+            onClick={() => setShowOfensiva(true)}
+          >
+            Ver Minha Ofensiva & Trilha 🔥
           </button>
 
           <AdSlot placement="battery-complete" />

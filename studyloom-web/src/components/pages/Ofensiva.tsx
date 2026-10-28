@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Ofensiva() {
+  const navigate = useNavigate();
   const [etapaAtual, setEtapaAtual] = useState(1);
 
   useEffect(() => {
@@ -18,56 +20,106 @@ export default function Ofensiva() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-white flex flex-col justify-between p-6 font-sans max-w-md mx-auto relative overflow-hidden shadow-2xl border border-slate-800 rounded-3xl my-4">
+    <div style={{
+      maxWidth: '420px',
+      margin: '20px auto',
+      padding: '24px',
+      backgroundColor: '#0F172A',
+      color: 'white',
+      minHeight: '85vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      borderRadius: '24px',
+      border: '1px solid #1E293B',
+      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+      fontFamily: 'sans-serif'
+    }}>
       {/* Cabeçalho */}
-      <div className="flex items-center justify-between w-full pt-2">
-        <button className="text-slate-400 hover:text-white text-xl">←</button>
-        <h1 className="text-lg font-bold tracking-wide">Lumi</h1>
-        <div className="w-6"></div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+        <button 
+          onClick={() => navigate('/')} 
+          style={{ background: 'none', border: 'none', color: '#94A3B8', fontSize: '20px', cursor: 'pointer' }}
+          title="Voltar para a Trilha"
+        >
+          ✕
+        </button>
+        <h1 style={{ fontSize: '18px', fontWeight: 'bold', margin: 0 }}>Lumi</h1>
+        <div style={{ width: '24px' }}></div>
       </div>
 
       {/* Balão de Fala da Lumi */}
-      <div className="w-full bg-slate-800/60 backdrop-blur-md border border-slate-700/60 rounded-2xl p-4 shadow-lg relative my-2">
-        <p className="text-sm text-slate-200 leading-relaxed">
-          <strong className="block text-white mb-1">Bem-vindo, Concurseiro!</strong>
-          Sua <span className="text-orange-400 font-semibold">Jornada da Aprovação</span> começou. Crie o hábito de estudar todo dia e elimine a concorrência.
+      <div style={{
+        backgroundColor: 'rgba(30, 41, 59, 0.7)',
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(51, 65, 85, 0.6)',
+        borderRadius: '16px',
+        padding: '14px',
+        margin: '8px 0',
+        position: 'relative'
+      }}>
+        <p style={{ fontSize: '13px', color: '#CBD5E1', margin: 0, lineHeight: '1.4' }}>
+          <strong style={{ display: 'block', color: 'white', marginBottom: '2px' }}>Bem-vindo, Concurseiro!</strong>
+          Sua <span style={{ color: '#FB923C', fontWeight: '600' }}>Jornada da Aprovação</span> começou. Crie o hábito de estudar todo dia e elimine a concorrência.
         </p>
-        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-slate-800/60 border-r border-b border-slate-700/60 rotate-45"></div>
       </div>
 
-      {/* Imagem da Mascote Lumi */}
-      <div className="flex justify-center my-2">
+      {/* Imagem da Mascote Lumi com tamanho bem maior */}
+      <div style={{ display: 'flex', justifyContent: 'center', margin: '4px 0' }}>
         <img 
-          src="/icons/lumi-ofensiva.jpg" 
+          src="/icons/lumi-ofensiva.png" 
           alt="Mascote Lumi" 
-          className="w-48 h-48 object-contain drop-shadow-[0_10px_15px_rgba(249,115,22,0.2)] rounded-2xl"
+          style={{
+            width: '220px',
+            height: '220px',
+            objectFit: 'contain',
+            filter: 'drop-shadow(0 15px 25px rgba(249, 115, 22, 0.35))'
+          }}
         />
       </div>
 
       {/* Trilha Sinuosa com as Bolinhas Numeradas */}
-      <div className="relative w-full py-4 flex justify-between items-center px-4 my-2">
-        <div className="absolute top-1/2 left-6 right-6 h-2 bg-slate-800 -translate-y-1/2 rounded-full z-0"></div>
+      <div style={{ position: 'relative', width: '100%', padding: '8px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ position: 'absolute', top: '50%', left: '24px', right: '24px', height: '8px', backgroundColor: '#1E293B', transform: 'translateY(-50%)', borderRadius: '9999px', zIndex: 0 }}></div>
         
         {[1, 2, 3, 4, 5].map((num) => {
           const isAtivo = num === etapaAtual;
           const isConcluido = num < etapaAtual;
 
           return (
-            <div key={num} className="relative z-10 flex flex-col items-center">
+            <div key={num} style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               {isAtivo && (
-                <span className="absolute -top-6 bg-orange-500 text-[10px] font-black px-1.5 py-0.5 rounded uppercase tracking-wider shadow">
+                <span style={{
+                  position: 'absolute',
+                  top: '-24px',
+                  backgroundColor: '#F97316',
+                  color: 'white',
+                  fontSize: '10px',
+                  fontWeight: '900',
+                  padding: '2px 6px',
+                  borderRadius: '4px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em'
+                }}>
                   Hoje
                 </span>
               )}
-              <div 
-                className={`w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
-                  isAtivo 
-                    ? 'bg-gradient-to-br from-orange-400 to-orange-600 text-white shadow-lg shadow-orange-500/50 ring-4 ring-orange-500/20 scale-110' 
-                    : isConcluido
-                    ? 'bg-emerald-600 text-white shadow-md'
-                    : 'bg-slate-800 text-slate-500 border border-slate-700'
-                }`}
-              >
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 'bold',
+                fontSize: '14px',
+                transition: 'all 0.3s',
+                backgroundColor: isAtivo ? '#F97316' : isConcluido ? '#059669' : '#1E293B',
+                color: isAtivo || isConcluido ? 'white' : '#64748B',
+                border: isAtivo ? '4px solid rgba(249, 115, 22, 0.3)' : '1px solid #334155',
+                boxShadow: isAtivo ? '0 10px 15px -3px rgba(249, 115, 22, 0.5)' : 'none',
+                transform: isAtivo ? 'scale(1.1)' : 'scale(1)'
+              }}>
                 {isConcluido ? '✓' : num}
               </div>
             </div>
@@ -76,19 +128,47 @@ export default function Ofensiva() {
       </div>
 
       {/* Mensagem da Próxima Bateria */}
-      <div className="text-center my-3">
-        <h2 className="text-lg font-bold text-slate-100">
-          A sua <span className="text-orange-400">{etapaAtual}ª Bateria de Questões</span> te aguarda!
+      <div style={{ textAlign: 'center', margin: '4px 0' }}>
+        <h2 style={{ fontSize: '15px', fontWeight: 'bold', color: '#F1F5F9', margin: 0 }}>
+          A sua <span style={{ color: '#FB923C' }}>{etapaAtual}ª Bateria de Questões</span> te aguarda!
         </h2>
       </div>
 
-      {/* Botão de Ação Inferior */}
-      <div className="w-full pb-2">
+      {/* Botões de Ação Inferior */}
+      <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
         <button 
           onClick={lidarComConclusaoTrilha}
-          className="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-extrabold py-4 rounded-2xl shadow-lg shadow-orange-600/30 flex items-center justify-center gap-2 transition-all transform active:scale-98 cursor-pointer"
+          style={{
+            width: '100%',
+            background: 'linear-gradient(to right, #F59E0B, #EA580C)',
+            color: 'white',
+            fontWeight: 'extrabold',
+            padding: '14px',
+            borderRadius: '16px',
+            border: 'none',
+            boxShadow: '0 10px 15px -3px rgba(234, 88, 12, 0.3)',
+            cursor: 'pointer',
+            fontSize: '14px'
+          }}
         >
-          <span>▶</span> COMEÇAR A ESTUDAR <span>›</span>
+          ▶ COMEÇAR A ESTUDAR ›
+        </button>
+
+        <button 
+          onClick={() => navigate('/')}
+          style={{
+            width: '100%',
+            backgroundColor: '#1E293B',
+            color: '#CBD5E1',
+            fontWeight: 'bold',
+            padding: '10px',
+            borderRadius: '16px',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '13px'
+          }}
+        >
+          Voltar para a Trilha 🏆
         </button>
       </div>
     </div>
